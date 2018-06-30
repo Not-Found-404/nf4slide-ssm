@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>cropit</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="../dist/jquery.cropit.js"></script>
+
+    <style>
+      .cropit-preview {
+        background-color: #f8f8f8;
+        background-size: cover;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 7px;
+        width: 250px;
+        height: 250px;
+      }
+
+      .cropit-preview-image-container {
+        cursor: move;
+      }
+
+      .image-size-label {
+        margin-top: 10px;
+      }
+
+      input, .export {
+        display: block;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-editor">
+      <input type="file" class="cropit-image-input">
+      <div class="cropit-preview"></div>
+      <div class="image-size-label">
+        Resize image
+      </div>
+      <input type="range" class="cropit-image-zoom-input">
+      <button class="rotate-ccw">Rotate counterclockwise</button>
+      <button class="rotate-cw">Rotate clockwise</button>
+
+      <button class="export">Export</button>
+    </div>
+    <button id="btn">登陆</button>
+    <script>
+      $(function() {
+        $('.image-editor').cropit({
+          imageState: {
+            src: 'http://lorempixel.com/500/400/',
+          },
+        });
+
+        $('.rotate-cw').click(function() {
+          $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function() {
+          $('.image-editor').cropit('rotateCCW');
+        });
+
+        $('.export').click(function() {
+          var imageData = $('.image-editor').cropit('export');
+          window.open(imageData);
+        });
+      });
+      $('#btn').click(function () {
+          $.ajax({
+              url: "login.do",
+              type: "POST",
+              async: true,
+              data: {
+                  userEmail: "dx@qtu404.com",
+                  userPassword: "root"
+              }, success: function (data, status) {
+                  alert(data);
+              },
+              error: function (e) {
+                  alert("请检查网络连接");
+              }
+          })
+      })
+    </script>
+  </body>
+</html>

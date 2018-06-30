@@ -1,0 +1,410 @@
+/* 页面CSS定义 */
+body{
+    overflow: hidden;
+}
+
+/* 界面CSS定义 */
+
+.nf4-main{
+    /* 主界面 */
+    background-color: rgb(242, 252, 255);
+    margin: 0px -15px; /*外层container消减 */
+    height:100%;
+    /** !实验性功能! **/
+    overflow:hidden;
+    /* 柔性布局 */
+    /* Safari */
+    display: -webkit-flex;
+    display: flex;
+}
+
+.nf4-navbar{
+    /* 导航栏 */
+    height:48px;
+    margin:0 -15px 0 -15px;
+    /* 主题 */
+    background-color: #0078d7;
+    color:#FFF;
+    /** !实验性功能! **/
+    padding:0px;
+}
+    /* 导航栏组件CSS定义 */
+.nf4-navbar__brand{
+    /* 导航栏图标属性 */
+    margin:0 15px 0 15px;
+}
+.nf4-navbar__brand__font{
+    margin-left:10px;
+    font-size: 20px;
+}
+.nf4-navbar-control{
+    /* 导航栏属性设置 */
+    height:48px;
+}
+.nf4-navbar__button{
+    /* 导航栏按钮属性 */
+    height:48px;
+    width:50px;
+    /* 鼠标属性设置 */
+    cursor:pointer;
+}
+.nf4-navbar__button:hover{
+    /* 导航栏按钮属性-点击 */
+    /* 主题 */
+    background-color:#005A9E;
+}
+.nf4-navbar__button>.nav-link{
+    /* 导航栏按钮属性-连接重写 */
+    height:48px;
+    padding:10px 17px 10px 17px;
+}
+.nf4-navbar-button__user{
+    width:200px;
+    /* 内容位置控制 */
+    align-items:center;
+    display:flex;
+    /* 鼠标属性设置 */
+    cursor:pointer;
+    /* 主题 */
+    background-color:#2B88D8;
+}
+.nf4-navbar-button__user:hover{
+    /* 导航栏按钮属性-用户—点击 */
+    /* 主题 */
+    background-color:#0168B3;
+}
+.nf4-navbar__user-name{
+    width:135px;
+    margin-left:10px;
+    margin-right:10px;
+    font-size: 17px;
+    text-align:right;
+}
+.nf4-navbar__user-avator{
+    width:32px;
+    height:32px;
+}
+.user-avator__img{
+    /* 用户头像属性 */
+    width:32px;
+    height:32px;
+    border-radius:15.5px;
+}
+
+.nf4-menu{
+    /* 菜单 */
+    height:100%;
+    width:47px;
+    background-color:#F4F4F4;
+    border-right: 0.5px solid #CFCFCF;
+    /** !实验性功能! **/
+    
+    /* 边框 #EAEAEA */
+}
+#nf4-menu-element{
+    /* 菜单元素栏切换按钮属性 */
+    background-color:#EBF0F1;
+}
+#nf4-menu-element:hover{
+    /* 菜单元素栏切换按钮属性-盘旋 */    
+    background-color:#D8E0E9;
+}
+    /* 菜单组件CSS定义 */
+.nf4-menu-settings{
+    /* 菜单设置按钮区属性 */
+    width:47px;
+    position:absolute;
+    bottom:0px;
+    left: 0px;
+    right: 0px;
+}
+.nf4-menu-button__group{
+    /* 菜单设置按钮组属性 */
+    width: 47px;
+}
+.nf4-menu-button__group>.btn{
+    /* 菜单设置按钮组按钮属性 */
+    height:50px;
+    border-radius:0;  /*将圆角重写为直角属性*/
+    /** !实验性功能! **/
+    background-color:transparent;
+}
+
+.nf4-menu-button__group>.btn:hover{
+    /* 菜单设置按钮组按钮属性__鼠标滑过事件 */
+    background-color:#eaeaea;
+    cursor: pointer;
+}
+
+.nf4-element{
+    /* 元素内容选择区 */
+    height:100%;
+    width:80px;
+    /** !实验性功能! **/
+    background-color:#F4F4F4;
+    border-right: 0.5px solid #CFCFCF;
+    overflow-y: show;
+    overflow-x: hidden;
+}
+    /* 元素内容选择区组件CSS定义 */
+.nf4-element__group{
+    /* 元素内容组属性 */
+    width:100%;
+}
+.nf4-element-name{
+    /* 元素名属性 */
+    margin-top:5px;
+    font-size: 13px;
+}
+.nf4-element__group>.btn{
+    /* 元素内容按钮属性 */
+    height: 95px;
+    padding-top:15px;   /*按钮内容高度调整*/
+    padding-bottom:15px;
+    border-radius:0;  /*将圆角重写为直角属性*/
+    color:#000;
+    cursor: pointer;
+    /** !实验性功能! **/
+    background-color:#F4F4F4;
+}
+.nf4-element__group>.btn:hover{
+    /* 元素按钮鼠标盘旋属性 */
+    background-color:#eaeaea;
+}
+
+.nf4-display{
+    /* 显示区 */
+    height:100%;
+    width:100%;
+    /* background-color: #F0F0F0; */
+    background-color: #FFF;
+    /** !实验性功能! **/
+    -webkit-box-flex: auto;
+    flex: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+
+    /* Experiment Attribut */
+    /* background-color: #78FDA9; */
+    
+}
+.nf4-workspace__container{
+    width:982px;
+    height:722px;
+    padding:10px;
+}
+.nf4-workspace{
+    /* 幻灯片工作区 */
+    width:962px;
+    height:702px;
+    /** !实验性功能! **/
+    background-color: #FFF;
+}
+
+.nf4-browser{
+    /* 幻灯片浏览区属性 */
+    height:100%;
+    width:170px;
+    background-color:#F4F4F4;
+    border-left: 0.5px solid #CFCFCF;
+    /** !实验性功能! **/
+    overflow: hide;
+}
+    /* 浏览区组件属性设置 */
+.nf4-browser-view{
+    /* 幻灯片预览区属性 */
+    height:100%;
+    width:170px;
+    /* padding-bottom:40px; chrome support */
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+.nf4-browser-view:after{
+    /** !实验性功能! Firefox debug **/
+    /* 解决幻灯片预览图被按钮遮盖 */
+    display: block;
+    height: 40px;
+    width:170px;
+    content: '';
+    /** !Chanary! **/
+    visibility: hidden;
+}
+.nf4-browser-control{
+    /* 幻灯片浏览区控制按钮区 */
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    height:40px;
+}
+.nf4-browser-control>.btn{
+    /* 幻灯片浏览区控制按钮属性 */
+    width:170px;
+    height:100%;
+    border-radius:0px;  /*将圆角重写为直角属性*/
+    cursor: pointer;
+    background-color: #0078d7;
+    color:#FFF;
+}
+.nf4-browser-control>.btn:hover{
+    /* 幻灯片浏览区控制按钮属性—点击 */
+    /* 主题 */
+    background-color:#005A9E;
+}
+#nf4-add-slides>span:nth-child(1){
+    /* 添加幻灯片按钮+号大小绘制 */ 
+    font-size: 18px;
+}
+
+/* 页面控件属性 */
+.nf4-utilities__popovers{
+    /* 页面气泡组件属性 */
+    position:fixed;
+    right:191px;
+    top:60px;
+    z-index: 1000;
+    /* 初始化属性 */
+    display:none;
+}
+.nf4-utilities__popovers>.nf4-popovers-item{
+    /* 页面气泡组件属性-弹出项目 */
+    /* width:200px; */
+    height:40px;
+    width:100%;
+    background-color: #FFF;
+    box-shadow:1px 1px 2px 1.5px #CFCFCF;
+    display:flex;
+    align-items: center;
+}
+.nf4-popovers-item__font{
+    /* 页面气泡组件属性-弹出项目__字体 */
+    margin:0 5px 0 0;
+    font-size: 18px;
+}
+.nf4-popovers-item__sym{
+    /* 页面气泡组件属性-弹出项目__符号 */
+    width:20px;
+    margin:0 5px 0 10px;
+    display: flex;
+    justify-content: center;
+}
+.nf4-popovers-item__close{
+    /* 页面气泡组件属性-弹出项目__关闭按钮 */
+    margin-right:10px;
+}
+.nf4-popovers-item__close:hover{
+    /* 页面气泡组件属性-弹出项目__关闭按钮—按下 */
+    background-color: #eaeaea;
+    cursor: pointer;
+}
+
+/* 滑动菜单属性 */
+.nf4-dropdownMenu{
+    /* 滑动菜单属性 */
+    position:fixed;
+    top:48px;
+    right:0px;
+    /* 实验性功能 */
+    z-index: 1000;
+    display:none;
+    
+    /** chanary **/
+    
+}
+.nf4-dropdownMenu:hover{
+    /* 滑动菜单属性__盘旋 */
+    cursor: pointer;
+}
+
+.nf4-dropdownMenu__control{
+    /* 下拉菜单控制面板 */
+    width:300px;
+    height:100%;
+    position: absolute;
+    /* margin-right:-300px; */
+    right:0px;
+    top:0px;
+    border-left: 1px solid #CFCFCF;
+    /* 实验性功能 */
+    display:none;
+    opacity:1;
+    /** chanary **/
+    background-color: #FFF;
+    box-shadow:-30px 0 30px -30px rgba(0,0,0,.2);
+}
+.nf4-dropdownMenu__control:hover{
+    /* 下拉菜单控制面板__鼠标盘旋重写 */
+    cursor: default;
+}
+
+.dropdownMenu__effectIn{
+    /* 选中参数 */
+    background-color:#005A9E;
+}
+/* 滑动菜单组件区 */
+.dropdown-panel{
+    /* 滑动菜单面板区属性 */
+    width:230px;
+    height:70px;
+    margin:10px auto 0 auto;
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.dropdown-content{
+    /* 滑动菜单内容区属性 */
+    height:100%;
+    width:230px;
+    margin:10px auto 0 auto;
+}
+.dropdown-panel__heading{
+    /* 滑动菜单内容区属性__标题 */
+    font-size: 21px;
+}
+.dropdown-panel__close{
+    /* 滑动菜单内容区属性__关闭按钮 */
+    
+}
+.dropdown-panel__close:hover{
+    /* 滑动菜单关闭按钮 */
+    cursor: pointer;
+}
+
+.nf4-dropdown__user-content{
+    /* 用户信息面板 */
+    display: flex;
+    align-items: center;
+}
+.nf4-dropdown__user-avator{
+    /* 用户信息面板__头像 */
+    width:32px;
+    height:32px;
+}
+.nf4-dropdown__name{
+    /* 用户信息面板__姓名 */
+    width:198px;
+    text-align: left;
+    padding-left:12px;
+    padding-right:12px;
+    font-size:18px;
+}
+.nf4-dropdown__user-control{
+    /* 用户面板控制界面 */
+    margin-top:15px;
+    margin-bottom:15px;
+    padding:0px;
+}
+
+.nf4-dropdown__user-control>li{
+    list-style-type:none;
+    font-size: 16px;
+    height:50px;
+    padding-top:15px;
+}
+.nf4-dropdown__link{
+    color:#036EC0;
+}
+.nf4-dropdown__link:hover{
+    color:#000;
+    cursor: pointer;
+}

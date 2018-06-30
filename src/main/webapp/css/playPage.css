@@ -1,0 +1,76 @@
+p {
+}
+
+.reveal section img {
+    margin: 0px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#send {
+    cursor: pointer;
+    position: absolute;
+    bottom: 4%;
+    right: 120px;
+    z-index: 997;
+    height: 75px;
+    width: 75px;
+    display: none
+}
+
+#danmu-send-place {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 10%;
+    background: white;
+    z-index: 998;
+    display: none
+}
+
+#danmuPlace {
+    position: absolute;
+    width: 100%;
+    height: 75%;
+    top: 100px
+}
+
+#danmu-send-place-text {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border: 1px solid gray;
+    position: absolute;
+    top: 15%;
+    left: 2%;
+    font-size: 150%;
+    height: 70%;
+    width: 70%;
+    /*z-index: 999;*/
+}
+
+#danmu-send-place-send {
+    cursor: pointer;
+    position: absolute;
+    top: 15%;
+    font-size: 150%;
+    height: 75%;
+    width: 13%;
+    left: 72%;
+    border: 1px solid gray;
+}
+
+#danmu-send-place-cancel {
+    cursor: pointer;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    position: absolute;
+    top: 15%;
+    font-size: 150%;
+    height: 75%;
+    width: 13%;
+    left: 85%;
+    border: 1px solid gray;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang=zh-cmn-Hans>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>园丁助手</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/usercenter.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery-confirm.css" rel="stylesheet" type="text/css">
+    <link href="css/font/css/font-awesome.min.css" rel="stylesheet">
+    <link href="js/plugin/webuploader-0.1.5/webuploader.css" rel="stylesheet">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="随想">
+    <meta name="msapplication-starturl" content="https://qtu404.com:8080">
+    <!-- Chrome, Firsefox OS and Opera -->
+    <meta name="theme-color" content="#444444"> <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#444444">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="随想">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        .jconfirm-box {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="fake-body">
+    <header class="Header">
+        <div class="u-container Header-inner">
+            <a href="usercenter.html">
+                <i class="fa fa-paper-plane fa-lg u-logo"></i>
+                <i class="u-logoName">NF4 园丁助手</i>
+            </a>
+            <div class="Header-userMenu">
+                <div class=" UserMenu Popout">
+                    <span class="UserMenu-name">
+                        <i class="icon-logout" id="nf4-logout"></i>
+                    </span>
+                    <span class="UserMenu-name" id="UserMenu-name-value">user</span>
+                    <img class=" UserMenu-avatar" src="img/avator/avator_1.png" alt="avatar">
+                    <!--<a class="course">教程</a>&lt;!&ndash;href="tutorial.html"&ndash;&gt;-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div server-rendered="true" class="Usercenter">
+        <ul class="SlideList u-clearfix" id="PPTList">
+
+            <li class="SlideList-add col-3" id="add-PPT">
+
+                <label class="Button Button--primary" id="addPPT" style="margin-top: 30px">
+                <span>
+                    <i class="icon-plus"></i>新建幻灯片</span>
+                </label>
+
+                <label style="visibility:hidden; margin-top: 70px" for="SlideImport-input"
+                       data-balloon="将PPT转为PDF后再导入，可获得更高的还原度哦！"
+                       data-balloon-pos="right" data-balloon-length="medium"
+                       class="Button Button--secondary Button--outline">
+                    <span><i class="fa fa-file-o fa-lg"></i>选择pptx文件
+                        <span class="import-type-hint"></span>
+                    </span>
+                </label>
+                <label class="Button Button--primary" id="submit" style="margin-top: 10px">
+                <span>
+                    <i class="icon-upload"></i>导入pptx文件</span>
+                </label>
+                <!--提示测试-->
+                <!--<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">-->
+                <!--Tooltip on bottom-->
+                <!--</button>-->
+                <form id="nf4-from" action="fileUpload.do" enctype="multipart/form-data" method="post">
+                    <input type="file" name="fileName" id="SlideImport-input">
+                </form>
+            </li>
+
+        </ul>
+    </div>
+    <canvas id="canv"></canvas>
+    <i class="fa fa-space-shuttle fa-rotate-270 fa-4x goTop" id="goTop"></i>
+</div>
+
+</body>
+<!-- javascript依赖库导入 -->
+<script src="js/plugin/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/plugin/jquery-ui.min.js" type="text/javascript"></script>
+<script src="js/plugin/popper.min.js" type="text/javascript"></script>
+<script src="js/plugin/bootstrap.min.js" type="text/javascript"></script>
+<script src="js/plugin/jquery-confirm.js" type="text/javascript"></script>
+<script src="js/plugin/webuploader-0.1.5/webuploader.js"></script>
+<script src="js/usercenter/usercenter_page_lib.js" type="text/javascript"></script>
+<script src="js/usercenter/usercenter_page_init.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('.UserMenu-avatar').click(function () {
+            window.open("toAvatorEditpage");
+        })
+
+        $.ajax({
+            url: "user/fetchLoginInfo",
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                //var json = eval('(' + data + ')');
+                $("#UserMenu-name-value").html(data.username);
+                if (data.avator != "") {
+                    $('.UserMenu-avatar').attr("src", data.avator + "?x=" + Math.random());
+                }
+            },
+            error: function (e) {
+                alert("请检查网络连接！！");
+            }
+        })
+
+        $.ajax({
+            url: "slide/findAllSlideByLogin",
+            type: "POST",
+            dataType: "JSON",
+            success: function (data) {
+                var json = eval(data); //数组
+                $.each(json, function (index) {
+                    //循环获取数据
+                    var Id = json[index].slideId;
+                    var Name = json[index].name;
+                    addAPPT("#add-PPT", Id, Name);
+                });
+            },
+            error: function (e) {
+                alert("请检查网络连接！！");
+            }
+        })
+
+        var uploader = WebUploader.create({
+            auto: true,
+            // swf文件路径
+            swf: 'js/plugin/webuploader-0.1.5/Uploader.swf',
+
+            // 文件接收服务端。
+            server: 'file/pptUpLoad',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#submit',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: true,
+            duplicate: true,
+            accept: {
+                title: 'pptx',
+                extensions: 'pptx',
+                mimeTypes: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            }
+        });
+
+        uploader.on('uploadSuccess', function (file, response) {
+//            addAPPT("#add-PPT", response.slideId, response.name);
+//            $.confirm({
+//                title: '提示!',
+//                content: '上传完成',
+//                type: 'blue'
+//            });
+            window.location.reload();
+        });
+
+        uploader.on('fileQueued', function (file) {
+            $.confirm({
+                title: '提示!',
+                content: '正在处理中请勿关闭此页面!',
+                type: 'blue'
+            });
+        });
+    })
+</script>
+</html>

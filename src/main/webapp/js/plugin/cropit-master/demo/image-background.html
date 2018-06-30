@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>cropit</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="../dist/jquery.cropit.js"></script>-->
+
+    <style>
+        .cropit-preview {
+            background-color: #f8f8f8;
+            background-size: cover;
+            border: 5px solid #ccc;
+            border-radius: 3px;
+            margin-top: 7px;
+            width: 250px;
+            height: 250px;
+        }
+
+        .cropit-preview-image-container {
+            cursor: move;
+        }
+
+        .cropit-preview-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        input, .export {
+            /* Use relative position to prevent from being covered by image background */
+            position: relative;
+            z-index: 10;
+            display: block;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1 id="info">登陆中</h1>
+<h2 id="user-name"></h2>
+<img id="user-avator"/>
+
+<div class="image-editor">
+    <input type="file" class="cropit-image-input">
+    <div class="cropit-preview"></div>
+    <div class="image-size-label">
+        Resize image
+    </div>
+    <input type="range" class="cropit-image-zoom-input">
+    <button class="rotate-ccw">Rotate counterclockwise</button>
+    <button class="rotate-cw">Rotate clockwise</button>
+
+    <button class="export">Export</button>
+</div>
+
+<script>
+    $(function () {
+
+//        $('.image-editor').cropit({
+//            exportZoom: 1.25,
+//            imageBackground: true,
+//            imageBackgroundBorderWidth: 20,
+//            imageState: {
+//                src: 'http://lorempixel.com/500/400/',
+//            },
+//        });
+//
+//        $('.rotate-cw').click(function () {
+//            $('.image-editor').cropit('rotateCW');
+//        });
+//        $('.rotate-ccw').click(function () {
+//            $('.image-editor').cropit('rotateCCW');
+//        });
+//
+//        $('.export').click(function () {
+//            var imageData = $('.image-editor').cropit('export');
+//            console.log(imageData);
+//        });
+
+        $.ajax({
+            url: "login.do",
+            type: "POST",
+            async: false,
+            data: {
+                userEmail: "dx@qtu404.com",
+                userPassword: "root"
+            }, success: function (data, status) {
+                $("#info").html(data);
+            },
+            error: function (e) {
+                alert("请检查网络连接");
+            }
+        })
+        $.ajax({
+            url: "getInfo.do",
+            type: "POST",
+            async: false,
+            dataType: "JSON",
+            data: {
+                type: "loginUser"
+            }, success: function (data, status) {
+                $("#user-name").html(data.userName);
+                $("#user-avator").attr("src", data.avator);
+            },
+            error: function (e) {
+                alert("请检查网络连接");
+            }
+        })
+    });
+</script>
+</body>
+</html>

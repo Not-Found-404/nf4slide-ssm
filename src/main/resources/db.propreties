@@ -1,0 +1,3 @@
+url = jdbc:mysql://120.24.186.116:3306/slide_edit
+username = root
+password = geralt

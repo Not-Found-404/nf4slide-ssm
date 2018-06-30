@@ -1,0 +1,330 @@
+p{
+	margin:0px;
+}
+.nf4-slide{
+    margin: 15px;
+    cursor: pointer;
+    border:1px solid #DDDDDD;
+    border-radius: 2px 2px 2px 2px;
+    overflow:hidden;
+	background:white;
+}
+.nf4-view{
+    pointer-events:none;/*涓嶆垚涓洪紶鏍囦簨浠�*/
+    transform-origin:left top;
+    height: 100%;
+    width: 100%;
+}
+.draggable-handle {
+    cursor: move;
+    border-radius: 5px 5px 5px 5px;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left:calc(50% - 5px);	
+    top: -30px;
+    border: 1px solid #000000;
+    
+}
+
+.draggable {
+    cursor: move;
+}
+.ui-tabs{
+    border:0px;
+}
+
+
+.ui-resizable-handle {
+    border-radius: 5px 5px 5px 5px;
+    width: 10px;
+    height: 10px;
+    border: 1px solid #000000;
+    position: absolute;
+    display: inline;
+    
+    /* 拖动点动画属性 */
+    animation:selectAnimation 2s infinite;
+	-webkit-animation:selectAnimation 2s infinite; /* Safari and Chrome */
+}
+
+/** 王海涛 modified start **/
+/*  拖动点动画 */
+@keyframes selectAnimation
+{
+    0% {border: 2px double #05DAFF;}
+    25% {border: 1.5px double #0117BE;}
+    50% {border: 3px solid #09CEFF;}
+    75% {border: 1.5px solid #0117BE;}
+    100% {border: 2px solid #05DAFF;}
+}
+
+@-webkit-keyframes selectAnimation /* Safari and Chrome */
+{
+    0% {border: 2px double #000;}
+    25% {border: 1.5px double #001AFF;}
+    50% {border: 3px solid #09CEFF;}
+    75% {border: 1.5px solid #095FFF;}
+    100% {border: 2px solid #05DAFF;}
+}
+/** 王海涛 modified end **/
+
+.ui-resizable-nw {
+    left: -5px;
+    top: -5px;
+    cursor: nw-resize;
+}
+
+.ui-resizable-ne {
+    top: -5px;
+    right: -5px;
+    cursor: ne-resize;
+}
+
+.ui-resizable-sw {
+    bottom: -5px;
+    left: -5px;
+    cursor: sw-resize;
+}
+
+.ui-resizable-se {
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+}
+
+.ui-resizable-n {
+    top: -5px;
+    left: calc(50% - 5px);
+    cursor: n-resize;
+}
+
+.ui-resizable-s {
+    bottom: -5px;
+    left: calc(50% - 5px);
+    cursor: s-resize;
+}
+
+.ui-resizable-w {
+    left: -5px;
+    top: calc(50% - 5px);
+    cursor: w-resize;
+}
+
+.ui-resizable-e {
+    right: -5px;
+    top: calc(50% - 5px);
+    cursor: e-resize;
+}
+
+.nf4-text {
+    top: 25%;
+    left: 25%;
+    padding: 0px;
+    position: absolute;
+    height: 80px;
+	border: 1px dashed #000000;
+}
+.nf4-line{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    margin: 0;
+    top: 25%;
+    left: 25%;
+}
+.nf4-code {
+    top: 25%;
+    left: 25%;
+    padding: 0px;
+    position: absolute;
+    height: 80px;
+	border: 1px dashed #000000;
+}
+
+.nf4-shape{
+	width:200px;
+	height: 200px;
+	top: 25%;
+    left: 25%;
+    padding: -10px;
+    position: absolute;
+    margin: 0px;
+}
+.nf4-draw{
+    width:200px;
+    height: 200px;
+    top: 25%;
+    left: 25%;
+    padding: 0px;
+    position: absolute;
+    margin: 0px;
+}
+
+.nf4-image{
+	position: absolute;
+}
+
+.nf4-image-editor{
+	
+}
+
+
+.nf4-text-editor {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.nf4-code-editor {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+
+.contextMenuPlugin {
+  -webkit-user-select: none;
+  display: none;
+  font-family: tahoma, arial, sans-serif;
+  font-size: 11px;
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  min-width: 100px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f3f7;
+  border: 2px solid #f7f7f7;
+  outline: 1px solid #949694;
+}
+
+.contextMenuPlugin > li {
+  margin: 0 0 0 0;
+  padding: 1px;
+  background-repeat: no-repeat;
+}
+
+.contextMenuPlugin > li > a {
+  position: relative;
+  display: block;
+  padding: 3px 3px 3px 28px;
+  color: ButtonText;
+  text-decoration: none;
+  margin: 1px;
+}
+
+.contextMenuPlugin > li > a img {
+  position: absolute;
+  left: 3px;
+  margin-top: -2px;
+  width: 16px;
+  height: 16px;
+}
+.contextMenuPlugin > li > a:hover {
+  border: 1px solid #fffbff;
+  outline: 1px solid #b5d3ff;
+  margin: 0;
+  background: -moz-linear-gradient(top, rgba(239,239,255,0.5) 0%, rgba(223,223,255,0.5) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(239,239,255,0.5)), color-stop(100%,rgba(223,223,255,0.5))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(239,239,255,0.5) 0%,rgba(223,223,255,0.5) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(239,239,255,0.5) 0%,rgba(223,223,255,0.5) 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, rgba(239,239,255,0.5) 0%,rgba(223,223,255,0.5) 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80efefff', endColorstr='#80dfdfff',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, rgba(239,239,255,0.5) 0%,rgba(223,223,255,0.5) 100%); /* W3C */
+  cursor: default;
+}
+
+.contextMenuPlugin > li.divider {
+  border-top: 1px solid #e7e3e7;
+  border-bottom: 1px solid #ffffff;
+  height: 0;
+  padding: 0;
+  margin: 5px 0 5px 27px;
+}
+
+.contextMenuPlugin > .header {
+  background: rgb(90,90,90); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(90,90,90,1) 0%, rgba(20,20,20,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(90,90,90,1)), color-stop(100%,rgba(20,20,20,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(90,90,90,1) 0%,rgba(20,20,20,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(90,90,90,1) 0%,rgba(20,20,20,1) 100%); /* Opera11.10+ */
+  background: -ms-linear-gradient(top, rgba(90,90,90,1) 0%,rgba(20,20,20,1) 100%); /* IE10+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5a5a5a', endColorstr='#141414',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(top, rgba(90,90,90,1) 0%,rgba(20,20,20,1) 100%); /* W3C */
+  position: relative;
+  cursor: default;
+  padding: 3px 3px 3px 3px;
+  color: #ffffff;
+}
+
+.contextMenuPlugin > .gutterLine {
+  position: absolute;
+  border-left: 1px solid #e7e3e7;
+  border-right: 1px solid #ffffff;
+  width: 0;
+  top: 0;
+  bottom: 0;
+  left: 26px;
+  z-index: 0;
+}
+/*图片属性设置界面样式*/
+.scale_panel {
+    font-size: 12px;
+    color: #999;
+    width: 200px;
+    position: absolute;
+    line-height: 18px;
+    left: 60px;
+    top: -0px;
+}
+
+.scale_panel .r {
+    float: right;
+}
+
+.scale span {
+    background: url(../img/scroll.gif) no-repeat;
+    width: 8px;
+    height: 16px;
+    position: absolute;
+    left: -2px;
+    top: -5px;
+    cursor: pointer;
+}
+
+.scale {
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-color: #E4E4E4;
+    border-left: 1px #83BBD9 solid;
+    width: 200px;
+    height: 3px;
+    position: relative;
+    font-size: 0px;
+    border-radius: 3px;
+}
+
+.scale div {
+    background-repeat: repeat-x;
+    background-color: #3BE3FF;
+    width: 0px;
+    position: absolute;
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.row li {
+    font-size: 12px;
+    line-height: 50px;
+    position: relative;
+    height: 50px;
+    list-style: none;
+}

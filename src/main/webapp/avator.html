@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>cropit</title>
+    <script src="js/plugin/jquery2.2.0.js"></script>
+    <script src="js/plugin/cropit-master/dist/jquery.cropit.js"></script>
+    <style>
+        .avator {
+            width: 128px;
+            height: 128px;
+        }
+
+        .cropit-preview {
+            background-color: #f8f8f8;
+            background-size: cover;
+            border: 5px solid #ccc;
+            border-radius: 3px;
+            margin-top: 7px;
+            width: 250px;
+            height: 250px;
+        }
+
+        .cropit-preview-image-container {
+            cursor: move;
+        }
+
+        .cropit-preview-background {
+            opacity: .2;
+            cursor: auto;
+        }
+
+        .image-size-label {
+            margin-top: 10px;
+        }
+
+        input, .export {
+            /* Use relative position to prevent from being covered by image background */
+            position: relative;
+            z-index: 10;
+            display: block;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        .cropit-preview-image-container {
+            border-radius: 50%;
+        }
+
+        .avator {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<h2 id="user-name">尚未登陆</h2>
+<img id="user-avator" class="avator"/>
+
+<div class="image-editor">
+    <input type="file" class="cropit-image-input">
+    <div class="cropit-preview"></div>
+    <div class="image-size-label">
+        改变大小
+    </div>
+    <input type="range" class="cropit-image-zoom-input">
+    <button class="rotate-ccw">左转</button>
+    <button class="rotate-cw">右转</button>
+
+    <button class="export">确定</button>
+</div>
+<script>
+    $(function () {
+        $('.image-editor').cropit({
+            exportZoom: 1.25,
+            imageBackground: true,
+            imageBackgroundBorderWidth: 20,
+            imageState: {
+                src: 'http://lorempixel.com/500/400/',
+            },
+        });
+
+        $('.rotate-cw').click(function () {
+            $('.image-editor').cropit('rotateCW');
+        });
+        $('.rotate-ccw').click(function () {
+            $('.image-editor').cropit('rotateCCW');
+        });
+
+        $('.export').click(function () {
+            var imageData = $('.image-editor').cropit('export');
+            $.ajax({
+                url: "user/modifyUserAvator",
+                type: "POST",
+                async: true,
+                dataType: "JSON",
+                data: {
+                    avatorImgData: imageData
+                }, success: function (data, status) {
+                    var imgSrc = $("#user-avator").attr("src");
+                    $("#user-avator").attr("src", imgSrc + "1");
+                },
+                error: function (e) {
+                    alert("请检查网络连接");
+                }
+            })
+        });
+
+
+        $.ajax({
+            url: "user/fetchLoginInfo",
+            type: "POST",
+            dataType: "JSON",
+            success: function (data, status) {
+                //var json = eval('(' + data + ')');
+                $("#user-name").html(data.username);
+                $("#user-avator").attr("src", data.avator + "?t=" + Math.random());
+            },
+            error: function (e) {
+                alert("请检查网络连接");
+            }
+        })
+    });
+</script>
+</body>
+</html>

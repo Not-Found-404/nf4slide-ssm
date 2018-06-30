@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+    例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+-->
+<mapper namespace="com.qtu404.mapper.userMapper">
+    <select id="fetchById" parameterType="int" resultMap="UserResult">
+        SELECT *
+        FROM account
+        WHERE account.userid = #{userId}
+    </select>
+
+    <update id="modify" parameterType="com.qtu404.user.domain.UserVo">
+        UPDATE account
+        SET account.username = #{username}, account.phone = #{phone}, account.password = #{password},
+            account.avator   = #{avator}
+        WHERE account.userId = #{userId}
+    </update>
+
+    <insert id="save" parameterType="com.qtu404.user.domain.UserVo">
+        INSERT INTO account
+        (account.username, account.phone, account.`password`, account.avator)
+        VALUES
+        (#{username}, #{phoneNum}, #{password}, '')
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            select last_insert_id() as userId
+        </selectKey>
+    </insert>
+
+    <select id="fetchByPhone" parameterType="String" resultMap="UserResult">
+        SELECT *
+        FROM account
+        WHERE account.phone = #{phoneNum}
+    </select>
+
+    <select id="fetchUserByLogin" resultMap="UserResult" parameterType="com.qtu404.user.domain.UserVo">
+        SELECT *
+        FROM account
+        WHERE account.phone = #{phoneNum} AND account.password = #{password}
+    </select>
+
+
+    <resultMap id="UserResult" type="com.qtu404.user.domain.UserVo">
+        <id property="userId" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="phoneNum" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="avator" column="avator"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="js/plugin/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="js/plugin/reveal.js/css/theme/sky.css" id="theme">
+    <link rel="stylesheet" href="css/plugin/jquery-ui_modify.min.css">
+    <link rel="stylesheet" href="css/playPage.css">
+    <script src="js/plugin/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="js/plugin/jquery-ui.min.js" type="text/javascript"></script>
+    <title>播放幻灯片</title>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            page1
+        </section>
+        <section>
+            page1
+        </section>
+    </div>
+</div>
+<!--弹幕按钮-->
+<img id="send" src="img/damoo.png"/>
+<!--弹幕位置-->
+<div id="danmuPlace" style="position: absolute;"></div>
+<!--发送弹幕的位置-->
+<div class="btn-group" role="" id="danmu-send-place">
+    <input placeholder="请输入弹幕内容" class="" id="danmu-send-place-text" type="text" style="">
+    <!--发送按钮-->
+    <button id="danmu-send-place-send">发送</button>
+    <button id="danmu-send-place-cancel">关闭</button>
+</div>
+<div id="dialog-form" class="container" title="网址分享"></div>
+<script src="js/plugin/qrjs2.min.js" type="text/javascript"></script>
+<script src="js/plugin/damoo.js" type="text/javascript"></script>
+<script src="js/plugin/reveal.js/lib/js/head.min.js" type="text/javascript"></script>
+<script src="js/plugin/reveal.js/js/reveal.js" type="text/javascript"></script>
+<script src="js/play/playPageLib.js" type="text/javascript"></script>
+<script src="js/play/playPageInit.js" type="text/javascript"></script>
+</body>
+</html>
