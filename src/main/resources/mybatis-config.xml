@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="db.propreties"/>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -13,10 +16,12 @@
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
             </dataSource>
+
         </environment>
     </environments>
     <mappers>
         <mapper resource="com/qtu404/mapper/slideMapper.xml"/>
         <mapper resource="com/qtu404/mapper/userMapper.xml"/>
     </mappers>
+
 </configuration>
