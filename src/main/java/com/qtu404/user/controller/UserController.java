@@ -94,10 +94,9 @@ public class UserController extends BaseController<UserVo> {
     /**
      * 用户注册 doRegister
      */
-    @RequestMapping("/doRegister")
-    public String register(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
+    public void register(HttpServletRequest request, HttpServletResponse response) {
         UserVo userVo = getDtoObject(request);
-        userVo = userService.save(userVo);
 
         //记录日志
         //得到用户IP地址
@@ -111,8 +110,9 @@ public class UserController extends BaseController<UserVo> {
             e.printStackTrace();
         }
 
-        //writeResult(response, "success");
-        return "home";
+        userVo = userService.save(userVo);
+        writeResult(response, userVo);
+        //return "home";
     }
 
     public UserService getUserService() {
