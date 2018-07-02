@@ -1,11 +1,14 @@
 package com.qtu404.slide.domain;
 
+import com.qtu404.user.domain.UserVo;
+
 public class SlideVo {
     public SlideVo() {
     }
 
     private Integer slideId;
     private Integer userId;
+    //    private UserVo userVo;
     private String name;
     private String content;
     private String play;
