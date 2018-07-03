@@ -15,8 +15,8 @@ import java.util.List;
 public class SlideDaoImpl extends BaseDaoImpl<SlideVo> implements SlideDao {
     private String namespaces = "com.qtu404.mapper.slideMapper";
 
-    @Resource(name="sqlSessionFactory")
-    SqlSessionFactory sqlSessionFactory;
+    //    @Resource(name="sqlSessionFactory")
+    SqlSessionFactory sqlSessionFactory = MybatisUnit.getSqlSessionFactory();
 
     @Override
     public List<SlideVo> findAllSlideByUserId(Integer userId) {

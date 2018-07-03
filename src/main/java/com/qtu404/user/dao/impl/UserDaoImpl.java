@@ -14,8 +14,8 @@ import javax.annotation.Resource;
 public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     private String namespaces = "com.qtu404.mapper.userMapper";
 
-    @Resource(name="sqlSessionFactory")
-    SqlSessionFactory sqlSessionFactory;
+    //@Resource(name="sqlSessionFactory")
+    SqlSessionFactory sqlSessionFactory = MybatisUnit.getSqlSessionFactory();
 
     /**
      * 通过手机号得到user
