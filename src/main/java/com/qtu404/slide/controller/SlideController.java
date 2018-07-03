@@ -34,9 +34,10 @@ public class SlideController extends BaseController<SlideVo> {
     }
 
     /**
-     * fetchSlideContentById
      *
-     * @return
+     * @param session
+     * @param response
+     * @param request
      */
     @RequestMapping(value = "/fetchSlideContentById", method = RequestMethod.POST)
     public void fetchSlideContentById(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
@@ -89,7 +90,7 @@ public class SlideController extends BaseController<SlideVo> {
     }
 
     /**
-     * delSlide (有问题)
+     * delSlide
      *
      * @return
      */
