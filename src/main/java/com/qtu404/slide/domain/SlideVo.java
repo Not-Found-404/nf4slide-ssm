@@ -5,7 +5,7 @@ public class SlideVo {
     }
 
     private Integer slideId;
-    private Integer userId;
+    private Integer userId;   //外键？
     private String name;
     private String content;
     private String play;

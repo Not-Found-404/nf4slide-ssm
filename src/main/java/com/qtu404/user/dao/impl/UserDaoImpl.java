@@ -8,9 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
-    SqlSessionFactory sqlSessionFactory = MybatisUnit.getSqlSessionFactory();
+    private String namespaces = "com.qtu404.mapper.userMapper";
+
+    @Resource(name="sqlSessionFactory")
+    SqlSessionFactory sqlSessionFactory;
 
     /**
      * 通过手机号得到user
@@ -49,7 +54,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
 
     @Override
     protected String getNamespaces() {
-        return "com.qtu404.mapper.userMapper";
+        return namespaces;
     }
 
     @Override

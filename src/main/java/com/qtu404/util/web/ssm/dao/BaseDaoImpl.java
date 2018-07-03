@@ -21,6 +21,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     protected abstract SqlSessionFactory getSqlSessionFactory();
 
+
     @Override
     public T fetchById(int id) {
         SqlSession sqlSession = getSqlSessionFactory().openSession();

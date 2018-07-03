@@ -8,13 +8,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository("slideDao")
 public class SlideDaoImpl extends BaseDaoImpl<SlideVo> implements SlideDao {
     private String namespaces = "com.qtu404.mapper.slideMapper";
 
-    SqlSessionFactory sqlSessionFactory = MybatisUnit.getSqlSessionFactory();
+    @Resource(name="sqlSessionFactory")
+    SqlSessionFactory sqlSessionFactory;
 
     @Override
     public List<SlideVo> findAllSlideByUserId(Integer userId) {
