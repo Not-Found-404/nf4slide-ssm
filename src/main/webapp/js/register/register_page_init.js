@@ -84,51 +84,7 @@ $("#register").click(function () {
     if (checkPhone != "success" || checkPwd != "success" || checkRePwd != "success" || checkQuestion != "success") {
         alert("还有尚未完成的项！");
     } else {
-        //alert("注册成功!");
-        //$("form").submit();
-        doRegister();
+        alert("注册成功!");
+        $("form").submit();
     }
 })
-
-function doRegister() {
-    $.ajax({
-        url: "user/doRegister",
-        type: "POST",
-        dataType: "JSON",
-        data: {
-            phoneNum: $('#inputPhone').val(),
-            password: $('#inputPassword').val(),
-            username: $('#question').val()
-        },
-        success: function (data) {
-            alert("注册成功!");
-            afterRegisterLogin(data.phoneNum, data.password);
-        },
-        error: function () {
-            alert("请检查网络连接!");
-        }
-    });
-}
-
-function afterRegisterLogin(phoneNum, password) {
-    $.ajax({
-        url: "user/login",
-        type: "POST",
-        dataType: "JSON",
-        data: {
-            phoneNum: phoneNum,
-            password: password
-        },
-        success: function (data) {
-            if (data.result = "loginSuccess") {
-                window.open('toUserPage', '_self');
-            } else {
-                alert("发生错误，请手动登陆!");
-                window.open('toHomePage', '_self');
-            }
-        },
-        error: function () {
-            alert("请检查网络连接!");
-        }
-    });
-}

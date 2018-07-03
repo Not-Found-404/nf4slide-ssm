@@ -9,8 +9,6 @@ public class Test {
         UserDao userDao= new UserDaoImpl();
 
         UserVo userVo = userDao.fetchUserByPhone("17866625604");
-        userVo.setAvator("avator/100008/user.jpg");
-        userDao.modify(userVo);
         System.out.println();
     }
 }
