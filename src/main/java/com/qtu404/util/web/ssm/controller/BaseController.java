@@ -26,7 +26,6 @@ public abstract class BaseController<T> {
 
     /**
      * 通过id得到实体json数据
-     *
      * @param id       实体id
      * @param response
      */
