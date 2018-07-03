@@ -169,7 +169,7 @@ $(function changeTheme() {
 $(function addBindEvent() {
     //绑定注册按钮事件
     $("#signup_button").bind("click", function () {
-        window.open("/toRegisterPage", "_self");
+        window.open("toRegisterPage", "_self");
     });
 
     //绑定版权信息按钮事件

@@ -30,7 +30,7 @@ $("#nf4-logout").click(function () {
                 keys: ['enter'],
                 btnClass: 'btn-primary',
                 action: function () {
-                    window.top.location.href = "../../home.html";
+                    window.top.location.href = "toHomePage";
                 }
             },
             cancel: {
