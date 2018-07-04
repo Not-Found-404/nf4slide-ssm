@@ -2,7 +2,6 @@ package com.qtu404.util.web.ssm.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,13 +17,18 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     protected String addOneToken = "save";
     protected String getAllToken = "findAll";
     protected String getByIdToken = "fetchById";
+//注入sqlSessionFactory
 @Resource(name = "sqlSessionFactory")
 SqlSessionFactory sqlSessionFactory;
     protected abstract String getNamespaces();
 
     protected abstract SqlSessionFactory getSqlSessionFactory();
 
-
+/**
+* 从数据库通过id获取一个实体
+* @param id(int)
+* @return T
+* */
     @Override
     public T fetchById(int id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -34,7 +38,11 @@ SqlSessionFactory sqlSessionFactory;
         sqlSession.close();
         return t;
     }
-
+/**
+* 从数据库获取某类型全部实体
+* @param
+* @return List<T>
+* */
     @Override
     public List<T> findAll() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -45,7 +53,11 @@ SqlSessionFactory sqlSessionFactory;
         sqlSession.close();
         return t_list;
     }
-
+/**
+* 将一个实体保存到数据库
+* @param T
+* @return T
+* */
     @Override
     public T save(T t) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -56,7 +68,11 @@ SqlSessionFactory sqlSessionFactory;
         sqlSession.close();
         return t;
     }
-
+/**
+*修改数据库中的实体数据
+*@param T
+*@return int
+* */
     @Override
     public int modify(T t) {
 
@@ -68,7 +84,11 @@ SqlSessionFactory sqlSessionFactory;
         sqlSession.close();
         return rst;
     }
-
+/**
+*删除数据库中的数据记录
+* @param T
+* @return int
+* */
     @Override
     public int delete(T t) {
         SqlSession sqlSession = sqlSessionFactory.openSession();

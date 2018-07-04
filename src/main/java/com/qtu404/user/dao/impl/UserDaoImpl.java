@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     private String namespaces = "com.qtu404.mapper.userMapper";
-
+//注入sqlSessionFactory
 @Resource(name = "sqlSessionFactory")
 SqlSessionFactory sqlSessionFactory;
 
@@ -21,7 +21,7 @@ SqlSessionFactory sqlSessionFactory;
      * 通过手机号得到user
      *
      * @param phoneNum
-     * @return
+     * @return UserVo
      */
     public UserVo fetchUserByPhone(String phoneNum) {
         String id = ".fetchByPhone";
@@ -39,7 +39,7 @@ SqlSessionFactory sqlSessionFactory;
      * 通过登录得到用户
      *
      * @param userVo
-     * @return
+     * @return UserVo
      */
     public UserVo fetchUserByLogin(UserVo userVo) {
         String fetchUserByLogin_id = ".fetchUserByLogin";
@@ -51,12 +51,23 @@ SqlSessionFactory sqlSessionFactory;
         sqlSession.close();
         return userVo;
     }
-
+    /**
+     * 获取命名空间
+     *
+     * @param
+     * @return namespaces(String)
+     */
     @Override
     protected String getNamespaces() {
         return namespaces;
     }
 
+    /**
+     * 获取sqlSessionFactory
+     *
+     * @param
+     * @return sqlSessionFactory(SqlSessionFactory)
+     */
     @Override
     protected SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;

@@ -16,8 +16,16 @@ import java.util.List;
 
 @Service("slideService")
 public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideService {
+    //注入slideDao
     @Resource(name = "slideDao")
     private SlideDao slideDao;
+    public SlideDao getSlideDao() {
+        return slideDao;
+    }
+
+    public void setSlideDao(SlideDao slideDao) {
+        this.slideDao = slideDao;
+    }
 
     /**
      * 修改幻灯片内容
@@ -57,7 +65,11 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         return slideVo;
     }
 
-
+/**通过id获取Slide
+ * @param userVo
+ * @param slideId
+ * @return SlideVo
+ * */
     @Override
     public SlideVo fetchSlideById(UserVo userVo, Integer slideId) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -73,6 +85,12 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         return slideVo;
     }
 
+    /**通过id删除Slide
+     * @param slideId
+     * @param userVo
+     * @return
+     *
+     * */
     @Override
     public int delSlideById(UserVo userVo, Integer slideId) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -84,6 +102,13 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         }
     }
 
+/**修改Slide名字
+ * @param userVo
+ * @param slideId
+ * @param slideName
+ * @return
+ *
+ * */
     @Override
     public int modifySlideName(UserVo userVo, Integer slideId, String slideName) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -95,19 +120,21 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         }
     }
 
-    public SlideDao getSlideDao() {
-        return slideDao;
-    }
-
-    public void setSlideDao(SlideDao slideDao) {
-        this.slideDao = slideDao;
-    }
-
+    /**通过用户id获取该用户的所有Slide
+     * @param userId
+     * @return
+     *
+     * */
     @Override
     public List<SlideVo> findAllSlideByUserId(Integer userId) {
         return slideDao.findAllSlideByUserId(userId);
     }
 
+    /**获取BaseDao
+     * @param
+     * @return
+     *
+     * */
     @Override
     protected BaseDao<SlideVo> getBaseDao() {
         return slideDao;

@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 @Service("userService")
 public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserService {
+//    注入userDao
     @Resource(name = "userDao")
     private UserDao userDao;
 
@@ -23,16 +24,31 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
         this.userDao = userDao;
     }
 
+/**
+ * 通过手机号获取User
+ * @param phoneNum
+ * @return UserVo
+ * */
     @Override
     public UserVo fetchUserByPhone(String phoneNum) {
         return userDao.fetchUserByPhone(phoneNum);
     }
-
+    /**
+     * 通过登陆获取User
+     * @param userVo
+     * @return UserVo
+     * */
     @Override
     public UserVo fetchUserByLogin(UserVo userVo) {
         return userDao.fetchUserByLogin(userVo);
     }
-
+/**
+ * 修改用户头像
+* @param avatorImgData
+ * @param realPath
+ * @param userVo
+ * @return
+* */
     @Override
     public String modifyAvator(UserVo userVo, String avatorImgData, String realPath) {
         String rst = "fail";
@@ -45,7 +61,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
         }
         return rst;
     }
-
+/**
+ * 获取userDao
+ * @param
+ * @return
+ *
+ * */
     @Override
     protected BaseDao<UserVo> getBaseDao() {
         return userDao;
