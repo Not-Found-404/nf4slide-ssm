@@ -26,7 +26,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     public T fetchById(int id) {
         SqlSession sqlSession = getSqlSessionFactory().openSession();
 
-        T t = sqlSession.selectOne(getNamespaces() + "." + getByIdToken, id);
+        T t = (T) sqlSession.selectOne(getNamespaces() + "." + getByIdToken, id);
         sqlSession.commit();
         sqlSession.close();
         return t;

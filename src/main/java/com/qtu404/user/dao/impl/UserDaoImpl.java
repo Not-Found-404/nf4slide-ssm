@@ -28,7 +28,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
         UserVo userVo = null;
         SqlSession sqlSession = getSqlSessionFactory().openSession();
 
-        userVo = sqlSession.selectOne(getNamespaces() + id, phoneNum);
+        userVo = (UserVo) sqlSession.selectOne(getNamespaces() + id, phoneNum);
 
         sqlSession.commit();
         sqlSession.close();
@@ -45,7 +45,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
         String fetchUserByLogin_id = ".fetchUserByLogin";
 
         SqlSession sqlSession = getSqlSessionFactory().openSession();
-        userVo = sqlSession.selectOne(getNamespaces() + fetchUserByLogin_id, userVo);
+        userVo = (UserVo) sqlSession.selectOne(getNamespaces() + fetchUserByLogin_id, userVo);
 
         sqlSession.commit();
         sqlSession.close();
