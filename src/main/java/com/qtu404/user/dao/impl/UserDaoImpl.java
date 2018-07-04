@@ -14,8 +14,8 @@ import javax.annotation.Resource;
 public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     private String namespaces = "com.qtu404.mapper.userMapper";
 
-    //@Resource(name="sqlSessionFactory")
-    SqlSessionFactory sqlSessionFactory = MybatisUnit.getSqlSessionFactory();
+@Resource(name = "sqlSessionFactory")
+SqlSessionFactory sqlSessionFactory;
 
     /**
      * 通过手机号得到user
@@ -26,7 +26,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     public UserVo fetchUserByPhone(String phoneNum) {
         String id = ".fetchByPhone";
         UserVo userVo = null;
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         userVo = (UserVo) sqlSession.selectOne(getNamespaces() + id, phoneNum);
 
@@ -44,7 +44,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     public UserVo fetchUserByLogin(UserVo userVo) {
         String fetchUserByLogin_id = ".fetchUserByLogin";
 
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
         userVo = (UserVo) sqlSession.selectOne(getNamespaces() + fetchUserByLogin_id, userVo);
 
         sqlSession.commit();

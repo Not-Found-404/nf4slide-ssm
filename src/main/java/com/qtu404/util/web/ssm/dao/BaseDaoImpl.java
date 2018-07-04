@@ -2,7 +2,9 @@ package com.qtu404.util.web.ssm.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -16,7 +18,8 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     protected String addOneToken = "save";
     protected String getAllToken = "findAll";
     protected String getByIdToken = "fetchById";
-
+@Resource(name = "sqlSessionFactory")
+SqlSessionFactory sqlSessionFactory;
     protected abstract String getNamespaces();
 
     protected abstract SqlSessionFactory getSqlSessionFactory();
@@ -24,7 +27,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T fetchById(int id) {
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         T t = (T) sqlSession.selectOne(getNamespaces() + "." + getByIdToken, id);
         sqlSession.commit();
@@ -34,7 +37,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public List<T> findAll() {
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         List<T> t_list = sqlSession.selectList(getNamespaces() + "." + getAllToken);
 
@@ -45,7 +48,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T save(T t) {
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         int rst = sqlSession.insert(getNamespaces() + "." + addOneToken, t);
 
@@ -57,7 +60,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public int modify(T t) {
 
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         int rst = sqlSession.update(getNamespaces() + "." + modifyToken, t);
 
@@ -68,7 +71,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public int delete(T t) {
-        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         int rst = sqlSession.delete(getNamespaces() + "." + delToken, t);
 
