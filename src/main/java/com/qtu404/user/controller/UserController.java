@@ -2,11 +2,14 @@ package com.qtu404.user.controller;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.qtu404.logger.domain.LogVo;
+import com.qtu404.logger.service.LogService;
 import com.qtu404.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.sms.SMSsender;
 import com.qtu404.util.web.Result;
+import com.qtu404.util.web.ipgetter.IpGetter;
 import com.qtu404.util.web.ssm.controller.BaseController;
 import com.qtu404.util.web.ssm.service.BaseService;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Random;
 
 @Controller
@@ -25,6 +29,8 @@ import java.util.Random;
 public class UserController extends BaseController<UserVo> {
     @Resource(name = "userService")
     private UserService userService;
+    @Resource(name = "loggerService")
+    LogService logService;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     /**
@@ -48,6 +54,13 @@ public class UserController extends BaseController<UserVo> {
         userService.modifyAvator(userVo, base64_str[1], realPath);
         userVo = userService.fetchById(userVo.getUserId());
         userVo.setPassword("");
+        //记录操作
+        LogVo log = new LogVo();
+        log.setIpadress(IpGetter.getIpAddress(request));
+        log.setDate(new Date().toString());
+        log.setOperation("modifyUserAvator");
+        log.setUsername(userVo.getUsername());
+        logService.record(log);
         writeResult(response, userVo);
     }
 
@@ -74,7 +87,8 @@ public class UserController extends BaseController<UserVo> {
     public void login(HttpServletRequest request, HttpServletResponse response, HttpSession Session) {
         UserVo dto = getDtoObject(request);
         UserVo userVo = userService.fetchUserByLogin(dto);
-        
+        //创建log对象
+        LogVo log = new LogVo();
         ServletContext sc = request.getServletContext();
         String path = sc.getRealPath("/");
 
@@ -84,10 +98,16 @@ public class UserController extends BaseController<UserVo> {
             Session.setAttribute("usrname", userVo.getUserId());
             Session.setAttribute("loginUser", userVo);
             rst.setResult("loginSuccess");
+//           如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
+            log.setUsername(userVo.getUsername());
+            log.setIpadress(IpGetter.getIpAddress(request).toString());
+            log.setOperation("login");
+            log.setDate(new Date().toString());
         } else {
             Session.setAttribute("usrname", "");
             rst.setResult("loginFail");
         }
+        logService.record(log);
         writeResult(response, rst);
     }
 
@@ -98,8 +118,14 @@ public class UserController extends BaseController<UserVo> {
     public String register(HttpServletRequest request, HttpServletResponse response) {
         UserVo userVo = getDtoObject(request);
         userVo = userService.save(userVo);
+        //创建一个log对象，记录操作
+        LogVo log = new LogVo();
+        log.setDate(new Date().toString());
+        log.setOperation("register");
+        log.setIpadress(IpGetter.getIpAddress(request));
+        log.setUsername(userVo.getUsername());
+        logService.record(log);
 
-        //记录日志
         //得到用户IP地址
         String ipAddress = request.getRemoteAddr();
 
@@ -115,39 +141,7 @@ public class UserController extends BaseController<UserVo> {
         return "home";
     }
 
-    /**
-     * 获取用户真实IP地址，不使用request.getRemoteAddr();的原因是有可能用户使用了代理软件方式避免真实IP地址,
-     * 参考文章： http://developer.51cto.com/art/201111/305181.htm
-     *
-     * 可是，如果通过了多级反向代理的话，X-Forwarded-For的值并不止一个，而是一串IP值，究竟哪个才是真正的用户端的真实IP呢？
-     *
-     * 如：X-Forwarded-For：192.168.1.110, 192.168.1.120, 192.168.1.130,
-     * 192.168.1.100
-     *
-     * 用户真实IP为： 192.168.1.110
-     *
-     * @param request
-     * @return
-     */
-    public static String getIpAddress(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
+
 
     public UserService getUserService() {
         return userService;

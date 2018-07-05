@@ -6,11 +6,11 @@
 -->
 <mapper namespace="com.qtu404.mapper.loggerMapper">
 
-    <insert id="save" parameterType="com.qtu404.user.domain.LogVo">
-        INSERT INTO logger log
-        (log.userid, log.ipadress,log.date,log.operation)
+    <insert id="save" parameterType="com.qtu404.logger.domain.LogVo">
+        INSERT INTO logger
+        (username,ipadress,date,operation)
         VALUES
-        (#{username}, #{ipadress},#{phoneNum}, #{password})
+        (#{username}, #{ipadress},#{date}, #{operation})
     </insert>
 
 </mapper>

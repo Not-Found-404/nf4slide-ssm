@@ -1,11 +1,14 @@
 package com.qtu404.logger.domain;
-
+//log实体类对应数据库一条操作记录
 public class LogVo {
-    private Integer loggerid;
-    private String username;
-    private String ipadress;
-    private String date;
-    private String operation;
+    private Integer loggerid;//自增id字段记录操作id
+    private String username;//操作的对象
+    private String ipadress;//操作用户的ip地址
+    private String date;//操作执行的日期
+    private String operation;//操作的具体类型
+/**
+ * getter和setter方法
+ * */
 
     public Integer getLoggerid() {
         return loggerid;

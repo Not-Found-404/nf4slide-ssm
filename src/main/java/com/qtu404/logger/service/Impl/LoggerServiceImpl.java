@@ -9,11 +9,16 @@ import javax.annotation.Resource;
 
 @Service("loggerService")
 public class LoggerServiceImpl implements LogService {
+    //注入loggerDao对象
     @Resource(name = "loggerDao")
     LoggerDao loggerDao;
+    /**
+    * record方法将一条操作插入到数据库
+     * @param log
+     * @return
+    * */
     public void record(LogVo log){
         loggerDao.record(log);
-
     }
 
 
