@@ -74,7 +74,7 @@ public class UserController extends BaseController<UserVo> {
     public void login(HttpServletRequest request, HttpServletResponse response, HttpSession Session) {
         UserVo dto = getDtoObject(request);
         UserVo userVo = userService.fetchUserByLogin(dto);
-
+        
         ServletContext sc = request.getServletContext();
         String path = sc.getRealPath("/");
 
