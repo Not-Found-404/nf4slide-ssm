@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.answer.dao.AnswerDao">
+    <insert id="save" parameterType="com.qtu404.answer.domain.Answer">
+        insert into answer(answer_id,publish_id,ip_address,time)
+        values(#{answerId},#{publishId},#{ipAddress},#{time})
+    </insert>
+
+    <update id="modify" parameterType="com.qtu404.answer.domain.Answer">
+        UPDATE answer
+        SET answer.publish_id = #{publishId}, answer.ip_address = #{ipAddress}, answer.time = #{time}
+        WHERE answer.answer_id = #{answerId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete  from  answer
+        where answer_id=#{answerId}
+    </delete>
+
+    <select id="findAll" resultMap="AnswerResult">
+        select *  from answer
+    </select>
+
+    <select id="fetchById" parameterType="int" resultMap="AnswerResult">
+        SELECT *
+        FROM answer
+        WHERE answer.answer_id = #{answerId}
+    </select>
+
+    <resultMap id="AnswerResult" type="com.qtu404.answer.domain.Answer">
+        <id property="answerId" column="answer_id"/>
+        <result property="publishId" column="publish_id"/>
+        <result property="ipAddress" column="id_address"/>
+        <result property="time" column="time"/>
+    </resultMap>
+</mapper>
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.question.dao.QuestionDao">
+    <insert id="save" parameterType="com.qtu404.question.domain.Question">
+        insert into question(user_id,description,original_answer)
+        values(#{userId},#{description},#{originalAnswer})
+        <selectKey keyProperty="questionId" resultType="int" order="AFTER">
+            select last_insert_id() as questionId
+        </selectKey>
+    </insert>
+
+    <update id="modify" parameterType="com.qtu404.question.domain.Question">
+        UPDATE question
+        SET question.user_id = #{userId}, question.description = #{description}, question.original_answer = #{originalAnswer}
+        WHERE question.question_id = #{questionId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete  from  question
+        where question_id=#{questionId}
+    </delete>
+
+    <select id="findAll" resultMap="QuestionResult">
+        select *  from question
+    </select>
+
+    <select id="fetchById" parameterType="int" resultMap="QuestionResult">
+        SELECT *
+        FROM question
+        WHERE question.question_id = #{questionId}
+    </select>
+
+    <resultMap id="QuestionResult" type="com.qtu404.question.domain.Question">
+        <id property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="description" column="description"/>
+        <result property="originalAnswer" column="original_answer"/>
+    </resultMap>
+</mapper>
+

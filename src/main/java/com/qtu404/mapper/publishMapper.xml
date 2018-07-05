@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.publish.dao.PublishDao">
+    <insert id="save" parameterType="com.qtu404.publish.domain.Publish">
+        insert into publish(question_id,time)
+        values(#{questionId},#{time})
+        <selectKey keyProperty="publishId" resultType="int" order="AFTER">
+            select last_insert_id() as publishId
+        </selectKey>
+    </insert>
+
+    <update id="modify" parameterType="com.qtu404.publish.domain.Publish">
+        UPDATE publish
+        SET publish.question_id = #{questionId}, publish.time = #{time}
+        WHERE publish.publish_id = #{publishId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete  from  publish
+        where publish_id=#{publishId}
+    </delete>
+
+    <select id="findAll" resultMap="PublishResult">
+        select *  from publish
+    </select>
+
+    <select id="fetchById" parameterType="int" resultMap="PublishResult">
+        SELECT *
+        FROM publish
+        WHERE publish.publish_id = #{publishId}
+    </select>
+
+    <resultMap id="PublishResult" type="com.qtu404.publish.domain.Publish">
+        <id property="publishId" column="publish_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="time" column="time"/>
+    </resultMap>
+</mapper>
+
