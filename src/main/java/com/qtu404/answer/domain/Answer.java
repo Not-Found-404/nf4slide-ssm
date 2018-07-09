@@ -1,5 +1,7 @@
 package com.qtu404.answer.domain;
 
+import com.qtu404.publish.domain.Publish;
+
 import java.util.Date;
 
 public class Answer {
@@ -7,6 +9,15 @@ public class Answer {
     private Integer publishId;
     private String ipAddress;
     private Date time;
+    private Publish publish;
+
+    public Publish getPublish() {
+        return publish;
+    }
+
+    public void setPublish(Publish publish) {
+        this.publish = publish;
+    }
 
     public Answer() {
     }

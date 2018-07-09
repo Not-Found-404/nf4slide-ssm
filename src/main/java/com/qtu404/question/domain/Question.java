@@ -1,10 +1,23 @@
 package com.qtu404.question.domain;
 
+import com.qtu404.publish.domain.Publish;
+
+import java.util.List;
+
 public class Question {
     private Integer questionId;
     private Integer userId;
     private String description;
     private Integer originalAnswer;
+    private List<Publish> publishList;
+
+    public List<Publish> getPublishList() {
+        return publishList;
+    }
+
+    public void setPublishList(List<Publish> publishList) {
+        this.publishList = publishList;
+    }
 
     public Question() {
     }

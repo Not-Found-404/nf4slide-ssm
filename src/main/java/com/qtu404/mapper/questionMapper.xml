@@ -3,6 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtu404.question.dao.QuestionDao">
+    <resultMap id="questionResult" type="com.qtu404.question.domain.Question">
+        <id property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="description" column="description"/>
+        <result property="originalAnswer" column="original_answer"/>
+        <collection property="publishList" resultMap="publishResult"/>
+    </resultMap>
+
+    <resultMap id="publishResult" type="com.qtu404.publish.domain.Publish">
+        <id property="publishId" column="publish_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="time" column="time"/>
+    </resultMap>
+
     <insert id="save" parameterType="com.qtu404.question.domain.Question">
         insert into question(user_id,description,original_answer)
         values(#{userId},#{description},#{originalAnswer})
@@ -22,14 +36,23 @@
         where question_id=#{questionId}
     </delete>
 
-    <select id="findAll" resultMap="QuestionResult">
+    <select id="findAll" parameterType="int" resultMap="QuestionResult">
         select *  from question
+        where user_id=#{userId}
     </select>
 
-    <select id="fetchById" parameterType="int" resultMap="QuestionResult">
-        SELECT *
-        FROM question
-        WHERE question.question_id = #{questionId}
+    <select id="fetchById" parameterType="int" resultMap="questionResult">
+       SELECT
+	   q.question_id,
+	   q.user_id,
+	   q.description,
+	   q.original_answer,
+	   p.publish_id,
+	   p.time
+       FROM question q
+       LEFT OUTER JOIN publish p ON q.question_id = p.question_id
+       WHERE q.question_id = #{id}= #{id}
+       ORDER BY p.question_id
     </select>
 
     <resultMap id="QuestionResult" type="com.qtu404.question.domain.Question">

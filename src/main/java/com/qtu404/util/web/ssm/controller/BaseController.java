@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Iterator;

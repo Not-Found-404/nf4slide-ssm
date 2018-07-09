@@ -1,20 +1,22 @@
 package com.qtu404.user.domain;
 
+import com.qtu404.slide.domain.SlideVo;
+import java.util.List;
+
 public class UserVo {
     private Integer userId;
     private String username;
     private String phoneNum;
     private String password;
     private String avator;
+    private List<SlideVo> slideVos;
 
-    @Override
-    public String toString() {
-        return "UserVo{" +
-                "userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public List<SlideVo> getSlideVos() {
+        return slideVos;
+    }
+
+    public void setSlideVos(List<SlideVo> slideVos) {
+        this.slideVos = slideVos;
     }
 
     public String getPassword() {
@@ -55,6 +57,16 @@ public class UserVo {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    @Override
+    public String toString() {
+        return "UserVo{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
 }

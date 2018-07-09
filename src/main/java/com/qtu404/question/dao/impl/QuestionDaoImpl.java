@@ -1,9 +1,10 @@
 package com.qtu404.question.dao.impl;
 
-import com.qtu404.common.MybatisUnit;
+import com.qtu404.option.domain.Option;
 import com.qtu404.question.dao.QuestionDao;
 import com.qtu404.question.domain.Question;
 import com.qtu404.util.web.ssm.dao.BaseDaoImpl;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,23 @@ public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDa
     @Override
     protected SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
+    }
+
+    @Override
+    public List<Question> findAll(Integer userId) {
+        String id = ".findAll";
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Question> questionList = null;
+        questionList =  sqlSession.selectList(getNamespaces() + id, userId);
+
+        sqlSession.commit();
+        sqlSession.close();
+        return questionList;
+    }
+
+    @Override
+    public Question save(Question question, List<Option> optionList) {
+        return null;
     }
 
 }

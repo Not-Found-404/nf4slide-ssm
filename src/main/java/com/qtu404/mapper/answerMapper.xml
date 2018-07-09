@@ -16,11 +16,14 @@
 
     <delete id="delete" parameterType="int">
         delete  from  answer
-        where answer_id=#{answerId}
+        where answer_id = #{answerId}
     </delete>
 
-    <select id="findAll" resultMap="AnswerResult">
-        select *  from answer
+    <select id="findAll" resultMap="AnswerResult" parameterType="com.qtu404.publish.domain.Publish">
+       SELECT *
+       FROM publish p
+       LEFT OUTER JOIN answer a ON a.publish_id = p.publish_id
+       WHERE p.publish_id  = #{publishId}
     </select>
 
     <select id="fetchById" parameterType="int" resultMap="AnswerResult">

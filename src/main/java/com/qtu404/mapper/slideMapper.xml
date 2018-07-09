@@ -13,12 +13,22 @@
         <result property="play" column="play"/>
         <result property="config" column="config"/>
         <result property="theme" column="theme"/>
+        <result property="exit" column="exit"/>
+        <association property="userVo" resultMap="UserResult"/>
+    </resultMap>
+
+    <resultMap id="UserResult" type="com.qtu404.user.domain.UserVo">
+        <id property="userId" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="phoneNum" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="avator" column="avator"/>
     </resultMap>
 
     <select id="fetchById" resultMap="SlideResult" parameterType="int">
-        SELECT *
-        FROM slides
-        WHERE slideId = #{id}
+        SELECT * FROM slides s
+        INNER JOIN account u ON u.userId = s.userId
+        WHERE s.slideId = #{id}
     </select>
 
 
@@ -32,17 +42,17 @@
 
     <insert id="save" parameterType="com.qtu404.slide.domain.SlideVo">
         INSERT INTO slides (
-            slides.userId,
-            slides.theme,
-            slides.play,
-            slides.`name`,
-            slides.`exit`,
-            slides.content,
-            slides.config
+        slides.userId,
+        slides.theme,
+        slides.play,
+        slides.`name`,
+        slides.`exit`,
+        slides.content,
+        slides.config
         )
         VALUES
-            (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config})
-        <selectKey keyProperty = "slideId" resultType = "int" order = "AFTER">
+        (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config})
+        <selectKey keyProperty="slideId" resultType="int" order="AFTER">
             select last_insert_id() as slideId
         </selectKey>
     </insert>
@@ -56,4 +66,5 @@
         WHERE userId = #{id} AND slides.exit = 'true'
         ORDER BY slideId DESC
     </select>
+
 </mapper>

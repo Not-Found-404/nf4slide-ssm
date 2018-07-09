@@ -3,6 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtu404.publish.dao.PublishDao">
+    <resultMap id="publishResult" type="com.qtu404.publish.domain.Publish">
+        <id property="publishId" column="publish_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="time" column="time"/>
+        <association property="question" resultMap="questionResult"/>
+    </resultMap>
+
+    <resultMap id="questionResult" type="com.qtu404.question.domain.Question">
+        <id property="questionId" column="question_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="description" column="description"/>
+        <result property="originalAnswer" column="original_answer"/>
+    </resultMap>
+
     <insert id="save" parameterType="com.qtu404.publish.domain.Publish">
         insert into publish(question_id,time)
         values(#{questionId},#{time})
@@ -26,10 +40,11 @@
         select *  from publish
     </select>
 
-    <select id="fetchById" parameterType="int" resultMap="PublishResult">
-        SELECT *
-        FROM publish
-        WHERE publish.publish_id = #{publishId}
+    <select id="fetchById" resultMap="publishResult" parameterType="int">
+       SELECT *
+       FROM publish p
+       INNER JOIN question q ON q.question_id = p.question_id
+       WHERE p.publish_id = #{id}
     </select>
 
     <resultMap id="PublishResult" type="com.qtu404.publish.domain.Publish">

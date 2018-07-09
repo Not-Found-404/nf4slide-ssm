@@ -19,6 +19,15 @@ public class SlideVo {
     private String theme;
     private String whoPlay;
     private String exit;
+    private UserVo userVo;
+
+    public UserVo getUserVo() {
+        return userVo;
+    }
+
+    public void setUserVo(UserVo userVo) {
+        this.userVo = userVo;
+    }
 
     public String getExit() {
         return exit;

@@ -1181,5 +1181,27 @@ function addEvent() {
             ]
         });
     }); //end图片
+
+    function showQuestion() {
+        $("#dialog-form-question").dialog("open");
+        $.ajax({
+            url:"question/findAllQuestions",
+            type:"GET",
+            dataType:"JSON",
+            success:function (data) {
+                alert("test");
+                $("#questionList").prepend(" <div id='question-item-"+data[0].questionId+"' questionId="+data[0].questionId+" class=\"form-group row\"></div>");
+                $("#question-item-"+data[0].questionId).html(data[0].description);
+            },
+            error:function () {
+                alert("錯誤");
+            }
+        });
+    }
+
+    $("#nf4-element__question").click(function () {
+        showQuestion();
+    });
+
 }
 
