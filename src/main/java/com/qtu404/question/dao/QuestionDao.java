@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface QuestionDao extends BaseDao<Question> {
     List<Question> findAll(Integer userId);
-    Question save(Question question, List<Option> optionList);
 }

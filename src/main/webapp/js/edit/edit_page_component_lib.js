@@ -1189,13 +1189,29 @@ function addEvent() {
             type:"GET",
             dataType:"JSON",
             success:function (data) {
-                alert("test");
-                $("#questionList").prepend(" <div id='question-item-"+data[0].questionId+"' questionId="+data[0].questionId+" class=\"form-group row\"></div>");
-                $("#question-item-"+data[0].questionId).html(data[0].description);
+                $("#questionList").html("");
+                for(var i=0;i<4;i++){
+                    $("#questionList").prepend(" <div id='question-item-"+data[i].questionId+"' questionId="+data[i].questionId+" class=\"form-group row\"></div>");
+                    $("#question-item-"+data[i].questionId).html(data[i].description);
+                }
             },
             error:function () {
                 alert("錯誤");
             }
+        });
+        $("#addQuestion").click(function () {
+            $.ajax({
+                url:"question/addNew",
+                type:"GET",
+                dataType:"JSON",
+                success:function (data) {
+                    $("#questionList").prepend(" <div id='question-item-"+data.questionId+"' questionId="+data.questionId+" class=\"nf4-question form-group row\"></div>");
+                    $("#question-item-"+data.questionId).html(data.description);
+                    },
+                error:function () {
+                    alert("錯誤");
+                }
+            });
         });
     }
 
