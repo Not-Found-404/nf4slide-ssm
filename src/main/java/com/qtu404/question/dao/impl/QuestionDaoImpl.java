@@ -40,10 +40,4 @@ public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDa
         sqlSession.close();
         return questionList;
     }
-
-    @Override
-    public Question save(Question question, List<Option> optionList) {
-        return null;
-    }
-
 }

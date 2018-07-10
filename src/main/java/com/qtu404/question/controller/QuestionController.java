@@ -1,6 +1,5 @@
 package com.qtu404.question.controller;
 
-import com.qtu404.question.dao.QuestionDao;
 import com.qtu404.question.domain.Question;
 import com.qtu404.question.service.QuestionService;
 import com.qtu404.user.domain.UserVo;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -40,6 +40,15 @@ public class QuestionController extends BaseController<Question> {
     }
 
 
+
+
+    @RequestMapping("addNew")
+    public void addNew(HttpServletRequest request, HttpServletResponse response) {
+        UserVo userVo = (UserVo) request.getSession().getAttribute("loginUser");
+        Question question = Question.createDefaultQuestion(userVo.getUserId());
+        question = questionService.save(question);
+        writeResult(response,question);
+    }
 
     @Override
     protected BaseService<Question> getBaseService() {

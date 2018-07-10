@@ -2,7 +2,6 @@ package com.qtu404.question.service.impl;
 
 import com.qtu404.option.domain.Option;
 import com.qtu404.question.dao.QuestionDao;
-import com.qtu404.question.dao.impl.QuestionDaoImpl;
 import com.qtu404.question.domain.Question;
 import com.qtu404.question.service.QuestionService;
 import com.qtu404.util.web.ssm.dao.BaseDao;
@@ -27,6 +26,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question>  implements Q
     public Question save(Question question, List<Option> optionList) {
         return null;
     }
+
 
     @Override
     public List<Question> findAll(Integer userId) {

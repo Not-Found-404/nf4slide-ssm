@@ -1207,6 +1207,7 @@ function addEvent() {
                 success:function (data) {
                     $("#questionList").prepend(" <div id='question-item-"+data.questionId+"' questionId="+data.questionId+" class=\"nf4-question form-group row\"></div>");
                     $("#question-item-"+data.questionId).html(data.description);
+
                 },
                 error:function () {
                     alert("錯誤");
