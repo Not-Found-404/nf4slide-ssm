@@ -63,4 +63,12 @@ public class Question {
                 ", originalAnswer=" + originalAnswer +
                 '}';
     }
+
+    public static Question createDefaultQuestion(Integer userId){
+        Question question = new Question();
+        question.setDescription("新建问题");
+        question.setOriginalAnswer(0);
+        question.setUserId(userId);
+        return question;
+    }
 }
