@@ -29,6 +29,17 @@ public class QuestionController extends BaseController<Question> {
         writeResult(response, questionList);
         return "edit";
     }
+    @RequestMapping("addNew")
+    public String addNew(HttpSession session, HttpServletResponse response) {
+        UserVo userVo = (UserVo) session.getAttribute("loginUser");
+        Question question = Question.createDefaultQuestion(userVo.getUserId());
+        question = questionService.save(question);
+
+        writeResult(response, question);
+        return "edit";
+    }
+
+
 
     @Override
     protected BaseService<Question> getBaseService() {
