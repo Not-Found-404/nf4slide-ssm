@@ -5,34 +5,10 @@
     例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
 -->
 <mapper namespace="com.qtu404.mapper.userMapper">
-
-    <resultMap id="UserResult" type="com.qtu404.user.domain.UserVo">
-        <id property="userId" column="userId"/>
-        <result property="username" column="username"/>
-        <result property="phoneNum" column="phone"/>
-        <result property="password" column="password"/>
-        <result property="avator" column="avator"/>
-        <collection property="slideVos" resultMap="SlideResult"/>
-    </resultMap>
-
-    <resultMap id="SlideResult" type="com.qtu404.slide.domain.SlideVo">
-        <id property="slideId" column="slideId"/>
-        <result property="name" column="name"/>
-    </resultMap>
-
     <select id="fetchById" parameterType="int" resultMap="UserResult">
-    SELECT
-	u.userId,
-	u.avator,
-	u.username,
-	u.phone,
-	u.`password`,
-	s.`name`,
-	s.slideId
-    FROM account u
-    LEFT OUTER JOIN slides s ON u.userId = s.userId
-    WHERE u.userId = #{id}
-    ORDER BY s.userId
+        SELECT *
+        FROM account
+        WHERE account.userid = #{userId}
     </select>
 
     <update id="modify" parameterType="com.qtu404.user.domain.UserVo">
@@ -44,9 +20,9 @@
 
     <insert id="save" parameterType="com.qtu404.user.domain.UserVo">
         INSERT INTO account
-        (account.username, account.phone, account.`password`, account.avator)
+        (account.username, account.phone, account.`password`, account.avator,account.root_folder)
         VALUES
-        (#{username}, #{phoneNum}, #{password}, '')
+        (#{username}, #{phoneNum}, #{password}, '',#{folderId})
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             select last_insert_id() as userId
         </selectKey>
@@ -64,4 +40,13 @@
         WHERE account.phone = #{phoneNum} AND account.password = #{password}
     </select>
 
+
+    <resultMap id="UserResult" type="com.qtu404.user.domain.UserVo">
+        <id property="userId" column="userId"/>
+        <result property="username" column="username"/>
+        <result property="phoneNum" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="avator" column="avator"/>
+        <result property="folderId" column="root_folder"/>
+    </resultMap>
 </mapper>

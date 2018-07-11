@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 
 @RequestMapping("publish/")
-@Controller("publishController")
+@Controller
 public class PublishController extends BaseController<Publish> {
 
     @Resource(name="publishService")

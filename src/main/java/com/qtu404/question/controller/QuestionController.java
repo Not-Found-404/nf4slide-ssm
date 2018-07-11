@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequestMapping("question/")
-@Controller("questionController")
+@Controller
 public class QuestionController extends BaseController<Question> {
 
     @Resource(name="questionService")
@@ -37,17 +37,6 @@ public class QuestionController extends BaseController<Question> {
 
         writeResult(response, question);
         return "edit";
-    }
-
-
-
-
-    @RequestMapping("addNew")
-    public void addNew(HttpServletRequest request, HttpServletResponse response) {
-        UserVo userVo = (UserVo) request.getSession().getAttribute("loginUser");
-        Question question = Question.createDefaultQuestion(userVo.getUserId());
-        question = questionService.save(question);
-        writeResult(response,question);
     }
 
     @Override
