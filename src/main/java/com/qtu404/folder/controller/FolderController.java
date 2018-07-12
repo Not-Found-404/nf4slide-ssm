@@ -70,13 +70,11 @@ public class FolderController extends BaseController<Folder> {
      * @param body
      * @param request
      * @param response
-
      @RequestMapping("/deleteWithAngular") public void deleteWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
      Folder folder = JSON.parseObject(body, Folder.class);
      Result result = new Result();
      int rst = folderService.delete(folder);
-     }
-     */
+     }*/
 
 
     /**

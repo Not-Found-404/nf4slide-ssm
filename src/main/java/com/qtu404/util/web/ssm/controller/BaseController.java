@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qtu404.util.web.Result;
 import com.qtu404.util.web.dto.DtoTransform;
 import com.qtu404.util.web.ssm.service.BaseService;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,36 +94,21 @@ public abstract class BaseController<T> {
     /**
      * 修改一个实体
      *
-     * @param t
      * @param response
      */
     @RequestMapping("modify")
-    public void modifyJSON(T t, HttpServletResponse response) {
-        PrintWriter out = null;
-        ObjectMapper ob = null;
-        String jsonStr = null;
+    public void modifyJSON(HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
-
-        try {
-            int rst = getBaseService().modify(t);
-            ob = new ObjectMapper();
-            out = response.getWriter();
-
-            if (rst == 1) {
-                result.setResult("modify success");
-                result.setCode(200);
-            } else {
-                result.setResult("modify fail");
-                result.setCode(500);
-            }
-
-            jsonStr = ob.writeValueAsString(result);
-            out.write(jsonStr);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        T t = getDtoObject(request);
+        int rst = getBaseService().modify(t);
+        if (rst == 1) {
+            result.setResult("modify success");
+            result.setCode(200);
+        } else {
+            result.setResult("modify fail");
+            result.setCode(500);
         }
+        writeResult(response, result);
     }
 
     /**
@@ -132,32 +118,18 @@ public abstract class BaseController<T> {
      * @param response
      */
     @RequestMapping("delete")
-    public void deleteJSON(T t, HttpServletResponse response) {
-        PrintWriter out = null;
-        ObjectMapper ob = null;
-        String jsonStr = null;
+    public void deleteJSON(HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
-
-        try {
-            int rst = getBaseService().delete(t);
-            ob = new ObjectMapper();
-            out = response.getWriter();
-
-            if (rst == 1) {
-                result.setResult("delete success");
-                result.setCode(200);
-            } else {
-                result.setResult("delete fail");
-                result.setCode(500);
-            }
-
-            jsonStr = ob.writeValueAsString(result);
-            out.write(jsonStr);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        T t = getDtoObject(request);
+        int rst = getBaseService().delete(t);
+        if (rst == 1) {
+            result.setResult("delete success");
+            result.setCode(200);
+        } else {
+            result.setResult("delete fail");
+            result.setCode(500);
         }
+        writeResult(response, result);
     }
 
     /**

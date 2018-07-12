@@ -15,9 +15,9 @@
         WHERE folder_id = #{folderId}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="com.qtu404.folder.domain.Folder">
         DELETE FROM folder
-        WHERE folder_id = #{id}
+        WHERE folder_id = #{folderId}
     </delete>
 
     <select id="fetchById" resultMap="folderResult" parameterType="int">
