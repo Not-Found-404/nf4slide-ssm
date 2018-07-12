@@ -86,9 +86,11 @@ public class UserController extends BaseController<UserVo> {
             Session.setAttribute("usrname", userVo.getUserId());
             Session.setAttribute("loginUser", userVo);
             rst.setResult("loginSuccess");
+            rst.setCode(200);
         } else {
             Session.setAttribute("usrname", "");
             rst.setResult("loginFail");
+            rst.setCode(500);
         }
         writeResult(response, rst);
     }
@@ -165,9 +167,11 @@ public class UserController extends BaseController<UserVo> {
             session.setAttribute("usrname", userVo.getUserId());
             session.setAttribute("loginUser", userVo);
             rst.setResult("loginSuccess");
+            rst.setCode(200);
         } else {
             session.setAttribute("usrname", "");
             rst.setResult("loginFail");
+            rst.setCode(500);
         }
         writeResult(response, rst);
     }
