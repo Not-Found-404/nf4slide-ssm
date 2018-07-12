@@ -92,6 +92,16 @@ public class SlideVo {
         this.play = play;
     }
 
+    private Integer folderId;
+
+    public Integer getFolderId() {
+        return folderId;
+    }
+
+    public void setFolderId(Integer folderId) {
+        this.folderId = folderId;
+    }
+
     public static SlideVo createNewSlide(Integer userId) {
         SlideVo slideVo = new SlideVo();
         slideVo.setExit("true");

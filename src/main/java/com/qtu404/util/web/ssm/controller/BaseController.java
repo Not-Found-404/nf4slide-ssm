@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +23,7 @@ public abstract class BaseController<T> {
 
     /**
      * 通过id得到实体json数据
+     *
      * @param id       实体id
      * @param response
      */
@@ -34,18 +32,7 @@ public abstract class BaseController<T> {
         PrintWriter out = null;
         ObjectMapper ob = null;
         T t = getBaseService().fetchById(id);
-        try {
-            out = response.getWriter();
-            ob = new ObjectMapper();
-
-            String jsonStr = ob.writeValueAsString(t);
-            out.write(jsonStr);
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        writeResult(response, t);
     }
 
     /**

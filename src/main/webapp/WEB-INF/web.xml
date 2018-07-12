@@ -5,7 +5,7 @@
     <display-name>nf404</display-name>
 
     <welcome-file-list>
-        <welcome-file>home.html</welcome-file>
+        <welcome-file>homeA.html</welcome-file>
     </welcome-file-list>
 
     <!--spring配置文件的位置-->

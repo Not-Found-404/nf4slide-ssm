@@ -21,6 +21,15 @@
         WHERE slideId = #{id}
     </select>
 
+    <select id="findByName" resultMap="SlideResult" parameterType="com.qtu404.slide.domain.SlideVo">
+        SELECT *
+        FROM
+            slides s
+        WHERE
+            s.userId = #{userId}
+            AND s.`name` LIKE #{nmae}
+    </select>
+
 
     <update id="modify" parameterType="com.qtu404.slide.domain.SlideVo">
         UPDATE slides
@@ -30,28 +39,36 @@
         WHERE slides.slideId = #{slideId}
     </update>
 
+    <update id="modifyInfo" parameterType="com.qtu404.slide.domain.SlideVo">
+        UPDATE slides
+        SET slides.`name`    = #{name},
+            slides.folder_id = #{folderId}
+        WHERE slides.slideId = #{slideId}
+    </update>
+
     <insert id="save" parameterType="com.qtu404.slide.domain.SlideVo">
         INSERT INTO slides (
-            slides.userId,
-            slides.theme,
-            slides.play,
-            slides.`name`,
-            slides.`exit`,
-            slides.content,
-            slides.config
+        slides.userId,
+        slides.theme,
+        slides.play,
+        slides.`name`,
+        slides.`exit`,
+        slides.content,
+        slides.config,
+        slides.folder_id
         )
         VALUES
-            (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config})
-        <selectKey keyProperty = "slideId" resultType = "int" order = "AFTER">
+        (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config},#{folderId})
+        <selectKey keyProperty="slideId" resultType="int" order="AFTER">
             select last_insert_id() as slideId
         </selectKey>
     </insert>
 
     <select id="findAllByUserId" resultMap="SlideResult" parameterType="int">
         SELECT
-        slides.userId,
-        slides.name,
-        slides.slideId
+            slides.userId,
+            slides.name,
+            slides.slideId
         FROM slides
         WHERE userId = #{id} AND slides.exit = 'true'
         ORDER BY slideId DESC

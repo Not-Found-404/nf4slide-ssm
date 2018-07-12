@@ -13,16 +13,16 @@
 
     <update id="modify" parameterType="com.qtu404.user.domain.UserVo">
         UPDATE account
-        SET account.username = #{username}, account.phone = #{phone}, account.password = #{password},
+        SET account.username = #{username}, account.phone = #{phoneNum}, account.password = #{password},
             account.avator   = #{avator}
         WHERE account.userId = #{userId}
     </update>
 
     <insert id="save" parameterType="com.qtu404.user.domain.UserVo">
         INSERT INTO account
-        (account.username, account.phone, account.`password`, account.avator)
+        (account.username, account.phone, account.`password`, account.avator,account.root_folder)
         VALUES
-        (#{username}, #{phoneNum}, #{password}, '')
+        (#{username}, #{phoneNum}, #{password}, '',#{folderId})
         <selectKey keyProperty="userId" resultType="int" order="AFTER">
             select last_insert_id() as userId
         </selectKey>
@@ -47,5 +47,6 @@
         <result property="phoneNum" column="phone"/>
         <result property="password" column="password"/>
         <result property="avator" column="avator"/>
+        <result property="folderId" column="root_folder"/>
     </resultMap>
 </mapper>

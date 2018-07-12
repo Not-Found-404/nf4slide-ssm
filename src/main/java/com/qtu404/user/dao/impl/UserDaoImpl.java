@@ -13,9 +13,9 @@ import javax.annotation.Resource;
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserVo> implements UserDao {
     private String namespaces = "com.qtu404.mapper.userMapper";
-//注入sqlSessionFactory
-@Resource(name = "sqlSessionFactory")
-SqlSessionFactory sqlSessionFactory;
+    //注入sqlSessionFactory
+    @Resource(name = "sqlSessionFactory")
+    SqlSessionFactory sqlSessionFactory;
 
     /**
      * 通过手机号得到user

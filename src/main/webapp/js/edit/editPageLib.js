@@ -52,6 +52,31 @@ function settingDialogInit() {
     $("#menu__share").click(function () {
 
     })
+
+
+    /* 试题模块 */
+    $("#dialog-form-question").dialog({
+        autoOpen: false,
+        height: 600,
+        width: 800,
+        modal: true,
+        dialogClass: "no-close",
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "explode",
+            duration: 500
+        },
+        close: function () {
+            $(this).dialog("close");
+        }
+    });
+    $("#closeQuestionDialog").click(function () {
+        $("#dialog-form-question").dialog("close");
+    })
+
 }
 
 

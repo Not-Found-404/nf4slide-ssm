@@ -55,7 +55,7 @@ SqlSessionFactory sqlSessionFactory;
     }
 /**
 * 将一个实体保存到数据库
-* @param T
+* @param t
 * @return T
 * */
     @Override
@@ -70,7 +70,7 @@ SqlSessionFactory sqlSessionFactory;
     }
 /**
 *修改数据库中的实体数据
-*@param T
+*@param t
 *@return int
 * */
     @Override
@@ -86,7 +86,7 @@ SqlSessionFactory sqlSessionFactory;
     }
 /**
 *删除数据库中的数据记录
-* @param T
+* @param t
 * @return int
 * */
     @Override

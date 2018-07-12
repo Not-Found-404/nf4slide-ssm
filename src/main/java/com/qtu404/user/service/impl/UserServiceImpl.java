@@ -1,5 +1,7 @@
 package com.qtu404.user.service.impl;
 
+import com.qtu404.folder.dao.FolderDao;
+import com.qtu404.folder.domain.Folder;
 import com.qtu404.user.dao.UserDao;
 import com.qtu404.user.service.UserService;
 import com.qtu404.user.domain.UserVo;
@@ -9,12 +11,16 @@ import com.qtu404.util.web.ssm.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserService {
-//    注入userDao
     @Resource(name = "userDao")
     private UserDao userDao;
+
+    @Resource(name = "folderDao")
+    private FolderDao folderDao;
 
     public UserDao getUserDao() {
         return userDao;
@@ -24,31 +30,24 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
         this.userDao = userDao;
     }
 
-/**
- * 通过手机号获取User
- * @param phoneNum
- * @return UserVo
- * */
     @Override
     public UserVo fetchUserByPhone(String phoneNum) {
         return userDao.fetchUserByPhone(phoneNum);
     }
-    /**
-     * 通过登陆获取User
-     * @param userVo
-     * @return UserVo
-     * */
+
+
     @Override
-    public UserVo fetchUserByLogin(UserVo userVo) {
-        return userDao.fetchUserByLogin(userVo);
+    public UserVo save(UserVo dto) {
+        //创建根路径文件夹
+        Folder folder = Folder.createRootFolder();
+        folderDao.save(folder);
+        dto.setFolderId(folder.getFolderId());
+
+        //调用添加
+        return super.save(dto);
     }
-/**
- * 修改用户头像
-* @param avatorImgData
- * @param realPath
- * @param userVo
- * @return
-* */
+
+
     @Override
     public String modifyAvator(UserVo userVo, String avatorImgData, String realPath) {
         String rst = "fail";
@@ -61,14 +60,17 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
         }
         return rst;
     }
-/**
- * 获取userDao
- * @param
- * @return
- *
- * */
+
     @Override
     protected BaseDao<UserVo> getBaseDao() {
         return userDao;
+    }
+
+    /*---------------------------        Angular Folder    -------------------------------------------------*/
+
+    @Override
+    public UserVo fetchUserByLogin(UserVo userVo) {
+        userVo = userDao.fetchUserByLogin(userVo);
+        return userVo;
     }
 }

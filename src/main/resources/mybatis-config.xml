@@ -18,5 +18,10 @@
     <mappers>
         <mapper resource="com/qtu404/mapper/slideMapper.xml"/>
         <mapper resource="com/qtu404/mapper/userMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/answerMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/folderMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/optionMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/publishMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/questionMapper.xml"/>
     </mappers>
 </configuration>

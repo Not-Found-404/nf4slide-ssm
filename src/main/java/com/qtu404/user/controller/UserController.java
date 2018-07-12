@@ -1,5 +1,6 @@
 package com.qtu404.user.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qtu404.logger.domain.LogVo;
@@ -13,6 +14,7 @@ import com.qtu404.util.web.ipgetter.IpGetter;
 import com.qtu404.util.web.ssm.controller.BaseController;
 import com.qtu404.util.web.ssm.service.BaseService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -76,6 +78,9 @@ public class UserController extends BaseController<UserVo> {
         result.setResult("true");
         if (userVo != null) {//不通过
             result.setResult("false");
+            result.setCode(500);
+        }else {
+            result.setCode(200);
         }
         writeResult(response, result);
     }
@@ -89,6 +94,11 @@ public class UserController extends BaseController<UserVo> {
         UserVo userVo = userService.fetchUserByLogin(dto);
         //创建log对象
         LogVo log = new LogVo();
+      如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
+            log.setUsername(userVo.getUsername());
+            log.setIpadress(IpGetter.getIpAddress(request).toString());
+            log.setOperation("login");
+            log.setDate(new Date().toString());
         ServletContext sc = request.getServletContext();
         String path = sc.getRealPath("/");
 
@@ -97,15 +107,12 @@ public class UserController extends BaseController<UserVo> {
         if (userVo != null) {
             Session.setAttribute("usrname", userVo.getUserId());
             Session.setAttribute("loginUser", userVo);
-            rst.setResult("loginSuccess");
-//           如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
-            log.setUsername(userVo.getUsername());
-            log.setIpadress(IpGetter.getIpAddress(request).toString());
-            log.setOperation("login");
-            log.setDate(new Date().toString());
+            rst.setResult("loginSuccess");        
+            rst.setCode(200);
         } else {
             Session.setAttribute("usrname", "");
             rst.setResult("loginFail");
+            rst.setCode(500);
         }
         logService.record(log);
         writeResult(response, rst);
@@ -140,6 +147,90 @@ public class UserController extends BaseController<UserVo> {
         //writeResult(response, "success");
         return "home";
     }
+
+
+
+
+
+    /*------------------------------- Angular Cli begin  ------------------------------------------------------*/
+    @RequestMapping("/loginWithAngular")
+    public void loginWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+        UserVo dto = JSON.parseObject(body, UserVo.class);
+        UserVo userVo = userService.fetchUserByLogin(dto);
+
+        Result rst = new Result();
+        HttpSession session = request.getSession();
+        if (userVo != null) {
+            session.setAttribute("usrname", userVo.getUserId());
+            session.setAttribute("loginUser", userVo);
+            rst.setResult("loginSuccess");
+            rst.setCode(200);
+        } else {
+            session.setAttribute("usrname", "");
+            rst.setResult("loginFail");
+            rst.setCode(500);
+        }
+        writeResult(response, rst);
+    }
+
+    @RequestMapping("/registerWithAngular")
+    public void registerWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+        UserVo dto = JSON.parseObject(body, UserVo.class);
+        String verifyCode = (String) request.getSession().getAttribute("verifyCode");
+        String verifyPhone = (String) request.getSession().getAttribute("verifyPhone");
+        UserVo userVo = null;
+
+        if (dto.getPhoneNum().equals(verifyPhone) && dto.getVerifyCode().equals(verifyCode)) {
+            userVo = userService.save(dto);
+        }
+
+        Result result = new Result();
+        if (userVo != null && userVo.getUserId() != null) {
+            result.setResult("register success");
+            result.setCode(200);
+        } else {
+            result.setResult("register fail");
+            result.setCode(500);
+        }
+
+        writeResult(response, result);
+    }
+
+    @RequestMapping("/sendVerifyCodeWithAngular")
+    public void sendVerifyCodeWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+        String phoneNum = body;
+        //发送验证码
+        Integer verifyCode = new Random().nextInt(10000);
+        HttpSession session = request.getSession();
+        try {
+            //发送验证码
+            String verifyCode_String = String.valueOf(verifyCode);
+            new SMSsender().sendSmsMessage(phoneNum, verifyCode_String);
+            session.setAttribute("verifyCode", String.valueOf(verifyCode));
+            session.setAttribute("verifyPhone", phoneNum);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/exitPhoneNumWithAngular")
+    public void exitPhoneNumWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+        String phoneNum = body;
+        UserVo userVo = userService.fetchUserByPhone(phoneNum);
+        Result result = new Result();
+
+        if (userVo != null) {
+            result.setResult("exit");
+            result.setCode(500);
+        } else {
+            result.setResult("not exit");
+            result.setCode(200);
+        }
+        writeResult(response, result);
+    }
+    /*------------------------------- Angular Cli end  ------------------------------------------------------*/
+
+
 
 
 

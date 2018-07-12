@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.option.dao.OptionDao">
+    <insert id="save" parameterType="com.qtu404.option.domain.Option">
+        insert into `option`(question_id,content)
+        values(#{ questionId},#{content})
+        <selectKey keyProperty="optionId" resultType="int" order="AFTER">
+            select last_insert_id() as optionId
+        </selectKey>
+    </insert>
+
+    <update id="modify" parameterType="com.qtu404.option.domain.Option">
+        UPDATE `option`
+        SET `option`.question_id = #{questionId}, `option`.content = #{content}
+        WHERE `option`.option_id = #{optionId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from `option`
+        where option_id=#{optionId}
+    </delete>
+
+    <select id="findAll" resultMap="OptionResult">
+        select *  from `option`
+    </select>
+
+    <select id="fetchById" parameterType="int" resultMap="OptionResult">
+        SELECT *
+        FROM  `option`
+        WHERE `option`.option_id = #{optionId}
+    </select>
+
+    <resultMap id="OptionResult" type="com.qtu404.option.domain.Option">
+        <id property="optionId" column="option_id"/>
+        <result property="questionId" column="question_id"/>
+        <result property="content" column="content"/>
+    </resultMap>
+</mapper>
+

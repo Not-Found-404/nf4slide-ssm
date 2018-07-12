@@ -16,16 +16,8 @@ import java.util.List;
 
 @Service("slideService")
 public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideService {
-    //注入slideDao
     @Resource(name = "slideDao")
     private SlideDao slideDao;
-    public SlideDao getSlideDao() {
-        return slideDao;
-    }
-
-    public void setSlideDao(SlideDao slideDao) {
-        this.slideDao = slideDao;
-    }
 
     /**
      * 修改幻灯片内容
@@ -65,11 +57,7 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         return slideVo;
     }
 
-/**通过id获取Slide
- * @param userVo
- * @param slideId
- * @return SlideVo
- * */
+
     @Override
     public SlideVo fetchSlideById(UserVo userVo, Integer slideId) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -85,12 +73,6 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         return slideVo;
     }
 
-    /**通过id删除Slide
-     * @param slideId
-     * @param userVo
-     * @return
-     *
-     * */
     @Override
     public int delSlideById(UserVo userVo, Integer slideId) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -102,13 +84,6 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         }
     }
 
-/**修改Slide名字
- * @param userVo
- * @param slideId
- * @param slideName
- * @return
- *
- * */
     @Override
     public int modifySlideName(UserVo userVo, Integer slideId, String slideName) {
         SlideVo slideVo = slideDao.fetchById(slideId);
@@ -120,21 +95,56 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         }
     }
 
-    /**通过用户id获取该用户的所有Slide
-     * @param userId
-     * @return
-     *
-     * */
+    @Override
+    public int modifySlideFolder(UserVo userVo, Integer slideId, Integer folderId) {
+        SlideVo slideVo = slideDao.fetchById(slideId);
+        if (slideVo.getUserId().equals(userVo.getUserId())) {//保证是自己的
+            slideVo.setFolderId(folderId);
+            return slideDao.modify(slideVo);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int modiyfInfo(UserVo userVo, SlideVo slideVo) {
+        slideVo = slideDao.fetchById(slideVo.getSlideId());
+        if (slideVo.getUserId().equals(userVo.getUserId())) {//保证是自己的
+            slideVo.setName(slideVo.getName());
+            slideVo.setFolderId(slideVo.getFolderId());
+            return slideDao.modify(slideVo);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public SlideVo addNewSlide(Integer userId, Integer folderId) {
+        SlideVo slideVo = SlideVo.createNewSlide(userId);
+        slideVo.setFolderId(folderId);
+        slideDao.save(slideVo);
+        int rst = slideVo.getSlideId();
+        return slideVo;
+    }
+
+    @Override
+    public List<SlideVo> findByName(SlideVo slideVo) {
+        return this.slideDao.findByName(slideVo);
+    }
+
+    public SlideDao getSlideDao() {
+        return slideDao;
+    }
+
+    public void setSlideDao(SlideDao slideDao) {
+        this.slideDao = slideDao;
+    }
+
     @Override
     public List<SlideVo> findAllSlideByUserId(Integer userId) {
         return slideDao.findAllSlideByUserId(userId);
     }
 
-    /**获取BaseDao
-     * @param
-     * @return
-     *
-     * */
     @Override
     protected BaseDao<SlideVo> getBaseDao() {
         return slideDao;

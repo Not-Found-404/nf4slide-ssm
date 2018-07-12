@@ -1,6 +1,5 @@
 package com.qtu404.user.dao;
 
-
 import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.web.ssm.dao.BaseDao;
 

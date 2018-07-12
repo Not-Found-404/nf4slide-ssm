@@ -164,7 +164,6 @@ $(function bindButton() {
         addCodeToSlide(".show-active");
     });
 
-
     /*** 王海涛 wht-start ***/
     //popovers组件事件绑定
     //popovers关闭按钮绑定
