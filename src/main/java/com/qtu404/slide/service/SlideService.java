@@ -25,6 +25,8 @@ public interface SlideService extends BaseService<SlideVo> {
 
     int modiyfInfo(UserVo userVo, SlideVo slideVo);
 
+    SlideVo addNewSlide(Integer userId, Integer folderId);
+
     public List<SlideVo> findAllSlideByUserId(Integer userId);
 
 }

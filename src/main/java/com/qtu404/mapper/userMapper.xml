@@ -13,7 +13,7 @@
 
     <update id="modify" parameterType="com.qtu404.user.domain.UserVo">
         UPDATE account
-        SET account.username = #{username}, account.phone = #{phone}, account.password = #{password},
+        SET account.username = #{username}, account.phone = #{phoneNum}, account.password = #{password},
             account.avator   = #{avator}
         WHERE account.userId = #{userId}
     </update>

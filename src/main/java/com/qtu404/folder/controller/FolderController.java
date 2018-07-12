@@ -2,6 +2,7 @@ package com.qtu404.folder.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.qtu404.folder.domain.Folder;
+import com.qtu404.folder.domain.TreeNode;
 import com.qtu404.folder.service.FolderService;
 import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.web.Result;
@@ -25,7 +26,7 @@ public class FolderController extends BaseController<Folder> {
     private FolderService folderService;
 
     /**
-     * 获得当前登录用户的根目录
+     * 获得当前登录用户的文件树
      *
      * @param session
      * @param response
@@ -37,7 +38,8 @@ public class FolderController extends BaseController<Folder> {
         if (userVo != null) {
             folder = folderService.getRootFolder(userVo);
         }
-        writeResult(response, folder);
+        TreeNode treeNode = TreeNode.createNzTreeNode(folder);
+        writeResult(response, treeNode);
     }
 
     /**

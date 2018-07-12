@@ -118,6 +118,15 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         }
     }
 
+    @Override
+    public SlideVo addNewSlide(Integer userId, Integer folderId) {
+        SlideVo slideVo = SlideVo.createNewSlide(userId);
+        slideVo.setFolderId(folderId);
+        slideDao.save(slideVo);
+        int rst = slideVo.getSlideId();
+        return slideVo;
+    }
+
     public SlideDao getSlideDao() {
         return slideDao;
     }

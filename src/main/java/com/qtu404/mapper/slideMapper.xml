@@ -25,15 +25,15 @@
     <update id="modify" parameterType="com.qtu404.slide.domain.SlideVo">
         UPDATE slides
         SET slides.userId  = #{userId}, slides.theme = #{theme}, slides.play = #{play}, slides.`name` = #{name},
-        slides.`exit`  = #{exit},
-        slides.content = #{content}, slides.config = #{config}
+            slides.`exit`  = #{exit},
+            slides.content = #{content}, slides.config = #{config}
         WHERE slides.slideId = #{slideId}
     </update>
 
     <update id="modifyInfo" parameterType="com.qtu404.slide.domain.SlideVo">
         UPDATE slides
         SET slides.`name`    = #{name},
-        slides.folder_id = #{folderId}
+            slides.folder_id = #{folderId}
         WHERE slides.slideId = #{slideId}
     </update>
 
@@ -56,9 +56,9 @@
 
     <select id="findAllByUserId" resultMap="SlideResult" parameterType="int">
         SELECT
-        slides.userId,
-        slides.name,
-        slides.slideId
+            slides.userId,
+            slides.name,
+            slides.slideId
         FROM slides
         WHERE userId = #{id} AND slides.exit = 'true'
         ORDER BY slideId DESC

@@ -163,4 +163,13 @@ public class SlideController extends BaseController<SlideVo> {
         }
         writeResult(response, result);
     }
+
+    @RequestMapping("/saveWithAngular")
+    public void saveWithAngular(HttpServletResponse response, HttpServletRequest request) {
+        String folderId = request.getParameter("folderId");
+        HttpSession session = request.getSession();
+        UserVo userVo = (UserVo) session.getAttribute("loginUser");
+        SlideVo slideVo = slideService.addNewSlide(userVo.getUserId(), Integer.parseInt(folderId));
+        writeResult(response, slideVo);
+    }
 }
