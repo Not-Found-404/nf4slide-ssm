@@ -39,17 +39,6 @@ public class QuestionController extends BaseController<Question> {
         return "edit";
     }
 
-
-
-
-    @RequestMapping("addNew")
-    public void addNew(HttpServletRequest request, HttpServletResponse response) {
-        UserVo userVo = (UserVo) request.getSession().getAttribute("loginUser");
-        Question question = Question.createDefaultQuestion(userVo.getUserId());
-        question = questionService.save(question);
-        writeResult(response,question);
-    }
-
     @Override
     protected BaseService<Question> getBaseService() {
         return questionService;
