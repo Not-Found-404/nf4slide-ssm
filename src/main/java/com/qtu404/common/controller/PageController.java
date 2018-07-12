@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageController {
     @RequestMapping("/toRegisterPage")
     public String toRegisterPage() {
-        return "register";
+        return "registerA";
     }
 
     @RequestMapping("/toUserPage")
@@ -33,7 +33,7 @@ public class PageController {
 
     @RequestMapping("/toHomePage")
     public String toHomePage() {
-        return "home";
+        return "homeA";
     }
 
     @RequestMapping("/toUploadPage")
