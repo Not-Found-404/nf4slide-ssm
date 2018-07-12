@@ -127,6 +127,11 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         return slideVo;
     }
 
+    @Override
+    public List<SlideVo> findByName(SlideVo slideVo) {
+        return this.slideDao.findByName(slideVo);
+    }
+
     public SlideDao getSlideDao() {
         return slideDao;
     }

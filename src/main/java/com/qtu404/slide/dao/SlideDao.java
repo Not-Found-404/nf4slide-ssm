@@ -9,5 +9,7 @@ import java.util.List;
 public interface SlideDao extends BaseDao<SlideVo> {
     int modifyInfo(SlideVo slideVo);
 
+    List<SlideVo> findByName(SlideVo slideVo);
+
     public List<SlideVo> findAllSlideByUserId(Integer userId);
 }

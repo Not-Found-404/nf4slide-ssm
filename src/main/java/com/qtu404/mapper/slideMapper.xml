@@ -21,6 +21,15 @@
         WHERE slideId = #{id}
     </select>
 
+    <select id="findByName" resultMap="SlideResult" parameterType="com.qtu404.slide.domain.SlideVo">
+        SELECT *
+        FROM
+            slides s
+        WHERE
+            s.userId = #{userId}
+            AND s.`name` LIKE #{nmae}
+    </select>
+
 
     <update id="modify" parameterType="com.qtu404.slide.domain.SlideVo">
         UPDATE slides

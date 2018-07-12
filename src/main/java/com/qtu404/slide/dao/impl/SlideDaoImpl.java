@@ -27,6 +27,21 @@ public class SlideDaoImpl extends BaseDaoImpl<SlideVo> implements SlideDao {
         return rst;
     }
 
+    /**
+     * 通过名字模糊查询
+     *
+     * @param slideVo
+     * @return
+     */
+    @Override
+    public List<SlideVo> findByName(SlideVo slideVo) {
+        slideVo.setName("%" + slideVo.getName() + "%");
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        String statement = getNamespaces() + ".findByName";
+        List<SlideVo> slideVos = sqlSession.selectList(statement, slideVo);
+        return slideVos;
+    }
+
     @Override
     public List<SlideVo> findAllSlideByUserId(Integer userId) {
         List<SlideVo> slideVos = null;

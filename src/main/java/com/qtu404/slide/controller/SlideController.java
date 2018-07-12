@@ -172,4 +172,14 @@ public class SlideController extends BaseController<SlideVo> {
         SlideVo slideVo = slideService.addNewSlide(userVo.getUserId(), Integer.parseInt(folderId));
         writeResult(response, slideVo);
     }
+
+    @RequestMapping(value = "/findByNameWithAngular", method = RequestMethod.POST)
+    public void findByNameWithAngular(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
+        SlideVo dto = JSON.parseObject(body, SlideVo.class);
+        HttpSession session = request.getSession();
+        UserVo userVo = (UserVo) session.getAttribute("loginUser");
+        dto.setUserId(userVo.getUserId());
+        List<SlideVo> slideVos = this.slideService.findByName(dto);
+        writeResult(response, slideVos);
+    }
 }
