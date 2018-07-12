@@ -89,7 +89,7 @@ module.exports = "dl,ol,p,pre,ul{margin-top:0}address,dl,ol,p,pre,ul{margin-bott
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');\n/* You can add global styles to this file, and also import other style files */\nbody{\n    /* 设置背景 */\n    background-position: top left;\n    height: 100%;\n    width: 100%;\n    margin: 0;\n    padding: 0;\n    background-attachment: fixed;\n    background-repeat: no-repeat;\n    background-attachment: fixed;\n    background-size: 100% 100%;\n    background-image: url('bgImg_9.jpg');\n}"
+module.exports = "\n@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');\n/* You can add global styles to this file, and also import other style files */\nbody{\n    /* 设置背景 */\n    background-position: top left;\n    height: 100%;\n    width: 100%;\n    margin: 0;\n    padding: 0;\n    background-attachment: fixed;\n    background-repeat: no-repeat;\n    background-attachment: fixed;\n    background-size: 100% 100%;\n    background-image: url(http://www.qtu404.com/angular/assert/image/icon/bgImg_0.jpg);\n}\n"
 
 /***/ }),
 

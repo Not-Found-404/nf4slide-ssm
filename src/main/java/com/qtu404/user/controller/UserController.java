@@ -65,6 +65,9 @@ public class UserController extends BaseController<UserVo> {
         result.setResult("true");
         if (userVo != null) {//不通过
             result.setResult("false");
+            result.setCode(500);
+        }else {
+            result.setCode(200);
         }
         writeResult(response, result);
     }

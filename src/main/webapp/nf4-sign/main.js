@@ -48,10 +48,10 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 var routes = [
-    { path: 'sign-in', component: _sign_in_sign_in_component__WEBPACK_IMPORTED_MODULE_2__["SignInComponent"] },
-    { path: 'sign-up', component: _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_3__["SignUpComponent"] },
+    { path: 'web/sign-in', component: _sign_in_sign_in_component__WEBPACK_IMPORTED_MODULE_2__["SignInComponent"] },
+    { path: 'web/sign-up', component: _sign_up_sign_up_component__WEBPACK_IMPORTED_MODULE_3__["SignUpComponent"] },
     { path: '',
-        redirectTo: '/sign-in',
+        redirectTo: 'web/sign-in',
         pathMatch: 'full'
     },
 ];
@@ -60,7 +60,10 @@ var AppRoutingModule = /** @class */ (function () {
     }
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+            imports: [
+                // RouterModule.forRoot(routes) ,
+                _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { 'useHash': true })
+            ],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], AppRoutingModule);
@@ -390,7 +393,7 @@ module.exports = "/* “登录” 二字 */\r\n.nf4-sign__sign-in-text{\r\n  dis
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- 登录模块 -->\n<div class=\"sign-in\">\n  <!-- brand__logo||brand__name -->\n  <brand-layout></brand-layout>\n  <!-- 登录模块 -->\n  <div class=\"nf4-sign__sign-in\">\n    <!-- 登录标题 -->\n    <div class=\"nf4-sign__sign-in-text\">\n      <span>登录</span>\n    </div>\n    <!-- 登录表单div -->\n    <div class=\"nf4-sign__sign-in-form\">\n      <!-- 登录表单 （含验证） -->\n      <form nz-form [formGroup]=\"validateForm\" class=\"sign-in-form\" (ngSubmit)=\"submitForm()\">\n        <!-- 手机号码 -->\n        <!-- nz-form-item 表单项用于区分表单中不同的区域 -->\n        <nz-form-item [nzType]=\"flex\">\n          <!-- 表单域 -->\n          <nz-form-control >\n            <!-- 带有前缀图标 “人头”-->\n            <nz-input-group nzPrefixIcon=\"anticon anticon-user\">\n              <!-- 最多11位 -->\n              <!-- 起别名\"phoneNum\" -->\n              <input id=\"phoneNum\" #phoneNum nz-input formControlName=\"phoneNum\" placeholder=\"手机号码\" maxlength=\"11\" >\n            </nz-input-group>\n            <!-- 验证是否是否碰过这个输入域&&是否输入了手机号&&若没有则提示错误信息 -->\n            <nz-form-explain *ngIf=\"validateForm.get('phoneNum').dirty && validateForm.get('phoneNum').errors\">请输入手机号码</nz-form-explain>\n          </nz-form-control>\n        </nz-form-item>\n        <!-- 密码 -->\n        <nz-form-item [nzType]=\"flex\">\n          <nz-form-control>\n            <!-- 带有前缀图标 \"锁\"-->\n            <nz-input-group nzPrefixIcon=\"anticon anticon-lock\">\n              <!-- 起别名\"password\" -->\n              <input type=\"password\" #password nz-input formControlName=\"password\" placeholder=\"密码\">\n            </nz-input-group>\n            <!-- 验证是否输入了密码 && 若没有则提示错误信息 -->\n            <nz-form-explain *ngIf=\"validateForm.get('password').dirty && validateForm.get('password').errors\">请输入密码</nz-form-explain>\n          </nz-form-control>\n        </nz-form-item>\n\n        <nz-form-item [nzType]=\"flex\">\n          <nz-form-control>\n            <!-- 是否记住密码 -->\n            <label nz-checkbox formControlName=\"remember\">\n              <span>记住我</span>\n            </label>\n            <!-- 忘记密码 -->\n            <a class=\"sign-in-forgot\" >忘记密码</a>\n            <!-- 登录 -->\n            <button nz-button (click)=\"signIn(phoneNum.value,password.value)\" class=\"sign-in-button\" [nzType]=\"'primary'\">登录</button>\n              还没有账户？\n            <!-- 注册 -->\n            <a routerLink=\"/sign-up\">创建一个!</a>\n          </nz-form-control>\n        </nz-form-item>\n      </form>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<!-- 登录模块 -->\n<div class=\"sign-in\">\n  <!-- brand__logo||brand__name -->\n  <brand-layout></brand-layout>\n  <!-- 登录模块 -->\n  <div class=\"nf4-sign__sign-in\">\n    <!-- 登录标题 -->\n    <div class=\"nf4-sign__sign-in-text\">\n      <span>登录</span>\n    </div>\n    <!-- 登录表单div -->\n    <div class=\"nf4-sign__sign-in-form\">\n      <!-- 登录表单 （含验证） -->\n      <form nz-form [formGroup]=\"validateForm\" class=\"sign-in-form\" (ngSubmit)=\"submitForm()\">\n        <!-- 手机号码 -->\n        <!-- nz-form-item 表单项用于区分表单中不同的区域 -->\n        <!--[nzType]=\"flex\"-->\n        <nz-form-item >\n          <!-- 表单域 -->\n          <nz-form-control >\n            <!-- 带有前缀图标 “人头”-->\n            <nz-input-group nzPrefixIcon=\"anticon anticon-user\">\n              <!-- 最多11位 -->\n              <!-- 起别名\"phoneNum\" -->\n              <input id=\"phoneNum\" #phoneNum nz-input formControlName=\"phoneNum\" placeholder=\"手机号码\" maxlength=\"11\" >\n            </nz-input-group>\n            <!-- 验证是否是否碰过这个输入域&&是否输入了手机号&&若没有则提示错误信息 -->\n            <nz-form-explain *ngIf=\"validateForm.get('phoneNum').dirty && validateForm.get('phoneNum').errors\">请输入手机号码</nz-form-explain>\n          </nz-form-control>\n        </nz-form-item>\n        <!-- 密码 -->\n        <!--[nzType]=\"flex\"-->\n        <nz-form-item >\n          <nz-form-control>\n            <!-- 带有前缀图标 \"锁\"-->\n            <nz-input-group nzPrefixIcon=\"anticon anticon-lock\">\n              <!-- 起别名\"password\" -->\n              <input type=\"password\" #password nz-input formControlName=\"password\" placeholder=\"密码\">\n            </nz-input-group>\n            <!-- 验证是否输入了密码 && 若没有则提示错误信息 -->\n            <nz-form-explain *ngIf=\"validateForm.get('password').dirty && validateForm.get('password').errors\">请输入密码</nz-form-explain>\n          </nz-form-control>\n        </nz-form-item>\n        <!--[nzType]=\"flex\"-->\n        <nz-form-item>\n          <nz-form-control>\n            <!-- 是否记住密码 -->\n            <label nz-checkbox formControlName=\"remember\">\n              <span>记住我</span>\n            </label>\n            <!-- 忘记密码 -->\n            <a class=\"sign-in-forgot\" >忘记密码</a>\n            <!-- 登录 -->\n            <button nz-button (click)=\"signIn(phoneNum.value,password.value)\" class=\"sign-in-button\" [nzType]=\"'primary'\">登录</button>\n              还没有账户？\n            <!-- 注册 -->\n            <a routerLink=\"/sign-up\">创建一个!</a>\n          </nz-form-control>\n        </nz-form-item>\n      </form>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -444,6 +447,7 @@ var SignInComponent = /** @class */ (function () {
         }
         console.log();
     };
+    // 执行登录操作，判断是否成功
     SignInComponent.prototype.signIn = function (phoneNum, password) {
         var _this = this;
         this.userService.login({
@@ -498,7 +502,7 @@ module.exports = "/* “注册” 二字 */\r\n.nf4-sign__sign-up-text{\r\n  tex
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- 注册模块 -->\n<div class=\"sign-up\">\n  <!-- brand -->\n  <brand-layout></brand-layout>\n  <!-- 注册表单模块 -->\n  <div class=\"nf4-sign__sign-up\">\n    <!-- “注册” 标题 -->\n    <div class=\"nf4-sign__sign-up-text\">\n      <span>注册</span>\n    </div>\n    <!-- 注册 表单div -->\n    <div class=\"nf4-sign__sign-up-form\">\n      <!-- 注册表单 -->\n    <form nz-form [formGroup]=\"validateForm\" (ngSubmit)=\"submitForm()\">\n      <!-- 手机号 -->\n      <nz-form-item>\n          <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"phoneNumber\" nzRequired>手机号码</nz-form-label>\n          <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\" [nzValidateStatus]=\"validateForm.controls['phoneNumber']\">\n            <!-- 在input前+“+86”标签 -->\n            <nz-input-group nzAddOnBefore=\"+86\">\n              <input formControlName=\"phoneNumber\" #phoneNumber nz-input>\n            </nz-input-group>\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('phoneNumber').dirty && validateForm.get('phoneNumber').errors\">请输入手机号!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 密码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"password\" nzRequired>密码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input type=\"password\" id=\"password\" formControlName=\"password\" (ngModelChange)=\"updateConfirmValidator()\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('password').dirty && validateForm.get('password').errors\">请输入密码!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 确认密码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"checkPassword\" nzRequired>确认密码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input type=\"password\" formControlName=\"checkPassword\" id=\"checkPassword\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('checkPassword').dirty && validateForm.get('checkPassword').errors\">\n            <ng-container *ngIf=\"validateForm.get('checkPassword').hasError('required')\">\n              请确认密码!\n            </ng-container>\n            <!-- 验证两次密码是否输入一致 -->\n            <ng-container *ngIf=\"validateForm.get('checkPassword').hasError('confirm')\">\n              您输入的两个密码不一致!\n            </ng-container>\n          </nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 用户名 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"nickname\" nzRequired>\n          <span>\n            用户名\n            <nz-tooltip nzTitle=\"What do you want other to call you\">\n              <i nz-tooltip class=\"anticon anticon-question-circle-o\"></i>\n            </nz-tooltip>\n          </span>\n        </nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input id=\"nickname\" formControlName=\"nickname\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('nickname').dirty && validateForm.get('nickname').errors\">!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 验证码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"captcha\" nzRequired>验证码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <div nz-row [nzGutter]=\"8\">\n            <div nz-col [nzSpan]=\"12\">\n              <input nz-input formControlName=\"captcha\" id=\"captcha\">\n            </div>\n            <div nz-col [nzSpan]=\"12\">\n              <button nz-button (click)=\"getCaptcha(phoneNumber.value)\">获取验证码</button>\n            </div>\n          </div>\n          <!--<nz-form-explain *ngIf=\"validateForm.get('captcha').dirty && validateForm.get('captcha').errors\">Please input the captcha you got!</nz-form-explain>-->\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 协议 -->\n      <nz-form-item nz-row style=\"margin-bottom:8px;\">\n        <nz-form-control [nzSpan]=\"18\" [nzOffset]=\"4\">\n          <label nz-checkbox formControlName=\"agree\">\n            <span>我已阅读<a>《nf4用户协议》</a></span>\n          </label>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 注册按钮 -->\n      <nz-form-item nz-row style=\"margin-bottom:8px;\">\n        <nz-form-control [nzSpan]=\"14\" [nzOffset]=\"6\">\n          <button nz-button nzType=\"primary\">注册</button>\n        </nz-form-control>\n      </nz-form-item>\n    </form>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<!-- 注册模块 -->\n<div class=\"sign-up\">\n  <!-- brand -->\n  <brand-layout></brand-layout>\n  <!-- 注册表单模块 -->\n  <div class=\"nf4-sign__sign-up\">\n    <!-- “注册” 标题 -->\n    <div class=\"nf4-sign__sign-up-text\">\n      <span>注册</span>\n    </div>\n    <!-- 注册 表单div -->\n    <div class=\"nf4-sign__sign-up-form\">\n      <!-- 注册表单 -->\n    <form nz-form [formGroup]=\"validateForm\" (ngSubmit)=\"submitForm()\">\n      <!-- 手机号 -->\n      <nz-form-item>\n          <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"phoneNumber\" nzRequired>手机号码</nz-form-label>\n          <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\" [nzValidateStatus]=\"validateForm.controls['phoneNumber']\">\n            <!-- 在input前+“+86”标签 -->\n            <nz-input-group nzAddOnBefore=\"+86\">\n              <input formControlName=\"phoneNumber\" #phoneNumber nz-input (blur)=\"exitPhoneNum(phoneNumber.value)\" minlength=\"11\" maxlength=\"11\">\n            </nz-input-group>\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('phoneNumber').dirty && validateForm.get('phoneNumber').errors\">请输入11位手机号!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 密码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"password\" nzRequired>密码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input type=\"password\" id=\"password\" formControlName=\"password\" (ngModelChange)=\"updateConfirmValidator()\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('password').dirty && validateForm.get('password').errors\">请输入密码!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 确认密码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzValidateStatus=\"success\" nzFor=\"checkPassword\" nzRequired>确认密码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input type=\"password\" formControlName=\"checkPassword\" id=\"checkPassword\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('checkPassword').dirty && validateForm.get('checkPassword').errors\">\n            <ng-container *ngIf=\"validateForm.get('checkPassword').hasError('required')\">\n              请确认密码!\n            </ng-container>\n            <!-- 验证两次密码是否输入一致 -->\n            <ng-container *ngIf=\"validateForm.get('checkPassword').hasError('confirm')\">\n              您输入的两个密码不一致!\n            </ng-container>\n          </nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 用户名 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"nickname\" nzRequired>\n          <span>\n            用户名\n            <nz-tooltip nzTitle=\"给自己起个名字吧！\">\n              <i nz-tooltip class=\"anticon anticon-question-circle-o\"></i>\n            </nz-tooltip>\n          </span>\n        </nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <input nz-input id=\"nickname\" formControlName=\"nickname\">\n          <!-- 判断是否修改过&&提示错误 -->\n          <nz-form-explain *ngIf=\"validateForm.get('nickname').dirty && validateForm.get('nickname').errors\">!</nz-form-explain>\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 验证码 -->\n      <nz-form-item>\n        <nz-form-label [nzSm]=\"6\" [nzXs]=\"24\" nzFor=\"captcha\" nzRequired>验证码</nz-form-label>\n        <nz-form-control [nzSm]=\"14\" [nzXs]=\"24\">\n          <div nz-row [nzGutter]=\"8\">\n            <div nz-col [nzSpan]=\"12\">\n              <input nz-input formControlName=\"captcha\" id=\"captcha\">\n            </div>\n            <div nz-col [nzSpan]=\"12\">\n              <button nz-button (click)=\"getCaptcha(phoneNumber.value)\">获取验证码</button>\n            </div>\n          </div>\n          <!--<nz-form-explain *ngIf=\"validateForm.get('captcha').dirty && validateForm.get('captcha').errors\">Please input the captcha you got!</nz-form-explain>-->\n        </nz-form-control>\n      </nz-form-item>\n      <!-- 协议 -->\n      <!--<nz-form-item nz-row style=\"margin-bottom:8px;\">-->\n        <!--<nz-form-control [nzSpan]=\"18\" [nzOffset]=\"4\">-->\n          <!--<label nz-checkbox  formControlName=\"agree\">-->\n            <!--<span>我已阅读<a>《nf4用户协议》</a></span>-->\n          <!--</label>-->\n        <!--</nz-form-control>-->\n      <!--</nz-form-item>-->\n      <!-- 注册按钮 -->\n      <nz-form-item nz-row style=\"margin-bottom:8px;\">\n        <nz-form-control [nzSpan]=\"14\" [nzOffset]=\"6\">\n          <span>{{validateForm.valid}}</span>\n          <span>{{okPhoneNumber}}</span>\n          <button nz-button nzType=\"primary\" [disabled]=\"!validateForm.valid && okPhoneNumber\" (click)=\"toSignIn()\">注册</button>\n          已有账号，\n          <a routerLink=\"/sign-in\">立即登录!</a>\n        </nz-form-control>\n      </nz-form-item>\n    </form>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -513,8 +517,10 @@ module.exports = "<!-- 注册模块 -->\n<div class=\"sign-up\">\n  <!-- brand -
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignUpComponent", function() { return SignUpComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var ng_zorro_antd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ng-zorro-antd */ "./node_modules/ng-zorro-antd/esm5/antd.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -527,11 +533,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var SignUpComponent = /** @class */ (function () {
-    function SignUpComponent(fb, userService) {
+    function SignUpComponent(router, route, fb, userService, message) {
         var _this = this;
+        this.router = router;
+        this.route = route;
         this.fb = fb;
         this.userService = userService;
+        this.message = message;
+        this.okPhoneNumber = true;
         this.confirmationValidator = function (control) {
             if (!control.value) {
                 return { required: true };
@@ -541,6 +553,14 @@ var SignUpComponent = /** @class */ (function () {
             }
         };
     }
+    SignUpComponent.prototype.createMessage = function (type) {
+        if (type === 'success') {
+            this.message.create(type, "\u6B64\u624B\u673A\u53F7\u53EF\u4EE5\u7528");
+        }
+        else {
+            this.message.create(type, "\u6B64\u624B\u673A\u53F7\u5DF2\u6CE8\u518C\uFF0C\u8BF7\u91CD\u65B0\u8F93\u5165");
+        }
+    };
     SignUpComponent.prototype.submitForm = function () {
         for (var i in this.validateForm.controls) {
             this.validateForm.controls[i].markAsDirty();
@@ -552,21 +572,36 @@ var SignUpComponent = /** @class */ (function () {
         /** wait for refresh value */
         Promise.resolve().then(function () { return _this.validateForm.controls.checkPassword.updateValueAndValidity(); });
     };
+    // 验证手机号是否用过
+    SignUpComponent.prototype.exitPhoneNum = function (phoneNumber) {
+        var _this = this;
+        this.userService.exitPhoneNum(phoneNumber).subscribe(function (data) {
+            if (data.code === 500) {
+                _this.createMessage('error');
+                _this.okPhoneNumber = false;
+            }
+            else if (data.code === 200) {
+                // this.createMessage('success');
+                _this.okPhoneNumber = true;
+            }
+        });
+    };
+    // 得到验证码
     SignUpComponent.prototype.getCaptcha = function (phoneNumber) {
         this.userService.sendVerifyCode(phoneNumber).subscribe();
-        alert(phoneNumber);
+    };
+    // 跳转到登录
+    SignUpComponent.prototype.toSignIn = function () {
+        this.router.navigate(['/sign-in']);
     };
     SignUpComponent.prototype.ngOnInit = function () {
         this.validateForm = this.fb.group({
-            email: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].email]],
-            password: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            checkPassword: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, this.confirmationValidator]],
-            nickname: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            password: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            checkPassword: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, this.confirmationValidator]],
+            nickname: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
             phoneNumberPrefix: ['+86'],
-            phoneNumber: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            website: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            captcha: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
-            agree: [false]
+            phoneNumber: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            captcha: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
         });
     };
     SignUpComponent = __decorate([
@@ -575,7 +610,8 @@ var SignUpComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./sign-up.component.html */ "./src/app/sign-up/sign-up.component.html"),
             styles: [__webpack_require__(/*! ./sign-up.component.css */ "./src/app/sign-up/sign-up.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], ng_zorro_antd__WEBPACK_IMPORTED_MODULE_1__["NzMessageService"]])
     ], SignUpComponent);
     return SignUpComponent;
 }());
