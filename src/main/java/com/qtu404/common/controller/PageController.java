@@ -35,4 +35,9 @@ public class PageController {
     public String toHomePage() {
         return "home";
     }
+
+    @RequestMapping("/toUploadPage")
+    public String toUploadPage() {
+        return "upload";
+    }
 }
