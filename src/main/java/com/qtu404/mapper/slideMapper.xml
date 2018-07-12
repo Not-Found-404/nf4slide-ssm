@@ -45,10 +45,11 @@
         slides.`name`,
         slides.`exit`,
         slides.content,
-        slides.config
+        slides.config,
+        slides.folder_id
         )
         VALUES
-        (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config})
+        (#{userId}, #{theme}, #{play}, #{name}, #{exit}, #{content}, #{config},#{folderId})
         <selectKey keyProperty="slideId" resultType="int" order="AFTER">
             select last_insert_id() as slideId
         </selectKey>

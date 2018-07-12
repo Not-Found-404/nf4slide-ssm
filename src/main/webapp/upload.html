@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="js/plugin/webuploader-0.1.5/webuploader.css" rel="stylesheet">
+</head>
+<body>
+<div style="height: 50px;width: 200px" id="pick">选择pptx文件
+</div>
+<script src="js/plugin/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="js/plugin/jquery-confirm.js" type="text/javascript"></script>
+<script src="js/plugin/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    $(function () {
+        var uploader = WebUploader.create({
+            auto: true,
+            // swf文件路径
+            swf: 'js/plugin/webuploader-0.1.5/Uploader.swf',
+
+            // 文件接收服务端。
+            server: 'file/pptUpLoad',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#pick',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: true,
+            duplicate: true,
+            accept: {
+                title: 'pptx',
+                extensions: 'pptx',
+                mimeTypes: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            }
+        });
+
+        uploader.on('uploadSuccess', function (file, response) {
+            window.open('toUserPage', '_self');
+        });
+
+        uploader.on('fileQueued', function (file) {
+            $.confirm({
+                title: '提示!',
+                content: '正在处理中请勿关闭此页面!',
+                type: 'blue'
+            });
+        });
+    });
+</script>
+</body>
+</html>
