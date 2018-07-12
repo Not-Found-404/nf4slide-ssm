@@ -23,6 +23,7 @@ public abstract class BaseController<T> {
 
     /**
      * 通过id得到实体json数据
+     *
      * @param id       实体id
      * @param response
      */
@@ -31,18 +32,7 @@ public abstract class BaseController<T> {
         PrintWriter out = null;
         ObjectMapper ob = null;
         T t = getBaseService().fetchById(id);
-        try {
-            out = response.getWriter();
-            ob = new ObjectMapper();
-
-            String jsonStr = ob.writeValueAsString(t);
-            out.write(jsonStr);
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        writeResult(response, t);
     }
 
     /**

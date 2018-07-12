@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 
 @RequestMapping("answer/")
-@Controller("answerController")
+@Controller
 public class AnswerController extends BaseController<Answer> {
 
     @Resource(name="answerService")

@@ -13,22 +13,12 @@
         <result property="play" column="play"/>
         <result property="config" column="config"/>
         <result property="theme" column="theme"/>
-        <result property="exit" column="exit"/>
-        <association property="userVo" resultMap="UserResult"/>
-    </resultMap>
-
-    <resultMap id="UserResult" type="com.qtu404.user.domain.UserVo">
-        <id property="userId" column="userId"/>
-        <result property="username" column="username"/>
-        <result property="phoneNum" column="phone"/>
-        <result property="password" column="password"/>
-        <result property="avator" column="avator"/>
     </resultMap>
 
     <select id="fetchById" resultMap="SlideResult" parameterType="int">
-        SELECT * FROM slides s
-        INNER JOIN account u ON u.userId = s.userId
-        WHERE s.slideId = #{id}
+        SELECT *
+        FROM slides
+        WHERE slideId = #{id}
     </select>
 
 
@@ -37,6 +27,13 @@
         SET slides.userId  = #{userId}, slides.theme = #{theme}, slides.play = #{play}, slides.`name` = #{name},
             slides.`exit`  = #{exit},
             slides.content = #{content}, slides.config = #{config}
+        WHERE slides.slideId = #{slideId}
+    </update>
+
+    <update id="modifyInfo" parameterType="com.qtu404.slide.domain.SlideVo">
+        UPDATE slides
+        SET slides.`name`    = #{name},
+            slides.folder_id = #{folderId}
         WHERE slides.slideId = #{slideId}
     </update>
 
@@ -59,12 +56,11 @@
 
     <select id="findAllByUserId" resultMap="SlideResult" parameterType="int">
         SELECT
-        slides.userId,
-        slides.name,
-        slides.slideId
+            slides.userId,
+            slides.name,
+            slides.slideId
         FROM slides
         WHERE userId = #{id} AND slides.exit = 'true'
         ORDER BY slideId DESC
     </select>
-
 </mapper>

@@ -1,7 +1,6 @@
 package com.qtu404.user.domain;
 
-import com.qtu404.slide.domain.SlideVo;
-import java.util.List;
+import com.qtu404.folder.domain.Folder;
 
 public class UserVo {
     private Integer userId;
@@ -9,14 +8,14 @@ public class UserVo {
     private String phoneNum;
     private String password;
     private String avator;
-    private List<SlideVo> slideVos;
+    private Folder rootFolder;
 
-    public List<SlideVo> getSlideVos() {
-        return slideVos;
+    public String getVerifyCode() {
+        return verifyCode;
     }
 
-    public void setSlideVos(List<SlideVo> slideVos) {
-        this.slideVos = slideVos;
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
     }
 
     public String getPassword() {
@@ -59,14 +58,23 @@ public class UserVo {
         this.phoneNum = phoneNum;
     }
 
-    @Override
-    public String toString() {
-        return "UserVo{" +
-                "userId='" + userId + '\'' +
-                ", username='" + username + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    private Integer folderId;
+
+    private String verifyCode;
+
+    public Integer getFolderId() {
+        return folderId;
     }
 
+    public void setFolderId(Integer folderId) {
+        this.folderId = folderId;
+    }
+
+    public Folder getRootFolder() {
+        return rootFolder;
+    }
+
+    public void setRootFolder(Folder rootFolder) {
+        this.rootFolder = rootFolder;
+    }
 }

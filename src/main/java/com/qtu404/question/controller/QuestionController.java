@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequestMapping("question/")
-@Controller("questionController")
+@Controller
 public class QuestionController extends BaseController<Question> {
 
     @Resource(name="questionService")

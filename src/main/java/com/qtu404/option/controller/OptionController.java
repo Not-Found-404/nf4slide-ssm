@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 
 @RequestMapping("option/")
-@Controller("optionController")
+@Controller
 public class OptionController extends BaseController<Option> {
 
     @Resource(name="optionService")

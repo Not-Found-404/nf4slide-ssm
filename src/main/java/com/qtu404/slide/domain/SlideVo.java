@@ -19,15 +19,6 @@ public class SlideVo {
     private String theme;
     private String whoPlay;
     private String exit;
-    private UserVo userVo;
-
-    public UserVo getUserVo() {
-        return userVo;
-    }
-
-    public void setUserVo(UserVo userVo) {
-        this.userVo = userVo;
-    }
 
     public String getExit() {
         return exit;
@@ -99,6 +90,16 @@ public class SlideVo {
 
     public void setPlay(String play) {
         this.play = play;
+    }
+
+    private Integer folderId;
+
+    public Integer getFolderId() {
+        return folderId;
+    }
+
+    public void setFolderId(Integer folderId) {
+        this.folderId = folderId;
     }
 
     public static SlideVo createNewSlide(Integer userId) {
