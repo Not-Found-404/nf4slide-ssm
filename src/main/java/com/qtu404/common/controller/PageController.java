@@ -13,7 +13,7 @@ public class PageController {
 
     @RequestMapping("/toUserPage")
     public String toUserPage() {
-        return "usercenter";
+        return "usercenterA";
     }
 
     @RequestMapping("/toSlideEditPage")

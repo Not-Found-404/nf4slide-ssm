@@ -49,7 +49,7 @@ public class FolderController extends BaseController<Folder> {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/modifyWithAngular", method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyWithAngular", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     public void modifyWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         Folder folder = JSON.parseObject(body, Folder.class);
         Result result = new Result();

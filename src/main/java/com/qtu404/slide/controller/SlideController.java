@@ -104,8 +104,10 @@ public class SlideController extends BaseController<SlideVo> {
         Result result = new Result();
         if (rst == 1) {
             result.setResult("delSuccess");
+            result.setCode(200);
         } else {
             result.setResult("delFail");
+            result.setCode(500);
         }
         writeResult(response, result);
     }

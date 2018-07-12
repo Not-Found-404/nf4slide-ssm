@@ -5,6 +5,8 @@ import com.qtu404.slide.dao.SlideDao;
 import com.qtu404.slide.service.FileService;
 import com.qtu404.slide.domain.FileVo;
 import com.qtu404.slide.domain.SlideVo;
+import com.qtu404.user.dao.UserDao;
+import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.poi.PPTReader;
 import com.qtu404.util.web.ssm.dao.BaseDao;
 import com.qtu404.util.web.ssm.service.BaseServiceImpl;
@@ -26,29 +28,36 @@ public class FileServiceImpl extends BaseServiceImpl<FileVo> implements FileServ
     @Resource(name = "slideDao")
     private SlideDao slideDao;
 
+    @Resource(name = "userDao")
+    private UserDao userDao;
+
     @Override
     public SlideVo savePPTToSlide(FileVo fileVo) {
-        //Create a slide with default template
+        // Create a slide with default template
         SlideVo slideVo = SlideVo.createNewSlide(fileVo.getUserId());
 
-        //Modify the name of file
+        // Modify the name of file
         slideVo.setName(fileVo.getFileName());
-        //Save the slide to database by call the method named save() of slideDao
+        UserVo userVo = userDao.fetchById(slideVo.getUserId());
+        if (userVo != null) {
+            slideVo.setFolderId(userVo.getFolderId());
+        }
+        // Save the slide to database by call the method named save() of slideDao
         slideVo = slideDao.save(slideVo);
 
-        //Get the physical file path of the PPTX file
+        // Get the physical file path of the PPTX file
         String realSaveDirPath = fileVo.getContextPath() + File.separator
                 + fileVo.getFileSaveDirPath() + File.separator
                 + fileVo.getUserId() + File.separator;
         PPTReader pptReader = new PPTReader();
         pptReader.setScale(1);
 
-        //Set the output path, all of images will be saved in this directory
+        // Set the output path, all of images will be saved in this directory
         pptReader.setOutput_path(realSaveDirPath);
         pptReader.setPPT_file_path(fileVo.getRealPath());
 
-        //Translate the pptx format to img format
-        //It will be take a lof of time
+        // Translate the pptx format to img format
+        // It will be take a lof of time
         List<String> list = pptReader.ppt2png(String.valueOf(slideVo.getSlideId()));
         ImgToSlide imgToSlide = new ImgToSlide(list, fileVo);
         String content = imgToSlide.jpegToImgContent();
@@ -57,7 +66,7 @@ public class FileServiceImpl extends BaseServiceImpl<FileVo> implements FileServ
         slideVo.setContent(content);
         slideVo.setPlay(play);
 
-        //call the method modify of slideDao to upadte the slide
+        // call the method modify of slideDao to upadte the slide
         slideDao.modify(slideVo);
         return slideVo;
     }

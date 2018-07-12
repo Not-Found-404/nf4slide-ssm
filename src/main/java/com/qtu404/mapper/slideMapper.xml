@@ -27,7 +27,7 @@
             slides s
         WHERE
             s.userId = #{userId}
-            AND s.`name` LIKE #{nmae}
+            AND s.`name` LIKE #{name}
     </select>
 
 

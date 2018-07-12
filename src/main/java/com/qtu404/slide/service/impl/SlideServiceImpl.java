@@ -107,12 +107,12 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
     }
 
     @Override
-    public int modiyfInfo(UserVo userVo, SlideVo slideVo) {
-        slideVo = slideDao.fetchById(slideVo.getSlideId());
+    public int modiyfInfo(UserVo userVo, SlideVo dto) {
+        SlideVo slideVo = slideDao.fetchById(dto.getSlideId());
         if (slideVo.getUserId().equals(userVo.getUserId())) {//保证是自己的
-            slideVo.setName(slideVo.getName());
-            slideVo.setFolderId(slideVo.getFolderId());
-            return slideDao.modify(slideVo);
+            slideVo.setName(dto.getName());
+            slideVo.setFolderId(dto.getFolderId());
+            return slideDao.modifyInfo(slideVo);
         } else {
             return 0;
         }
