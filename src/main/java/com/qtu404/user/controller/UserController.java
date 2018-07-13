@@ -94,7 +94,7 @@ public class UserController extends BaseController<UserVo> {
         UserVo userVo = userService.fetchUserByLogin(dto);
         //创建log对象
         LogVo log = new LogVo();
-      如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
+      //如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
             log.setUsername(userVo.getUsername());
             log.setIpadress(IpGetter.getIpAddress(request).toString());
             log.setOperation("login");
