@@ -2,12 +2,15 @@ package com.qtu404.slide.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qtu404.logger.domain.LogVo;
+import com.qtu404.logger.service.LogService;
 import com.qtu404.slide.service.FileService;
 import com.qtu404.slide.service.SlideService;
 import com.qtu404.slide.domain.FileVo;
 import com.qtu404.slide.domain.SlideVo;
 import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.web.Result;
+import com.qtu404.util.web.ipgetter.IpGetter;
 import com.qtu404.util.web.ssm.controller.BaseController;
 import com.qtu404.util.web.ssm.service.BaseService;
 import org.springframework.context.annotation.Scope;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 
 @Controller
@@ -32,6 +36,9 @@ public class FileController extends BaseController<FileVo> {
 
     @Resource(name = "fileService")
     private FileService fileService;
+
+    @Resource(name = "loggerService")
+    LogService logService;
 
     private final String imgFileDateBase = "ImgFileDateBase";
 
@@ -71,6 +78,13 @@ public class FileController extends BaseController<FileVo> {
         //reduce the burden of network transmission
         slideVo.setContent("");
         slideVo.setPlay("");
+        //记录操作
+        LogVo log = new LogVo();
+        log.setUsername(loginUser.getUsername());
+        log.setIpadress(IpGetter.getIpAddress(request));
+        log.setDate(new Date().toString());
+        log.setOperation("uploadFile");
+        logService.record(log);
         writeResult(response, slideVo);
     }
 
@@ -102,6 +116,14 @@ public class FileController extends BaseController<FileVo> {
         fileVo.setContextPath(realPath);
 
         result.setResult(fileService.saveFile(fileVo));
+
+        //记录操作
+        LogVo log = new LogVo();
+        log.setUsername(loginUser.getUsername());
+        log.setOperation("uploadSlideImg");
+        log.setDate(new Date().toString());
+        log.setIpadress(IpGetter.getIpAddress(request));
+        logService.record(log);
         writeResult(response, result);
     }
 
