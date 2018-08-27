@@ -4,6 +4,7 @@ import com.qtu404.common.MybatisUnit;
 import com.qtu404.publish.dao.PublishDao;
 import com.qtu404.publish.domain.Publish;
 import com.qtu404.util.web.ssm.dao.BaseDaoImpl;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +30,14 @@ public class PublishDaoImpl extends BaseDaoImpl<Publish> implements PublishDao {
         return sqlSessionFactory;
     }
 
+    @Override
+    public List<Publish> findPublishByQuestionId(Integer questionId) {
+        String id = ".findAll";
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Publish> publishList = null;
+        publishList =  sqlSession.selectList(getNamespaces() + id, questionId);
+        sqlSession.commit();
+        sqlSession.close();
+        return publishList;
+    }
 }

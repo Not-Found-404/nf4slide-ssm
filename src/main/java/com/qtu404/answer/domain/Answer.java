@@ -10,6 +10,8 @@ public class Answer {
     private String ipAddress;
     private Date time;
     private Publish publish;
+    // 20180823新添加的字段,答题者的信息
+    private String respondentInfo;
 
     public Publish getPublish() {
         return publish;
@@ -20,6 +22,14 @@ public class Answer {
     }
 
     public Answer() {
+    }
+
+    public String getRespondentInfo() {
+        return respondentInfo;
+    }
+
+    public void setRespondentInfo(String respondentInfo) {
+        this.respondentInfo = respondentInfo;
     }
 
     public Integer getAnswerId() {

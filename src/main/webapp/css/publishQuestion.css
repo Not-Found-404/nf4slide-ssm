@@ -1,0 +1,73 @@
+.reveal section{
+    margin: 0px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+    max-height: 100%;
+}
+.question-content {
+    border-bottom: 0 !important;
+    padding: 2em!important;
+    margin: 0 auto!important;
+    border: 1px solid #ccc !important;
+    width: 80%;
+}
+#question-optionList{
+    text-align: left;
+}
+#btn-submit {
+    align: right;
+    line-height: 2em;
+    margin-top: 5em;
+    padding: 1em 2em 1em 2em;
+    background: #add9e4;
+    font-weight: bold;
+    color: #5F5F5F;
+    border-radius: 1em;
+    text-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+.reveal h3 {
+    color: #333;
+    margin: 0;
+    line-height: 1;
+    text-align: left;
+    font-size: .8em;
+}
+.information{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/*单选框样式*/
+input[type="radio"] + label::before {
+    content: "\a0"; /*不换行空格*/
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 1px solid #426fcd;
+    text-indent: .15em;
+    line-height: 1;
+}
+input[type="radio"]:checked + label::before {
+    background-color: #595be4;
+    background-clip: content-box;
+    padding: .2em;
+}
+input[type="radio"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
+}
+.optionList {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 40px;
+}

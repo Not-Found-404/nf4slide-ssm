@@ -1,5 +1,6 @@
 package com.qtu404.question.service.impl;
 
+import com.qtu404.option.dao.OptionDao;
 import com.qtu404.option.domain.Option;
 import com.qtu404.question.dao.QuestionDao;
 import com.qtu404.question.domain.Question;
@@ -16,6 +17,8 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question>  implements Q
 
     @Resource(name="questionDao")
     QuestionDao questionDao;
+    @Resource(name="optionDao")
+    OptionDao optionDao;
 
     @Override
     protected BaseDao<Question> getBaseDao() {
@@ -23,8 +26,14 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question>  implements Q
     }
 
     @Override
-    public Question save(Question question, List<Option> optionList) {
-        return null;
+    public Question save(Question question) {
+        questionDao.save(question);
+        Integer questionId = question.getQuestionId();
+        for(Option item:question.getOptionList()){
+            item.setQuestionId(questionId);
+            optionDao.save(item);
+        }
+        return question;
     }
 
 

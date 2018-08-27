@@ -37,7 +37,7 @@
     </delete>
 
     <select id="findAll" resultMap="PublishResult">
-        select *  from publish
+        select *  from publish WHERE question_id=#{questionId}
     </select>
 
     <select id="fetchById" resultMap="publishResult" parameterType="int">

@@ -7,7 +7,5 @@ import com.qtu404.util.web.ssm.service.BaseService;
 import java.util.List;
 
 public interface QuestionService extends BaseService<Question>  {
-    Question save(Question question, List<Option> optionList);
-
     List<Question> findAll(Integer userId);
 }

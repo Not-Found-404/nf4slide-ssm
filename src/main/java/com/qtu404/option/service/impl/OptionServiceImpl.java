@@ -8,6 +8,7 @@ import com.qtu404.util.web.ssm.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("optionService")
 public class OptionServiceImpl extends BaseServiceImpl<Option> implements OptionService {
@@ -15,6 +16,14 @@ public class OptionServiceImpl extends BaseServiceImpl<Option> implements Option
     @Resource(name="optionDao")
     OptionDao optionDao;
 
+    @Override
+    public int modify(List<Option> optionList){
+        int result =0;
+        for (Option option: optionList){
+             result += optionDao.modify(option);
+        }
+        return result;
+    }
     @Override
     protected BaseDao<Option> getBaseDao() {
         return optionDao;

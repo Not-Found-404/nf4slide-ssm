@@ -8,7 +8,7 @@ import java.util.List;
 public class Publish {
     private Integer publishId;
     private Integer questionId;
-    private Date time;
+    private Date time; // 记录发布时间
     private Question question;
 
     public Question getQuestion() {

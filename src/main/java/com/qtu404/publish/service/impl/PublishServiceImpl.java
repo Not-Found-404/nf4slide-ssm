@@ -8,6 +8,7 @@ import com.qtu404.util.web.ssm.service.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("publishService")
 public class PublishServiceImpl extends BaseServiceImpl<Publish> implements PublishService {
@@ -18,5 +19,11 @@ public class PublishServiceImpl extends BaseServiceImpl<Publish> implements Publ
     @Override
     protected BaseDao<Publish> getBaseDao() {
         return publishDao;
+    }
+
+
+    @Override
+    public List<Publish> findPublishByQuestionId(Integer questionId) {
+        return publishDao.findPublishByQuestionId(questionId);
     }
 }

@@ -40,4 +40,9 @@ public class PageController {
     public String toUploadPage() {
         return "upload";
     }
+
+    @RequestMapping("/toPublishPage")
+    public String toPublishPage() {
+        return "publishQuestion";
+    }
 }

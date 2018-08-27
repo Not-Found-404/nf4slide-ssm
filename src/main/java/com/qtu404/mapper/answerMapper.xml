@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qtu404.answer.dao.AnswerDao">
     <insert id="save" parameterType="com.qtu404.answer.domain.Answer">
-        insert into answer(answer_id,publish_id,ip_address,time)
-        values(#{answerId},#{publishId},#{ipAddress},#{time})
+        insert into answer(answer_id,publish_id,ip_address,time,respondent_info)
+        values(#{answerId},#{publishId},#{ipAddress},#{time},#{respondentInfo})
     </insert>
 
     <update id="modify" parameterType="com.qtu404.answer.domain.Answer">
@@ -37,6 +37,7 @@
         <result property="publishId" column="publish_id"/>
         <result property="ipAddress" column="id_address"/>
         <result property="time" column="time"/>
+        <result property="respondentInfo" column="respondent_info"/>
     </resultMap>
 </mapper>
 

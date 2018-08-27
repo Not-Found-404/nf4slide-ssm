@@ -35,7 +35,6 @@ public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDa
         SqlSession sqlSession = sqlSessionFactory.openSession();
         List<Question> questionList = null;
         questionList =  sqlSession.selectList(getNamespaces() + id, userId);
-
         sqlSession.commit();
         sqlSession.close();
         return questionList;

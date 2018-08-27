@@ -17,7 +17,7 @@
         WHERE `option`.option_id = #{optionId}
     </update>
 
-    <delete id="delete" parameterType="int">
+    <delete id="delete" parameterType="com.qtu404.option.domain.Option">
         delete from `option`
         where option_id=#{optionId}
     </delete>

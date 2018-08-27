@@ -114,7 +114,7 @@ public abstract class BaseController<T> {
     /**
      * 删除一个实体
      *
-     * @param t
+     * @param
      * @param response
      */
     @RequestMapping("delete")
