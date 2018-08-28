@@ -106,7 +106,7 @@
             data: {
                 type: "loginUser"
             }, success: function (data, status) {
-                $("#user-name").html(data.userName);
+                $("#avator-header").html(data.userName);
                 $("#user-avator").attr("src", data.avator);
             },
             error: function (e) {
