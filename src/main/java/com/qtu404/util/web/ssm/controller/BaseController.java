@@ -1,5 +1,6 @@
 package com.qtu404.util.web.ssm.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qtu404.util.web.Result;
 import com.qtu404.util.web.dto.DtoTransform;
@@ -203,7 +204,7 @@ public abstract class BaseController<T> {
         setJSONTypeResponeHander(response);
         String rst = null;
         try {
-            rst = objectMapper.writeValueAsString(result);
+            rst = JSON.toJSONString(result);
             PrintWriter out = response.getWriter();
             out.write(rst);
             out.flush();

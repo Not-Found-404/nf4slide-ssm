@@ -1,5 +1,8 @@
 package com.qtu404;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qtu404.answer.dao.AnswerDao;
 import com.qtu404.answer.domain.Answer;
 import com.qtu404.option.domain.Option;
@@ -37,5 +40,20 @@ public class Test {
 //        option.setContent("11125");
 //        optionService.modify(option);
 //        System.out.println();
+
+        Date d = new Date();
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+        s.format(d);
+        System.out.println(s.format(d));
+        Publish publish = new Publish();
+        publish.setTime(new Date());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s1 = null;
+        try {
+            s1 = objectMapper.writeValueAsString(publish);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println();
     }
 }
