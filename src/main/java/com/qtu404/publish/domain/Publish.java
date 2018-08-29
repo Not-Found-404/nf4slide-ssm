@@ -2,6 +2,8 @@ package com.qtu404.publish.domain;
 
 import com.qtu404.answer.domain.Answer;
 import com.qtu404.question.domain.Question;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +12,19 @@ public class Publish {
     private Integer questionId;
     private Date time; // 记录发布时间
     private Question question;
+    private String date; // time的格式化输出
+    private static SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+
+    public String getDate() {
+        if (time != null) {
+            return s.format(time);
+        }
+        return "2000-01-01";
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public Question getQuestion() {
         return question;
