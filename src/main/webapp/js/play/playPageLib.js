@@ -4,17 +4,18 @@ function pageContentInit(playSlideId, isControl, data) {
     $(".slides").html(data.play);//填充幻灯片内容
     $("#theme").attr("href", "js/plugin/reveal.js/css/theme/" + data.theme + ".css");//读取主题
     //config顺序
-    var config = data.config;//eval('(' + data.config + ')');
+    config_ = eval('(' + data.config + ')');//;
+    // alert("config.transition:" + config_.transition);
     Reveal.initialize({
         center: false,
-        transitionSpeed: config.transitionSpeed,//换页速度
-        transition: config.transition,//换页方式
-        progress: config.progress,//是否进度条
-        slideNumber: config.slideNumber//是否显示页数
+        transitionSpeed: config_.transitionSpeed,//换页速度
+        transition: config_.transition,//换页方式
+        progress: config_.progress,//是否进度条
+        slideNumber: config_.slideNumber//是否显示页数
     });
 
-    if (config.autoSlide != "0") {
-        Reveal.configure({autoSlide: config.autoSlide});//自动播放
+    if (config_.autoSlide != "0") {
+        Reveal.configure({autoSlide: config_.autoSlide});//自动播放
     }
 
     if (isControl == "true") {
@@ -65,8 +66,8 @@ function danmuInit(playSlideId, whoPlay) {
     else {
         alert('Not support websocket')
     }
-    //连接发生错误的回调方法
 
+    //连接发生错误的回调方法
     bullet_websocket.onerror = function () {
         alert("弹幕功能发生错误");
     };

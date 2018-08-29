@@ -31,7 +31,6 @@ public class SlideServiceImpl extends BaseServiceImpl<SlideVo> implements SlideS
         //查出来的幻灯片
         SlideVo slideVo = slideDao.fetchById(slideParm.getSlideId());
         Integer userId = slideVo.getUserId();
-
         if (userId.equals(userVo.getUserId())) {//保证是自己的
             slideVo.setContent(slideParm.getContent());//更新编辑内容
             slideVo.setPlay(slideParm.getPlay());//更新播放内容
