@@ -29,7 +29,7 @@ public class FolderServiceImpl extends BaseServiceImpl<Folder> implements Folder
         return folder;
     }
 
-    public List<Folder> getAllChild(Folder f) {
+    private List<Folder> getAllChild(Folder f) {
         if (f == null) {
             return null;
         }

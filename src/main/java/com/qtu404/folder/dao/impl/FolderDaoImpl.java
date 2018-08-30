@@ -25,26 +25,7 @@ public class FolderDaoImpl extends BaseDaoImpl<Folder> implements FolderDao {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         String statement = getNamespaces() + ".fetchById";
         folder = sqlSession.selectOne(statement, id);
-        List<Folder> delFodlers = new ArrayList<>();
-        for (Folder child : folder.getChild()) {
-            if (child.getFolderId() == null) {
-                delFodlers.add(child);
-            }
-        }
-        for (Folder child : delFodlers) {
-            folder.getChild().remove(child);
-        }
-
-        List<SlideVo> slideVos = new ArrayList<>();
-        for (SlideVo child : folder.getSlideVos()) {
-            if (child.getSlideId() == null || child.getExit().equals("false")) {
-                slideVos.add(child);
-            }
-        }
-        for (SlideVo child : slideVos) {
-            folder.getSlideVos().remove(child);
-        }
-
+        removeNullNode(folder);
         sqlSession.commit();
         sqlSession.close();
         return folder;
@@ -69,5 +50,26 @@ public class FolderDaoImpl extends BaseDaoImpl<Folder> implements FolderDao {
     @Override
     protected SqlSessionFactory getSqlSessionFactory() {
         return sqlSessionFactory;
+    }
+
+    private void removeNullNode(Folder folder) {
+        List<Folder> delFodlers = new ArrayList<>();
+        for (Folder child : folder.getChild()) {
+            if (child.getFolderId() == null) {
+                delFodlers.add(child);
+            }
+        }
+        for (Folder child : delFodlers) {
+            folder.getChild().remove(child);
+        }
+        List<SlideVo> slideVos = new ArrayList<>();
+        for (SlideVo child : folder.getSlideVos()) {
+            if (child.getSlideId() == null || child.getExit().equals("false")) {
+                slideVos.add(child);
+            }
+        }
+        for (SlideVo child : slideVos) {
+            folder.getSlideVos().remove(child);
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.qtu404.question.dao.impl;
 
-import com.qtu404.option.domain.Option;
 import com.qtu404.question.dao.QuestionDao;
 import com.qtu404.question.domain.Question;
 import com.qtu404.util.web.ssm.dao.BaseDaoImpl;
@@ -12,12 +11,24 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Repository("questionDao")
-public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDao{
+public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDao {
 
-    private  String namespaces="com.qtu404.question.dao.QuestionDao";
+    private String namespaces = "com.qtu404.question.dao.QuestionDao";
     //注入sqlSessionFactory
     @Resource(name = "sqlSessionFactory")
-    SqlSessionFactory sqlSessionFactory;
+    private SqlSessionFactory sqlSessionFactory;
+
+
+    @Override
+    public List<Question> findAll(Integer userId) {
+        String id = ".findAll";
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Question> questionList = null;
+        questionList = sqlSession.selectList(getNamespaces() + id, userId);
+        sqlSession.commit();
+        sqlSession.close();
+        return questionList;
+    }
 
     @Override
     protected String getNamespaces() {
@@ -29,14 +40,4 @@ public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDa
         return sqlSessionFactory;
     }
 
-    @Override
-    public List<Question> findAll(Integer userId) {
-        String id = ".findAll";
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Question> questionList = null;
-        questionList =  sqlSession.selectList(getNamespaces() + id, userId);
-        sqlSession.commit();
-        sqlSession.close();
-        return questionList;
-    }
 }
