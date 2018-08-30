@@ -107,7 +107,7 @@ public class SlideVo {
         slideVo.setExit("true");
         slideVo.setName("新建幻灯片");
         slideVo.setContent("");
-        slideVo.setConfig("");
+        slideVo.setConfig("{\"transition\":\"convex\",\"transitionSpeed\":\"default\",\"autoSlide\":\"0\",\"progress\":\"true,\",\"slideNumber\":\"true,\"}");
         slideVo.setUserId(userId);
         slideVo.setPlay("");
         slideVo.setTheme("sky");
