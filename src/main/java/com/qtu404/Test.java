@@ -42,18 +42,13 @@ public class Test {
 //        System.out.println();
 
         Date d = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         s.format(d);
         System.out.println(s.format(d));
         Publish publish = new Publish();
         publish.setTime(new Date());
-        ObjectMapper objectMapper = new ObjectMapper();
         String s1 = null;
-        try {
-            s1 = objectMapper.writeValueAsString(publish);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        s1 = JSON.toJSONString(publish);
         System.out.println();
     }
 }

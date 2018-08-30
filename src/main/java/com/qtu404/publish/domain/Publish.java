@@ -13,7 +13,7 @@ public class Publish {
     private Date time; // 记录发布时间
     private Question question;
     private String date; // time的格式化输出
-    private static SimpleDateFormat s = new SimpleDateFormat("yyyy-mm-dd");
+    private static SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public String getDate() {
         if (time != null) {
