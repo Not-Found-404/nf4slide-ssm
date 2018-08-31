@@ -25,10 +25,10 @@ import java.util.List;
 @Controller
 public class QuestionController extends BaseController<Question> {
 
-    @Resource(name="questionService")
+    @Resource(name = "questionService")
     QuestionService questionService;
 
-    @Resource(name="optionService")
+    @Resource(name = "optionService")
     OptionService optionService;
 
     @RequestMapping("/findAllQuestions")
@@ -39,7 +39,8 @@ public class QuestionController extends BaseController<Question> {
         writeResult(response, questionList);
         return "edit";
     }
-    @RequestMapping(value="addNew", method = RequestMethod.GET)
+
+    @RequestMapping(value = "addNew", method = RequestMethod.GET)
     public String addNew(HttpSession session, HttpServletResponse response) {
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         Question question = Question.createDefaultQuestion(userVo.getUserId());
@@ -71,11 +72,12 @@ public class QuestionController extends BaseController<Question> {
             result.setResult("modify Success");
             result.setCode(200);
         } else {
-            result.setResult("modify fail");
             result.setCode(500);
+            result.setResult("modify fail");
         }
         writeResult(response, result);
     }
+
     @RequestMapping("deleteQuestion")
     public void deleteQuestion(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
         Question dto = new Question();
@@ -83,13 +85,22 @@ public class QuestionController extends BaseController<Question> {
         int rst = questionService.delete(dto);
         Result result = new Result();
         if (rst == 1) {
-            result.setResult("delete Success");
             result.setCode(200);
+            result.setResult("delete Success");
         } else {
             result.setResult("delete fail");
             result.setCode(500);
         }
         writeResult(response, result);
+    }
+
+    @RequestMapping("findByDescription")
+    public void findByDescription(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
+        Question dto = new Question();
+        dto.setUserId(((UserVo) request.getSession().getAttribute("loginUser")).getUserId());
+        dto.setDescription(body);
+        List<Question> questions = questionService.findByDescription(dto);
+        writeResult(response, questions);
     }
 
     @Override

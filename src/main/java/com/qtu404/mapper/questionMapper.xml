@@ -20,18 +20,33 @@
 
     <update id="modify" parameterType="com.qtu404.question.domain.Question">
         UPDATE question
-        SET question.user_id = #{userId}, question.description = #{description}, question.original_answer = #{originalAnswer}
+        SET question.user_id         = #{userId}, question.description = #{description},
+            question.original_answer = #{originalAnswer}
         WHERE question.question_id = #{questionId}
     </update>
 
     <delete id="delete" parameterType="com.qtu404.question.domain.Question">
-        delete  from  question
-        where question_id=#{questionId}
+        DELETE FROM question
+        WHERE question_id = #{questionId}
     </delete>
 
     <select id="findAll" parameterType="int" resultMap="questionResult">
-        SELECT * FROM `question` q LEFT OUTER JOIN `option` o ON q.question_id = o.question_id
-        where user_id=#{userId} ORDER BY q.question_id
+        SELECT *
+        FROM `question` q LEFT OUTER JOIN `option` o ON q.question_id = o.question_id
+        WHERE user_id = #{userId}
+        ORDER BY q.question_id
+    </select>
+
+
+    <select id="findByDescription" parameterType="com.qtu404.question.domain.Question" resultMap="questionResult">
+        SELECT *
+        FROM
+            question q
+        WHERE
+            q.description LIKE #{description}
+        ORDER BY
+            q.question_id
+            AND q.question_id = #{userId}
     </select>
 
     <resultMap id="questionResult" type="com.qtu404.question.domain.Question">
@@ -49,8 +64,9 @@
     </resultMap>
 
     <select id="fetchById" parameterType="int" resultMap="questionResult">
-        SELECT * FROM `question` q LEFT OUTER JOIN `option` o ON q.question_id = o.question_id
-        where q.question_id=#{Id}
+        SELECT *
+        FROM `question` q LEFT OUTER JOIN `option` o ON q.question_id = o.question_id
+        WHERE q.question_id = #{Id}
     </select>
 </mapper>
 

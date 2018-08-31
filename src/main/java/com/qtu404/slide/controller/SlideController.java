@@ -71,16 +71,15 @@ public class SlideController extends BaseController<SlideVo> {
      */
     @RequestMapping("/fetchSlidePlayById")
     public void fetchSlidePlayById(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws JsonProcessingException {
-        UserVo userVo = (UserVo) session.getAttribute("loginUser");
         SlideVo dto = getDtoObject(request);
-        SlideVo slideVo = slideService.fetchSlideById(userVo, dto.getSlideId());
+        SlideVo slideVo = slideService.fetchById(dto.getSlideId());
         slideVo.setContent("");
         //记录操作
         LogVo log = new LogVo();
         log.setIpadress(IpGetter.getIpAddress(request));
         log.setDate(new Date().toString());
         log.setOperation("fetchSlidePlay");
-        log.setUsername(userVo.getUsername());
+        log.setUsername(null);
         logService.record(log);
         writeResult(response, slideVo);
     }

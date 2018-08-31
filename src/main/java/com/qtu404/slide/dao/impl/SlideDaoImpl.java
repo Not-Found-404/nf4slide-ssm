@@ -39,8 +39,8 @@ public class SlideDaoImpl extends BaseDaoImpl<SlideVo> implements SlideDao {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         String statement = getNamespaces() + ".findByName";
         List<SlideVo> slideVos = sqlSession.selectList(statement, slideVo);
-        sqlSession.close();
         sqlSession.commit();
+        sqlSession.close();
         return slideVos;
     }
 

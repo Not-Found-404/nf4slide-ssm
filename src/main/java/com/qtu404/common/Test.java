@@ -1,4 +1,4 @@
-package com.qtu404;
+package com.qtu404.common;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,6 +12,7 @@ import com.qtu404.question.domain.Question;
 import com.qtu404.question.service.QuestionService;
 import com.qtu404.slide.dao.SlideDao;
 import com.qtu404.slide.domain.SlideVo;
+import com.qtu404.slide.service.SlideService;
 import com.qtu404.user.dao.UserDao;
 import com.qtu404.user.dao.impl.UserDaoImpl;
 import com.qtu404.user.domain.UserVo;
@@ -24,31 +25,20 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
+        Test test = new Test();
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         QuestionService questionService = (QuestionService) ctx.getBean("questionService");
-//        AnswerDao answerDao= (AnswerDao) ctx.getBean("answerDao");
-//        Publish publish = new Publish();
-//        publish.setPublishId(1);
-//        List<Answer> list = answerDao.findAll(publish);
-//        System.out.println(list);
-//        Question question = Question.createDefaultQuestion(100025);
-//        Question dto = questionService.fetchById(308);
-//        dto.setDescription("1111111111");
-//        questionService.modify(dto);
-//        OptionService optionService = (OptionService) ctx.getBean("optionService");
-//        Option option = optionService.fetchById(677);
-//        option.setContent("11125");
-//        optionService.modify(option);
-//        System.out.println();
 
-        Date d = new Date();
-        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        s.format(d);
-        System.out.println(s.format(d));
-        Publish publish = new Publish();
-        publish.setTime(new Date());
-        String s1 = null;
-        s1 = JSON.toJSONString(publish);
-        System.out.println();
+
+        Question question = new Question();
+        question.setUserId(100025);
+        question.setDescription("");
+        List<Question> questions = questionService.findByDescription(question);
+        test.loggerTest();
+    }
+
+
+    public void loggerTest() {
+
     }
 }

@@ -33,7 +33,6 @@ public class UserController extends BaseController<UserVo> {
     private UserService userService;
     @Resource(name = "loggerService")
     LogService logService;
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * 得到当前用户信息

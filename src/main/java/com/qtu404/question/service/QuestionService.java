@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface QuestionService extends BaseService<Question>  {
     List<Question> findAll(Integer userId);
+
+    List<Question> findByDescription(Question dto);
 }

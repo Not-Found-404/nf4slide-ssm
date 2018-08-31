@@ -34,21 +34,26 @@ function settingDialogInit() {
     $("#nf4-navbar__settings").button().click(function () {
         $("#dialog-form").dialog("open");
     });
+
     $("#closeDialog").button().click(function () {
         $("#dialog-form").dialog("close");
     });
+
     $("#proTrue").click(function () {
         isDisplayPro = "true,";
     });
     $("#proFalse").click(function () {
         isDisplayPro = "false,";
     });
+
     $("#numTrue").click(function () {
         isDisplayNum = "true,";
     });
+
     $("#numFalse").click(function () {
         isDisplayNum = "false,";
     });
+
     $("#menu__share").click(function () {
 
     })

@@ -31,6 +31,17 @@ public class QuestionDaoImpl extends BaseDaoImpl<Question> implements QuestionDa
     }
 
     @Override
+    public List<Question> findByDescription(Question question) {
+        String id = ".findByDescription";
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Question> questionList = null;
+        questionList = sqlSession.selectList(getNamespaces() + id, question);
+        sqlSession.commit();
+        sqlSession.close();
+        return questionList;
+    }
+
+    @Override
     protected String getNamespaces() {
         return namespaces;
     }

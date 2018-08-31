@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface QuestionDao extends BaseDao<Question> {
     List<Question> findAll(Integer userId);
+
+    List<Question> findByDescription(Question question);
 }

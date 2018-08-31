@@ -13,23 +13,23 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service("questionService")
-public class QuestionServiceImpl extends BaseServiceImpl<Question>  implements QuestionService{
+public class QuestionServiceImpl extends BaseServiceImpl<Question> implements QuestionService {
 
-    @Resource(name="questionDao")
+    @Resource(name = "questionDao")
     QuestionDao questionDao;
-    @Resource(name="optionDao")
+    @Resource(name = "optionDao")
     OptionDao optionDao;
 
     @Override
     protected BaseDao<Question> getBaseDao() {
-        return questionDao ;
+        return questionDao;
     }
 
     @Override
     public Question save(Question question) {
         questionDao.save(question);
         Integer questionId = question.getQuestionId();
-        for(Option item:question.getOptionList()){
+        for (Option item : question.getOptionList()) {
             item.setQuestionId(questionId);
             optionDao.save(item);
         }
@@ -40,6 +40,12 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question>  implements Q
     @Override
     public List<Question> findAll(Integer userId) {
         return questionDao.findAll(userId);
+    }
+
+    @Override
+    public List<Question> findByDescription(Question dto) {
+        dto.setDescription("%" + dto.getDescription() + "%");
+        return questionDao.findByDescription(dto);
     }
 
 }
