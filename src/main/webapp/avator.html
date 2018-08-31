@@ -249,6 +249,7 @@
 
         $('.export').click(function () {
             var imageData = $('.image-editor').cropit('export');
+            var num = 0;
             $.ajax({
                 url: "user/modifyUserAvator",
                 type: "POST",
@@ -260,6 +261,8 @@
                     var imgSrc = $("#user-avator").attr("src");
                     $("#user-avator").attr("src", imgSrc + "1");
                     alert("成功修改头像");
+                    num += 1;
+                    window.location.href = "/nf4slide/toUserPage?" + num;
                 },
                 error: function (e) {
                     alert("请检查网络连接");
