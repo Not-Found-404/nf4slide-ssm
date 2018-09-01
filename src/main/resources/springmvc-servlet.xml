@@ -23,8 +23,16 @@
 
     <bean id="logger" class="com.qtu404.common.aop.Logger"/>
     <aop:config>
+
+        <!--用户操作日志-->
+        <aop:aspect id="userLog" ref="logger">
+            <aop:pointcut id="userPointcut"
+                          expression="execution(* com.qtu404.user.controller.UserController.*(..))"/>
+            <aop:after method="saveLog" pointcut-ref="userPointcut"/>
+        </aop:aspect>
+
         <!--幻灯片操作日志-->
-        <aop:aspect id="log" ref="logger">
+        <aop:aspect id="slideLog" ref="logger">
             <aop:pointcut id="slidePointcut"
                           expression="execution(* com.qtu404.slide.controller.SlideController.*(..))"/>
             <aop:after method="saveLog" pointcut-ref="slidePointcut"/>
@@ -37,17 +45,11 @@
             <aop:after method="saveLog" pointcut-ref="filePointcut"/>
         </aop:aspect>
 
-        <!--用户操作日志-->
-        <aop:aspect ref="logger" id="userLog">
-            <aop:pointcut id="userPointcut" expression="execution(* com.qtu404.user.controller.UserController.*(..))"/>
-            <aop:after method="saveLog" pointcut-ref="userPointcut"/>
-        </aop:aspect>
-
-        <!--文件夹操作日志-->
-        <aop:aspect ref="logger" id="folderLog">
-            <aop:pointcut id="userPointcut"
+        <!--文件夹作日志-->
+        <aop:aspect id="folderLog" ref="logger">
+            <aop:pointcut id="folderPointcut"
                           expression="execution(* com.qtu404.folder.controller.FolderController.*(..))"/>
-            <aop:after method="saveLog" pointcut-ref="userPointcut"/>
+            <aop:after method="saveLog" pointcut-ref="folderPointcut"/>
         </aop:aspect>
     </aop:config>
 

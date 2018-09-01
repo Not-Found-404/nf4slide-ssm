@@ -46,7 +46,7 @@ public class Logger {
         for (Object key : map.keySet()) {
             String keyString = (String) key;
             String value = ((String[]) map.get(key))[0];
-            if (value.length() <= 20) {
+            if (value.length() <= 50) {
                 sb.append(keyString).append(":").append(value).append(",");
             }
         }
