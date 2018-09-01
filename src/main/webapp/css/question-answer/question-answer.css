@@ -6,7 +6,7 @@ body{
 }
 .nf4-question__navbar{
     /* 导航栏 */
-    background-color: #1890ff;
+    background-color: #0078d7;
 }
 
 .layout-container{
@@ -33,7 +33,7 @@ body{
     /* 问题块 */
     margin-left:auto;
     margin-right:auto;
-    max-width: 45em;   
+    max-width: 45em;
 }
 .question-flow > .question-block:not(:first-of-type){
     margin-top:0.5em;
@@ -76,7 +76,7 @@ body{
 }
 .check-box__icon-checked{
     /* 单选未选中图标 */
-    color: #1890ff;
+    color: #0078d7;
 }
 .control{
     /* 控制区域 */
@@ -91,6 +91,6 @@ body{
 }
 .control__submit-button{
     /* 控制区域__按钮 */
-    background-color: #1890ff;
+    background-color: #0078d7;
     width:6em;
 }
