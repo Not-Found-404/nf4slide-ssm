@@ -164,7 +164,7 @@ public abstract class BaseController<T> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Map getParameterMap(HttpServletRequest request) {
+    private Map getParameterMap(HttpServletRequest request) {
         // 参数Map
         Map properties = request.getParameterMap();
         // 返回值Map

@@ -53,13 +53,6 @@ public class SlideController extends BaseController<SlideVo> {
         SlideVo slideVoDto = getDtoObject(request);
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         SlideVo slideVo = slideService.fetchSlideById(userVo, slideVoDto.getSlideId());
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("fetchSlideContent");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
         writeResult(response, slideVo);
     }
 
@@ -67,25 +60,16 @@ public class SlideController extends BaseController<SlideVo> {
      * fetchSlidePlayById
      *
      * @return
-     * @throws JsonProcessingException
      */
     @RequestMapping("/fetchSlidePlayById")
-    public void fetchSlidePlayById(HttpSession session, HttpServletResponse response, HttpServletRequest request) throws JsonProcessingException {
+    public void fetchSlidePlayById(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         SlideVo dto = getDtoObject(request);
         SlideVo slideVo = slideService.fetchById(dto.getSlideId());
         slideVo.setContent("");
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("fetchSlidePlay");
-        log.setUsername(null);
-        logService.record(log);
         writeResult(response, slideVo);
     }
 
     /**
-     * addNewSlide (有问题)
      *
      * @return
      */
@@ -95,13 +79,6 @@ public class SlideController extends BaseController<SlideVo> {
         HttpSession session = request.getSession();
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         SlideVo slideVo = slideService.addNewSlide(userVo.getUserId());
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("addNewSlide");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
         writeResult(response, slideVo);
     }
 
@@ -116,13 +93,6 @@ public class SlideController extends BaseController<SlideVo> {
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         SlideVo dto = getDtoObject(request);
         slideService.modifySlideName(userVo, dto.getSlideId(), dto.getName());
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("modifySlideName");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
     }
 
     /**
@@ -144,13 +114,6 @@ public class SlideController extends BaseController<SlideVo> {
             result.setResult("delFail");
             result.setCode(500);
         }
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("delSlide");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
         writeResult(response, result);
     }
 
@@ -171,13 +134,6 @@ public class SlideController extends BaseController<SlideVo> {
         } else {
             result.setResult("modifyFail");
         }
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("modifySlide");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
         writeResult(response, result);
     }
 

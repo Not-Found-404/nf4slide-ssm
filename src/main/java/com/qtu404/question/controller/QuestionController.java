@@ -45,7 +45,6 @@ public class QuestionController extends BaseController<Question> {
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         Question question = Question.createDefaultQuestion(userVo.getUserId());
         question = questionService.save(question);
-
         writeResult(response, question);
         return "edit";
     }
@@ -94,7 +93,7 @@ public class QuestionController extends BaseController<Question> {
         writeResult(response, result);
     }
 
-    @RequestMapping("findByDescription")
+    @RequestMapping(value = "findByDescription", method = RequestMethod.POST)
     public void findByDescription(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
         Question dto = new Question();
         dto.setUserId(((UserVo) request.getSession().getAttribute("loginUser")).getUserId());

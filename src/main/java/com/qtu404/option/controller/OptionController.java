@@ -24,7 +24,7 @@ public class OptionController extends BaseController<Option> {
     OptionService optionService;
 
     @RequestMapping(value = "addNewOption",method = RequestMethod.POST)
-    public void addNewOption(@RequestBody String body, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+    public void addNewOption(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
         Option option = JSON.parseObject(body, Option.class);
         option = optionService.save(option);
         writeResult(response, option);

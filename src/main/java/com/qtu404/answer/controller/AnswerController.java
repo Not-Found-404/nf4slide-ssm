@@ -36,7 +36,7 @@ public class AnswerController extends BaseController<Answer> {
 
     }
     @RequestMapping(value = "/fetchAnswerByPublishId", method = RequestMethod.POST)
-    public void fetchAnswerByPublishId(@RequestBody String publishBody,HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+    public void fetchAnswerByPublishId(@RequestBody String publishBody, HttpServletResponse response, HttpServletRequest request) {
        Publish publish = JSON.parseObject(publishBody,Publish.class);
         List<Answer> answerList = answerService.findPublishByQuestionId(publish);
         writeResult(response, answerList);

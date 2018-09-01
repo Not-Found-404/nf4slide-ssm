@@ -32,7 +32,7 @@ public class FolderController extends BaseController<Folder> {
      * @param response
      */
     @RequestMapping(value = "/getRootFolderWithAngular", method = RequestMethod.GET)
-    public void getRootFolder(HttpSession session, HttpServletResponse response) {
+    public void getRootFolder(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         Folder folder = null;
         if (userVo != null) {
@@ -49,7 +49,7 @@ public class FolderController extends BaseController<Folder> {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/modifyWithAngular", method = RequestMethod.POST,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/modifyWithAngular", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public void modifyWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         Folder folder = JSON.parseObject(body, Folder.class);
         Result result = new Result();
@@ -84,7 +84,7 @@ public class FolderController extends BaseController<Folder> {
      * @param response
      */
     @RequestMapping("/fetchByIdWithAngular")
-    public void fetchByIdWithAngular(@RequestBody String body, HttpServletResponse response) {
+    public void fetchByIdWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         Integer folderId = Integer.parseInt(body);
         Folder folder = folderService.fetchById(folderId);
         writeResult(response, folder);

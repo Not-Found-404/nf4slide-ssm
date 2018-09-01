@@ -8,9 +8,9 @@
 
     <insert id="save" parameterType="com.qtu404.logger.domain.LogVo">
         INSERT INTO logger
-        (username,ipadress,date,operation)
+        (username,ipadress,date,operation,body,parameter)
         VALUES
-        (#{username}, #{ipadress},#{date}, #{operation})
+        (#{username}, #{ipadress},#{date}, #{operation},#{body},#{parameter})
     </insert>
 
 </mapper>

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.qtu404.logger.domain.LogVo;
 import com.qtu404.logger.service.LogService;
 import com.qtu404.user.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qtu404.user.domain.UserVo;
 import com.qtu404.util.sms.SMSsender;
 import com.qtu404.util.web.Result;
@@ -38,7 +37,7 @@ public class UserController extends BaseController<UserVo> {
      * 得到当前用户信息
      */
     @RequestMapping(value = "/fetchLoginInfo", method = RequestMethod.POST)
-    public void fetchUserLoginInfo(HttpSession session, HttpServletResponse response) throws Exception {
+    public void fetchUserLoginInfo(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception {
         UserVo userVo = (UserVo) session.getAttribute("loginUser");
         writeResult(response, userVo);
     }
@@ -55,13 +54,6 @@ public class UserController extends BaseController<UserVo> {
         userService.modifyAvator(userVo, base64_str[1], realPath);
         userVo = userService.fetchById(userVo.getUserId());
         userVo.setPassword("");
-        //记录操作
-        LogVo log = new LogVo();
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setDate(new Date().toString());
-        log.setOperation("modifyUserAvator");
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
         writeResult(response, userVo);
     }
 
@@ -78,7 +70,7 @@ public class UserController extends BaseController<UserVo> {
         if (userVo != null) {//不通过
             result.setResult("false");
             result.setCode(500);
-        }else {
+        } else {
             result.setCode(200);
         }
         writeResult(response, result);
@@ -89,67 +81,23 @@ public class UserController extends BaseController<UserVo> {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public void login(HttpServletRequest request, HttpServletResponse response, HttpSession Session) {
+        request.getSession().setMaxInactiveInterval(30 * 60 * 24);
         UserVo dto = getDtoObject(request);
         UserVo userVo = userService.fetchUserByLogin(dto);
-        //创建log对象
-        LogVo log = new LogVo();
-      //如果登录用户不为空则将当前登录用户的用户名记录到LogVo对象中
-            log.setUsername(userVo.getUsername());
-            log.setIpadress(IpGetter.getIpAddress(request).toString());
-            log.setOperation("login");
-            log.setDate(new Date().toString());
-        ServletContext sc = request.getServletContext();
-        String path = sc.getRealPath("/");
-
         Result rst = new Result();
 
         if (userVo != null) {
             Session.setAttribute("usrname", userVo.getUserId());
             Session.setAttribute("loginUser", userVo);
-            rst.setResult("loginSuccess");        
+            rst.setResult("loginSuccess");
             rst.setCode(200);
         } else {
             Session.setAttribute("usrname", "");
             rst.setResult("loginFail");
             rst.setCode(500);
         }
-        logService.record(log);
         writeResult(response, rst);
     }
-
-    /**
-     * 用户注册 doRegister
-     */
-    @RequestMapping("/doRegister")
-    public String register(HttpServletRequest request, HttpServletResponse response) {
-        UserVo userVo = getDtoObject(request);
-        userVo = userService.save(userVo);
-        //创建一个log对象，记录操作
-        LogVo log = new LogVo();
-        log.setDate(new Date().toString());
-        log.setOperation("register");
-        log.setIpadress(IpGetter.getIpAddress(request));
-        log.setUsername(userVo.getUsername());
-        logService.record(log);
-
-        //得到用户IP地址
-        String ipAddress = request.getRemoteAddr();
-
-        //发送验证码
-        Integer verifyCode = new Random().nextInt(10000);
-        try {
-            new SMSsender().sendSmsMessage(userVo.getPhoneNum(), String.valueOf(verifyCode));
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-
-        //writeResult(response, "success");
-        return "home";
-    }
-
-
-
-
 
     /*------------------------------- Angular Cli begin  ------------------------------------------------------*/
     @RequestMapping("/loginWithAngular")
@@ -197,16 +145,16 @@ public class UserController extends BaseController<UserVo> {
 
     @RequestMapping("/sendVerifyCodeWithAngular")
     public void sendVerifyCodeWithAngular(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
-        String phoneNum = body;
+
         //发送验证码
-        Integer verifyCode = new Random().nextInt(10000);
+        Integer verifyCode = (int) ((Math.random() * 9 + 1) * 1000);
         HttpSession session = request.getSession();
         try {
             //发送验证码
             String verifyCode_String = String.valueOf(verifyCode);
-            new SMSsender().sendSmsMessage(phoneNum, verifyCode_String);
+            new SMSsender().sendSmsMessage(body, verifyCode_String);
             session.setAttribute("verifyCode", String.valueOf(verifyCode));
-            session.setAttribute("verifyPhone", phoneNum);
+            session.setAttribute("verifyPhone", body);
         } catch (ClientException e) {
             e.printStackTrace();
         }
@@ -228,9 +176,6 @@ public class UserController extends BaseController<UserVo> {
         writeResult(response, result);
     }
     /*------------------------------- Angular Cli end  ------------------------------------------------------*/
-
-
-
 
 
     public UserService getUserService() {

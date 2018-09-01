@@ -34,15 +34,7 @@
     <!-- 配置SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
-        <!--
-        <property name="configLocation" value="classpath:conf.xml"/>
-        -->
         <property name="mapperLocations" value="classpath:com/qtu404/mapper/*.xml"></property>
-        <!--未配置别名-->
-        <!--
-        <property name="typeAliasesPackage" value="com.qtu404"></property>
-
-        -->
     </bean>
 
     <!-- 配置事务管理器 -->

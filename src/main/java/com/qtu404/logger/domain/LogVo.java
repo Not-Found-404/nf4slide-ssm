@@ -1,14 +1,36 @@
 package com.qtu404.logger.domain;
+
+import java.util.Date;
+
 //log实体类对应数据库一条操作记录
 public class LogVo {
     private Integer loggerid;//自增id字段记录操作id
     private String username;//操作的对象
     private String ipadress;//操作用户的ip地址
-    private String date;//操作执行的日期
+    private Date date;//操作执行的日期
     private String operation;//操作的具体类型
-/**
- * getter和setter方法
- * */
+    private String parameter;// 参数
+    private String body;// 参数
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    /**
+     * getter和setter方法
+     */
 
     public Integer getLoggerid() {
         return loggerid;
@@ -34,11 +56,11 @@ public class LogVo {
         this.ipadress = ipadress;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
