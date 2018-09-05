@@ -4,7 +4,7 @@ function pageContentInit(playSlideId, isControl, data) {
     $(".slides").html(data.play);//填充幻灯片内容
     $("#theme").attr("href", "js/plugin/reveal.js/css/theme/" + data.theme + ".css");//读取主题
     //config顺序
-    config_ = eval('(' + data.config + ')');//;
+    config_ = eval('(' + data.config + ')');
     // alert("config.transition:" + config_.transition);
     Reveal.initialize({
         center: false,
