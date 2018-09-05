@@ -119,10 +119,12 @@ function syncControlInit(playSlideId, whoPlay) {
 
     //连接发生错误的回调方法
     websocket.onerror = function () {
+        console.log("同步控制连接失败");
     };
 
     //连接成功建立的回调方法
     websocket.onopen = function (event) {
+        console.log("同步控制连接成功");
     }
 
     //连接关闭的回调方法
@@ -143,6 +145,7 @@ function syncControlInit(playSlideId, whoPlay) {
     function send() {
         var message = SlideNumNext;
         websocket.send(message);
+        console.log("发送换页消息:" + message);
     }
 
     $(".navigate-up").css("display", "none");
@@ -151,9 +154,7 @@ function syncControlInit(playSlideId, whoPlay) {
     $(".navigate-left").css("display", "none");
     $(".navigate-right").css("display", "none");
 
-    //还需要判断是否是拥有者
-    //Reveal.configure({ controls: false });//不可控制
-    //接收到消息的回调方法
+
     if (whoPlay == "owner") {// 只有拥有者有权发出换页消息
         //发送消息
         Reveal.addEventListener('slidechanged', function (event) {
@@ -167,6 +168,7 @@ function syncControlInit(playSlideId, whoPlay) {
         var msg = new Array();
         msg = event.data.split(":");
         if (playSlideId == msg[0]) {
+            console.log("执行换页");
             Reveal.slide(msg[1]);
         }
     }

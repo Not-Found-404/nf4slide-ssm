@@ -64,13 +64,13 @@ public class SlideController extends BaseController<SlideVo> {
     @RequestMapping("/fetchSlidePlayById")
     public void fetchSlidePlayById(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
         SlideVo dto = getDtoObject(request);
-        SlideVo slideVo = slideService.fetchById(dto.getSlideId());
+        UserVo userVo = (UserVo) session.getAttribute("loginUser");
+        SlideVo slideVo = slideService.fetchSlideById(userVo, dto.getSlideId());
         slideVo.setContent("");
         writeResult(response, slideVo);
     }
 
     /**
-     *
      * @return
      */
     @RequestMapping("/addNewSlide")
@@ -147,7 +147,7 @@ public class SlideController extends BaseController<SlideVo> {
         return slideService;
     }
 
-     /*-----------------------  Angular Cli ----------------------------------*/
+    /*-----------------------  Angular Cli ----------------------------------*/
 
     /**
      * modifySlide的信息，包括名字，所在文件夹
