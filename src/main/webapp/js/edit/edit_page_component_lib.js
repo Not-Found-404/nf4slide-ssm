@@ -894,9 +894,9 @@ function addCodeToSlide(id) {
 /**
  * 保存幻灯片
  */
-function saveSlide() {
-    /*弹出框提示 保存*/
-    shwoPopovers("nf4-Popovers__on-save");
+function saveSlide( saveType ) {
+    /* 弹出框提示-正在保存 */
+    Popover__slides_onSave();
 
     /*得到播放设置参数*/
     var plugValues_ = $("#autoSlide option:selected").val() + $("#slideMethod option:selected").val() + $("#slideSpeed option:selected").val() + isDisplayPro + isDisplayNum;
@@ -932,9 +932,15 @@ function saveSlide() {
         },
         success: function (msg) {
             if (msg.result == "modifySuccess") {
-                shwoPopovers("nf4-Popovers__auto-save", 5000);
+                /* 弹出框提示-保存成功 */
+                if( saveType === 'auto'){
+                    Popover__slides_autoSave();
+                }else{
+                    Popover__slides_saveSucceed()
+                }
             } else {
-                alert("保存失败");
+                /* 弹出框提示-保存失败 */
+                Popover__slides_saveFailure()
             }
         }
     });
@@ -945,7 +951,7 @@ function saveSlide() {
  */
 $(function timeActve() {
     time_clock = window.setInterval(function () {
-        saveSlide();
+        saveSlide( 'auto' );
     }, 3 * 60 * 1000);
 });
 
@@ -1182,42 +1188,42 @@ function addEvent() {
         });
     }); //end图片
 
-    function showQuestion() {
-        $("#dialog-form-question").dialog("open");
-        $.ajax({
-            url:"question/findAllQuestions",
-            type:"GET",
-            dataType:"JSON",
-            success:function (data) {
-                $("#questionList").html("");
-                for(var i=0;i<4;i++){
-                    $("#questionList").prepend(" <div id='question-item-"+data[i].questionId+"' questionId="+data[i].questionId+" class=\"form-group row\"></div>");
-                    $("#question-item-"+data[i].questionId).html(data[i].description);
-                }
-            },
-            error:function () {
-                alert("錯誤");
-            }
-        });
-        $("#addQuestion").click(function () {
-            $.ajax({
-                url:"question/addNew",
-                type:"GET",
-                dataType:"JSON",
-                success:function (data) {
-                    $("#questionList").prepend(" <div id='question-item-"+data.questionId+"' questionId="+data.questionId+" class=\"nf4-question form-group row\"></div>");
-                    $("#question-item-"+data.questionId).html(data.description);
+    // function showQuestion() {
+    //     $("#dialog-form-question").dialog("open");
+    //     $.ajax({
+    //         url:"question/findAllQuestions",
+    //         type:"GET",
+    //         dataType:"JSON",
+    //         success:function (data) {
+    //             $("#questionList").html("");
+    //             for(var i=0;i<4;i++){
+    //                 $("#questionList").prepend(" <div id='question-item-"+data[i].questionId+"' questionId="+data[i].questionId+" class=\"form-group row\"></div>");
+    //                 $("#question-item-"+data[i].questionId).html(data[i].description);
+    //             }
+    //         },
+    //         error:function () {
+    //             alert("錯誤");
+    //         }
+    //     });
+    //     $("#addQuestion").click(function () {
+    //         $.ajax({
+    //             url:"question/addNew",
+    //             type:"GET",
+    //             dataType:"JSON",
+    //             success:function (data) {
+    //                 $("#questionList").prepend(" <div id='question-item-"+data.questionId+"' questionId="+data.questionId+" class=\"nf4-question form-group row\"></div>");
+    //                 $("#question-item-"+data.questionId).html(data.description);
+    //
+    //             },
+    //             error:function () {
+    //                 alert("錯誤");
+    //             }
+    //         });
+    //     });
+    // }
 
-                },
-                error:function () {
-                    alert("錯誤");
-                }
-            });
-        });
-    }
-
-    $("#nf4-element__question").click(function () {
-        showQuestion();
-    });
+    // $("#nf4-element__question").click(function () {
+    //     showQuestion();
+    // });
 }
 
