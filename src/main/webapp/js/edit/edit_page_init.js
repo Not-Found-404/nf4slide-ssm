@@ -1,8 +1,6 @@
 /**
  * 编辑界面初始化
  */
-
-
 var editHtml = new Array();
 var slideId = null;
 /**
@@ -39,8 +37,6 @@ $(function () {
         window.open("toPlayPage?slideId=" + slideId);
     });
 
-
-
     if (flag != "") {
         $.ajax({
             type: "POST",
@@ -59,6 +55,7 @@ $(function () {
             }
         });
     }
+
     $.ajax({
         url: "user/fetchLoginInfo",
         type: "POST",
@@ -185,6 +182,11 @@ $(function bindButton() {
             return true;
         }
         alert("请按下Ctrl+D键保存书签");
+    });
+
+    /* 分享按钮函数 */
+    $("#menu__share").click(function () {
+
     });
     /*** 王海涛 wht-end ***/
 });
