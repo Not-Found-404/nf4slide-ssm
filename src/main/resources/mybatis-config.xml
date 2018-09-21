@@ -8,10 +8,19 @@
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
+                <!--maxActive: 最大连接数量-->
+                <property name="maxActive" value="150"/>
+                <!--minIdle: 最小空闲连接-->
+                <property name="minIdle" value="5"/>
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="${url}"/>
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
+                <property name="removeAbandoned" value="true"/>
+                <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->
+                <property name="removeAbandonedTimeout" value="30"/>
+                <!--maxWait: 超时等待时间以毫秒为单位 -->
+                <property name="maxWait" value="20000"/>
             </dataSource>
         </environment>
     </environments>

@@ -19,7 +19,6 @@ $(function () {
     CKEDITOR.disableAutoInline = true;
 
     /*组件内容初始化*/
-
     var flag = "";
     var reg = new RegExp("(^|&)" + "slideId" + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -30,11 +29,47 @@ $(function () {
         slideId = "";
         flag = "";
     }
+
     /**
      * 播放按钮绑定
      */
     $("#nf4-menu__play_slides").click(function () {
-        window.open("toPlayPage?slideId=" + slideId);
+        /*得到播放的html*/
+        var playHtmlCode = playSlide();
+        /*得到播放设置参数*/
+        var plugValues_ = $("#autoSlide option:selected").val() + $("#slideMethod option:selected").val() + $("#slideSpeed option:selected").val() + isDisplayPro + isDisplayNum;
+        var plugValues = {
+            "transition": $("#slideMethod option:selected").val(),
+            "transitionSpeed": $("#slideSpeed option:selected").val(),
+            "autoSlide": $("#autoSlide option:selected").val(),
+            "progress": isDisplayPro,
+            "slideNumber": isDisplayNum
+        }
+        /*得到内容组件的html*/
+        var upLoadData = "";
+        $(".nf4-slide").each(function () { //循环每一个幻灯片
+            var ExId = $(this).attr("id").substr(6);
+            upLoadData = upLoadData + $("#tabs-" + ExId).html() + "<--nf4-->";
+        });
+        /*上传到服务*/
+        $.ajax({
+            type: "POST",
+            url: "slide/modifySlide",
+            dataType: "JSON",
+            async: false,
+            data: {
+                slideId: slideId,
+                content: upLoadData,
+                play: playHtmlCode,
+                theme: $("#nf4-slide-themes option:selected").val(),
+                config: JSON.stringify(plugValues)
+            },
+            success: function (msg) {
+                if (msg.result == "modifySuccess") {
+                    window.open("toPlayPage?slideId=" + slideId);
+                }
+            }
+        });
     });
 
     if (flag != "") {
