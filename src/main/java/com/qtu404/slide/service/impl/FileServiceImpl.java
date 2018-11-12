@@ -7,6 +7,7 @@ import com.qtu404.slide.domain.FileVo;
 import com.qtu404.slide.domain.SlideVo;
 import com.qtu404.user.dao.UserDao;
 import com.qtu404.user.domain.UserVo;
+import com.qtu404.util.oss.OSSHelper;
 import com.qtu404.util.poi.PPTReader;
 import com.qtu404.util.web.ssm.dao.BaseDao;
 import com.qtu404.util.web.ssm.service.BaseServiceImpl;
@@ -88,9 +89,7 @@ public class FileServiceImpl extends BaseServiceImpl<FileVo> implements FileServ
         File saveFile = new File(realDir, fileVo.getFileName());
         try {
             //保存文件
-            fileVo.getUploadFile().transferTo(saveFile);
-            //得到img标记对可以用的相对路径
-            result = fileVo.getFileSavePath();
+            result =  OSSHelper.upLoadImgToOSS(fileVo.getUploadFile().getInputStream(), fileVo.getFileName());
         } catch (IOException e) {
             result = "upLoadImgFail";
             e.printStackTrace();
