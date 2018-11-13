@@ -33,8 +33,12 @@ body{
     /* 导航栏图标属性 */
     margin:0 15px 0 15px;
 }
+.nf4-navbar__brand-link,.nf4-navbar__brand-link:hover,.nf4-navbar__brand-link:active{
+    color:unset;
+    text-decoration:none;
+}
 .nf4-navbar__brand__font{
-    margin-left:10px;
+    margin-left:8px;
     font-size: 20px;
 }
 .nf4-navbar-control{
@@ -407,4 +411,17 @@ body{
 .nf4-dropdown__link:hover{
     color:#000;
     cursor: pointer;
+}
+/* 版权信息显示框样式 */
+.nf4-copyright__brand__font{
+    font-size: 1.6em;
+    margin-left:10px;
+}
+.nf4-copyright__body{
+    display:flex;
+    justify-content: center;
+    margin-bottom:15px;
+}
+#nf4-copyright__text{
+    text-align: center;
 }

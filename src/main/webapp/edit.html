@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="zh-Hans">
 <!--[if lt IE9]>
 <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <![endif]-->
 <!--低版本浏览器的支持-->
-
 <head>
     <!-- meta tags -->
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>NF4 园丁助手</title>
+    <!-- 网页图标 -->
+    <link rel="icon" type="image/x-icon" href="http://www.qtu404.com/nf4slide/assets/icon/favicon.ico">
 
     <!-- css库导入 -->
     <!-- 本地库导入 -->
     <link href="css/plugin/jquery-ui_modify.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font/css/font-awesome.min.css" rel="stylesheet">
-    <link
-            href="js/plugin/ckeditor/plugins/codesnippet/lib/highlight/styles/xcode.css"
-            rel="stylesheet">
+    <link href="js/plugin/ckeditor/plugins/codesnippet/lib/highlight/styles/xcode.css" rel="stylesheet">
     <!-- CDN结点导入 -->
 
     <!-- css页面控制 -->
     <link href="css/index.css" rel="stylesheet">
     <link href="css/nf4-style-dx.css" rel="stylesheet">
     <link href="js/plugin/webuploader-0.1.5/webuploader.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
     <!--<script src="js/plugin/reveal.js/lib/js/head.min.js"></script>-->
     <!--<script src="js/plugin/reveal.js/js/reveal.js"></script>-->
     <style>
@@ -46,25 +43,30 @@
 
         <ul class="nav navbar-brand nf4-navbar__brand">
             <!-- 导航栏图标 -->
-            <li class="nav-item"><span> <i
-                    class="fa fa-paper-plane fa-lg"></i> <span
-                    class="nf4-navbar__brand__font">NF4 园丁助手</span>
-				</span></li>
+            <li class="nav-item">
+                <!-- 超链接至用户中心 -->
+                <a class="nf4-navbar__brand-link" href="toUserPage">
+                    <span>
+                        <i class="fa fa-paper-plane fa-1x"></i>
+                        <span class="nf4-navbar__brand__font">NF4 园丁助手</span>
+				    </span>
+                </a>
+            </li>
         </ul>
 
         <div class="nav justify-content-end nf4-navbar-control">
             <!-- 导航栏按钮 -->
             <div class="nav-item nf4-navbar__button">
                 <!-- 导航栏-帮助 -->
-                <a class="nav-link" id="nf4-navbar__help"> <i
-                        class="fa fa-question fa-lg"></i>
+                <a class="nav-link" id="nf4-navbar__help">
+                    <i class="fa fa-question fa-lg"></i>
                 </a>
             </div>
 
             <div class="nav-item nf4-navbar__button">
                 <!-- 导航栏-设置 -->
-                <a class="nav-link" id="nf4-navbar__settings"> <i
-                        class="fa fa-gear fa-lg"></i>
+                <a class="nav-link" id="nf4-navbar__settings">
+                    <i class="fa fa-gear fa-lg"></i>
                 </a>
             </div>
 
@@ -108,11 +110,8 @@
                 </button>
             </div>
 
-            <div
-                    class="btn-group-vertical nf4-menu-settings nf4-menu-button__group"
-                    role="group">
+            <div class="btn-group-vertical nf4-menu-settings nf4-menu-button__group" role="group">
                 <!-- 菜单设置项区域 -->
-
                 <button type="button" class="btn" id="menu__favorite">
                     <!-- 收藏按钮 id="menu__favorite" -->
                     <i class="fa fa-bookmark-o fa-lg"></i>
@@ -276,19 +275,6 @@
         </div>
     </div>
 </div>
-
-<!--弹出問題设置窗口-->
-<!--<div id="dialog-form-question" class="container" title="选择试题" style="z-index: 600">-->
-    <!--<div  style="width: 70%;left: 15%;position: absolute">-->
-        <!--<div class="row">-->
-            <!--<button id="addQuestion" class="btn btn-info btn-block">添加问题</button>-->
-        <!--</div>-->
-        <!--<div id="questionList"></div>-->
-        <!--<div class="row">-->
-            <!--<button id="closeQuestionDialog" class="btn btn-info btn-block">确定</button>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
 
 <!--弹出设置窗口-->
 <div id="dialog-form" class="container" title="幻灯片播放设置"
@@ -876,13 +862,54 @@
     </div>
     <!-- /.modal -->
 </div>
+
+<!-- 版权信息显示框 -->
+<div class="modal fade bd-example-modal-sm nf4-copyright" tabindex="-1" role="dialog" aria-labelledby="nf4_copyright"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- header -->
+                <h5 class="modal-title">版权信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- body -->
+                <div class="nf4-copyright__body">
+                    <span>
+                        <i class="fa fa-paper-plane fa-2x"></i>
+                        <span class="nf4-copyright__brand__font">NF4 园丁助手</span>
+                    </span>
+                </div>
+                <dl id="nf4-copyright__text">
+                    <dd><span>"翻转课堂，敏捷教学"</span></dd>
+                    <dd><span>"您的数字化课堂助手"</span></dd>
+                    <dd><span>NF4 园丁助手是一款自由便捷的 Web 应用</span></dd>
+                    <dd><span>具有云端同步、在线编辑、课堂互动等功能</span></dd>
+                    <dd><span>为您带来简洁自由的数字化课堂体验</span></dd>
+                    <dd><span>释放课堂的活力，让课堂灵动起来</span></dd>
+                    <dd><br /></dd>
+                    <dd><span>Copyright&copy; 青岛理工大学</span></dd>
+                    <dd><span>NOT FOUND 404 团队 版权所有</span></dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <!-- footer -->
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- javascript依赖库导入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="js/plugin/html2canvas.min.js" type="text/javascript"></script>
 <script src="js/plugin/popper.min.js" type="text/javascript"></script>
 <script src="js/plugin/bootstrap.min.js" type="text/javascript"></script>
-<script
-        src="js/plugin/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+<script src="js/plugin/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js" type="text/javascript"></script>
 <!-- 页面javascript控制 -->
 
 <!-- CKEditor延迟加载 -->
@@ -891,51 +918,12 @@
 <script src="js/edit/edit_page_component_lib.js" type="text/javascript"></script>
 <script src="js/edit/edit_page_init.js" type="text/javascript"></script>
 <!--<script src="../../js/plugin/webuploader-0.1.5/webuploader.js" type="text/java"></script>-->
-<script src="js/edit/nf4_img_webuploader.js"></script>
+<script src="js/edit/nf4_img_webuploader.js" type="text/javascript"></script>
 <!-- 无javascript提示 -->
 <noscript>
     <p>本页面需要启用javascript支持</p>
 </noscript>
 
 </body>
-
-<!-- 
-
-    icon
-fa fa-compress 缩小屏幕
-fa fa-image
-fa fa-bookmark bookmark-o 书签
-fa fa-code 代码
-fa fa-close 关闭
-fa fa-edit 关闭
-fa fa-download 下载
-fa fa-remove 移出
-fa fa-sign-in 登录
-fa fa-sign-out 注销
-fa fa-adjust 调整
-fa fa-keyboard-o 键盘
-fa fa-magic 风格
-question
-question-circle
-question-circle-o 帮助
-refresh 刷新
-share-square-o 分享
-trash 垃圾桶
-trash-o 垃圾桶
-home 首页
-user-circle 用户
-font 字体
-image 图片
-table 表格
-
-合成图标：
-square 
-square-o 矩形
-star
-star-o 星
-circle 圆
-
--->
-
 
 </html>

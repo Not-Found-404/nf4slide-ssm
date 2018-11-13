@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-Hans">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>修改头像</title>
+    <!-- 网页图标 -->
+    <link rel="icon" type="image/x-icon" href="http://www.qtu404.com/nf4slide/assets/icon/favicon.ico">
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -14,7 +16,7 @@
 
 </head>
 <body>
-<div id="avator-header"><span class="avator-header__font"><i class="fa fa-paper-plane fa-lg"></i>尚未登陆</span></div>
+<div id="avator-header"><span class="avator-header__font"><i class="fa fa-paper-plane fa-1x avatar-header__icon"></i>尚未登陆</span></div>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -40,7 +42,8 @@
     </div>
 </div>
 <div class="btn-submit-avator">
-    <button class="export" id="btn-submit">确定</button>
+    <button class="control_btn btn_cancel">取消</button>
+    <button class="control_btn export">确定</button>
 </div>
 </div>
 <script>
@@ -63,7 +66,7 @@
 
         $('.export').click(function () {
             var imageData = $('.image-editor').cropit('export');
-            var num = Math.random();;
+            var num = Math.random();
             $.ajax({
                 url: "user/modifyUserAvator",
                 type: "POST",
@@ -83,7 +86,6 @@
             })
         });
 
-
         $.ajax({
             url: "user/fetchLoginInfo",
             type: "POST",
@@ -97,6 +99,10 @@
             error: function (e) {
                 alert("请检查网络连接");
             }
+        })
+
+        $(".btn_cancel").click(function (e) {
+            window.location.href = "/nf4slide/toUserPage";
         })
     });
 </script>

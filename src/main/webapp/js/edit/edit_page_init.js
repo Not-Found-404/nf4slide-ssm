@@ -205,23 +205,27 @@ $(function bindButton() {
 
     /* 添加书签函数 */
     $("#menu__favorite").click(function () {
-        if (window.sidebar) {
-            // Mozilla Firefox Bookmark
-            window.sidebar.addPanel(location.href, document.title, "");
-        } else if (window.external) {
-            // IE Favorite
-            window.external.AddFavorite(location.href, document.title);
-        } else if (window.opera && window.print) {
-            // Opera Hotlist
-            this.title = document.title;
-            return true;
-        }
-        alert("请按下Ctrl+D键保存书签");
+        alert("收藏当前网页请保存书签，NF4 园丁助手 感谢您的支持(๑*◡*๑)");
     });
 
     /* 分享按钮函数 */
     $("#menu__share").click(function () {
+        let url = 'http://www.qtu404.com';
+        let oInput = document.createElement('input');
+        oInput.value = url;
+        document.body.appendChild(oInput); // 添加对象到 DOM
+        oInput.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        oInput.className = 'oInput';
+        oInput.style.display='none';
+        document.body.removeChild(oInput); // 从 DOM 中移除对象
+        window.alert('NF4 园丁助手的网址已复制到剪贴板，您可以分享给朋友啦~');
+    });
 
+    /* 帮助按钮函数绑定 */
+    $("#nf4-navbar__help").click(function () {
+        // 打开版权信息显示框
+        $('.nf4-copyright').modal();
     });
     /*** 王海涛 wht-end ***/
 });

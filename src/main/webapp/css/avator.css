@@ -6,7 +6,6 @@
     margin: 0 auto;
     width: 250px;
     height: 250px;
-
 }
 
 .cropit-preview-image-container {
@@ -28,8 +27,6 @@
     position: relative;
     z-index: 10;
     display: block;
-
-
     width: 140px;
     height: 40px;
     border-radius: 4px;
@@ -37,10 +34,32 @@
     border-radius: 15px;
 }
 
-
+.btn_cancel{
+    margin-right:1em;
+}
 
 button {
     margin-top: 10px;
+}
+
+.control_btn{
+    position: relative;
+    display: block;
+    width: 140px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 15px;
+    background-color: #0078d7;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.05));
+    border: 1px solid #3b88c3;
+    font-size: 1.5em;
+    color: #ffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.control_btn:hover{
+    background-color: #008efe;
 }
 
 .cropit-preview-image-container {
@@ -55,8 +74,8 @@ body {
     background: #ffffff;
     width: 100%;
     height: 100%;
-    background-size:100%;
-    font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-size: 100%;
+    font-family: "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .cropit-container {
@@ -86,7 +105,7 @@ body {
     margin: 0 auto;
 }
 
-.cropit-image-input{
+.cropit-image-input {
     /*头像上传按钮*/
     background-color: #3b88c3;
     position: absolute;
@@ -95,7 +114,8 @@ body {
     top: 0;
     opacity: 0.5;
 }
-.cropit-image-input:hover{
+
+.cropit-image-input:hover {
     /*头像上传按钮*/
     background: #1da1f2;
     border-color: #78C3F3;
@@ -107,49 +127,44 @@ body {
     /*头像上传按钮*/
     position: relative;
     display: inline-block;
-    background: #D0EEFF;
-    border: 1px solid #99D3F5;
+    background-color: #0078d7;
     border-radius: 4px;
     padding: 4px 12px;
     overflow: hidden;
-    color: #1E88C7;
-    text-decoration: none;
+    color: #fff;
     text-indent: 0;
-    line-height: 20px;
+    font-size: 1.2em;
+    margin-bottom:0.5em;
 }
+
 .border-line {
     background: #e5e9ef;
     margin: 3em;
     padding: .05em;
     height: 25em;
 }
+
 input[type=range] {
     display: block;
     width: 60%;
 }
-.btn-submit-avator{
+
+.btn-submit-avator {
     /*确定按钮*/
     margin: 3em;
     display: flex;
     justify-content: center;
 }
-#btn-submit{
-    /*确定按钮*/
-    background-color: #0078d7;
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.05));
-    border: 1px solid #3b88c3;
-    font-size: 1.5em;
-    color: #ffff;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.rotate-ccw{
+
+.rotate-ccw {
     /*左转按钮*/
     background-color: #0078d7;
     color: #ffff;
     border: 1px solid #3b88c3;
     border-radius: 10px;
 }
-.rotate-cw{
+
+.rotate-cw {
     /*右转*/
     background-color: #0078d7;
     color: #ffff;
@@ -158,7 +173,7 @@ input[type=range] {
     margin: 1em;
 }
 
-#avator-header{
+#avator-header {
     /*修改头像页面-头部*/
     background: #0078d7;
     display: flex;
@@ -169,24 +184,31 @@ input[type=range] {
     height: 4em;
     margin-bottom: 2em;
 }
-.avator-header__font{
+
+.avatar-header__icon{
+    margin-right:8px;
+}
+
+.avator-header__font {
     /*修改头像页面-头部__文字*/
     font-size: 1.5em;
     color: #ffff;
 }
 
-.user-avator__font{
+.user-avator__font {
     margin-bottom: 4em;
     font-size: 12px;
     color: #99a2aa;
 }
+
 .avator {
     border-radius: 50%;
     /*新添加*/
     margin-top: 5em;
     margin-bottom: 2em;
-    width:30%;
+    width: 30%;
 }
+
 /* 媒体响应 */
 /*  breakpoint width:
  *  xs: <'576px'  ,
@@ -198,7 +220,7 @@ input[type=range] {
  */
 
 @media screen and (max-width: 576px) {
-    .cropit-preview-background-container{
-        width:100%;
+    .cropit-preview-background-container {
+        width: 100%;
     }
 }
