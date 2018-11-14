@@ -93,7 +93,7 @@
             success: function (data, status) {
                 //var json = eval('(' + data + ')');
                 // $("#avator-header").html("<span class=\"avator-header__font\"><i class=\"fa fa-paper-plane fa-lg\"></i> " + data.username + "</span>");
-                $("#avator-header").html("<span class=\"avator-header__font\"><i class=\"fa fa-paper-plane fa-lg\"></i> NF4 园丁助手</span>");
+                $("#avator-header").html("<span class=\"avator-header__font\"><i class=\"fa fa-paper-plane fa-1x avatar-header__icon\"></i>NF4 园丁助手</span>");
                 $("#user-avator").attr("src", data.avator + "?t=" + Math.random());
             },
             error: function (e) {
