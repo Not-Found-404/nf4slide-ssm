@@ -89,7 +89,33 @@ public class FileServiceImpl extends BaseServiceImpl<FileVo> implements FileServ
         File saveFile = new File(realDir, fileVo.getFileName());
         try {
             //保存文件
-            result =  OSSHelper.upLoadImgToOSS(fileVo.getUploadFile().getInputStream(), fileVo.getFileName());
+            result = OSSHelper.upLoadImgToOSS(fileVo.getUploadFile().getInputStream(), fileVo.getFileName());
+        } catch (IOException e) {
+            result = "upLoadImgFail";
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public String saveFileToLocal(FileVo fileVo) {
+        String result = null;
+        //存储文件的真实根目录
+        String realDir = fileVo.getContextPath() + File.separator + fileVo.getFileSaveDirPath();
+        //存储在该用户的文件夹下
+        realDir = realDir + File.separator + fileVo.getUserId();
+        //创建要存图片的文件夹
+        File saveDir = new File(realDir);
+        //测试此抽象路径名表示的文件或目录是否存在。若不存在，创建此抽象路径名指定的目录，包括所有必需但不存在的父目录。
+        if (!saveDir.exists()) saveDir.mkdirs();
+
+        //创建要存储的文件
+        File saveFile = new File(realDir, fileVo.getFileName());
+        try {
+            //保存文件
+            fileVo.getUploadFile().transferTo(saveFile);
+            //得到img标记对可以用的相对路径
+            result = fileVo.getFileSavePath();
         } catch (IOException e) {
             result = "upLoadImgFail";
             e.printStackTrace();

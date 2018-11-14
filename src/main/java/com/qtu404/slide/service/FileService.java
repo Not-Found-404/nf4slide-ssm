@@ -9,4 +9,6 @@ public interface FileService extends BaseService<FileVo> {
     public String saveFile(FileVo file);
 
     public SlideVo savePPTToSlide(FileVo fileVo);
+
+    String saveFileToLocal(FileVo fileVO);
 }

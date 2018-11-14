@@ -69,7 +69,7 @@ public class FileController extends BaseController<FileVo> {
         fileVo.setFileSaveDirPath(pptSaveDirPath);
         fileVo.setUserId(loginUser.getUserId());
         fileVo.setContextPath(realPath);
-        fileService.saveFile(fileVo);
+        fileService.saveFileToLocal(fileVo);
         SlideVo slideVo = fileService.savePPTToSlide(fileVo);
 
         //reduce the burden of network transmission
