@@ -68,6 +68,12 @@ function danmuInit(playSlideId, whoPlay) {
 
     // 点击按钮发送弹幕
     $("#danmu-send-place-send").click(function () {
+
+        // 判断内容是否为空
+        if($("#danmu-send-place-text").val() === ""){
+            alert("请输入弹幕内容");
+        }
+
         if (canSendDamoo === true) {
             //发送给服务器
             bullet_websocket.send(playSlideId + ":" + $("#danmu-send-place-text").val());
