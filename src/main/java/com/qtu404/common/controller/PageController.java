@@ -34,10 +34,7 @@ public class PageController {
     }
 
     @RequestMapping("/toHomePage")
-    public String toHomePage(HttpSession session) {
-        if (session != null && session.getAttribute("usrname") != null) {
-            return "usercenterA";
-        }
+    public String toHomePage() {
         return "homeA";
     }
 
