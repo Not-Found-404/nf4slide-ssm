@@ -1,10 +1,9 @@
 package com.qtu404.util.poi;
 
+import com.qtu404.util.oss.OSSHelper;
 import sun.misc.BASE64Decoder;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class ImageDeal {
     private final static String userAvatorUrl = "avator";

@@ -38,6 +38,9 @@ function getUrlParameter(name) {
 
 // 弹幕初始化
 function danmuInit(playSlideId, whoPlay) {
+    // 用于控制当前是否能发送弹幕，5s内只能发一次
+    canSendDamoo = true;
+
     /********************************************关于弹幕控制的部分*************************************************************/
     $("#send").css("display", "block");
     $("#send").click(function () {
@@ -49,16 +52,12 @@ function danmuInit(playSlideId, whoPlay) {
         $("#send").css("display", "block");
     });
 
-    // With attributes
-    $("#danmu-send-place-send").click(function () {
-        bullet_websocket.send(playSlideId + ":" + $("#danmu-send-place-text").val());//发送给服务器
-    });
-
     var damoo = new Damoo('danmuPlace', 'dm-canvas', 20);//初始化弹幕
-    damoo.play();//激活弹幕
 
+    damoo.play();//激活弹幕
     /***************************************   websocket部分 **************************************************************/
     var bullet_websocket = null;
+
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
         bullet_websocket = new WebSocket("ws://120.24.186.116/BulletWebSocket/websocket");
@@ -67,9 +66,28 @@ function danmuInit(playSlideId, whoPlay) {
         alert('Not support websocket')
     }
 
+    // 点击按钮发送弹幕
+    $("#danmu-send-place-send").click(function () {
+        if (canSendDamoo === true) {
+            //发送给服务器
+            bullet_websocket.send(playSlideId + ":" + $("#danmu-send-place-text").val());
+
+            // 清空弹幕输入框，免得有些逼人一直点发送
+            $("#danmu-send-place-text").val("");
+
+            // 先置为false不能发送，过5s后置为true，可以发送
+            canSendDamoo = false;
+            setTimeout(function () {
+                canSendDamoo = true;
+            }, 5000);
+        } else {
+            alert("发送过于频繁，请5秒之后再试");
+        }
+    });
+
     //连接发生错误的回调方法
     bullet_websocket.onerror = function () {
-        alert("弹幕功能发生错误");
+        alert("弹幕功能发生错误，请检查网络连接");
     };
 
     //连接成功建立的回调方法

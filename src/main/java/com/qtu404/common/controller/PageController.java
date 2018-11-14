@@ -3,6 +3,8 @@ package com.qtu404.common.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/")
 public class PageController {
@@ -32,7 +34,10 @@ public class PageController {
     }
 
     @RequestMapping("/toHomePage")
-    public String toHomePage() {
+    public String toHomePage(HttpSession session) {
+        if (session != null && session.getAttribute("usrname") != null) {
+            return "usercenterA";
+        }
         return "homeA";
     }
 
