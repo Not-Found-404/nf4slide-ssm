@@ -31,11 +31,22 @@ p {
     display: none
 }
 
+.subtitleContainer{
+    position: fixed;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    z-index: 19;
+}
+
 #danmuPlace {
-    position: absolute;
-    width: 100%;
-    height: 75%;
-    top: 100px
+    width:100%;
+    height:55%;
+    z-index: 19;
 }
 
 #danmu-send-place-text {
