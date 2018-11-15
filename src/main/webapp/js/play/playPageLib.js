@@ -60,7 +60,7 @@ function danmuInit(playSlideId, whoPlay) {
 
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        bullet_websocket = new WebSocket("ws://120.24.186.116/BulletWebSocket/websocket");
+        bullet_websocket = new WebSocket("ws://zoom.qtu404.com:8080/BulletWebSocket/websocket");
     }
     else {
         alert('Not support websocket')
@@ -70,7 +70,7 @@ function danmuInit(playSlideId, whoPlay) {
     $("#danmu-send-place-send").click(function () {
 
         // 判断内容是否为空
-        if($("#danmu-send-place-text").val() === ""){
+        if ($("#danmu-send-place-text").val() === "") {
             alert("请输入弹幕内容");
         }
 
@@ -136,7 +136,7 @@ function syncControlInit(playSlideId, whoPlay) {
 
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://120.24.186.116/MyWebSocket/websocket");
+        websocket = new WebSocket("ws://alpha.qtu404.com:8080/MyWebSocket/websocket");
     } else {
         alert('Not support websocket')
     }
