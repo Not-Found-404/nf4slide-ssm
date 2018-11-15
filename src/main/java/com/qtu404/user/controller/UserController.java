@@ -186,7 +186,6 @@ public class UserController extends BaseController<UserVo> {
         this.userService = userService;
     }
 
-
     @Override
     protected BaseService<UserVo> getBaseService() {
         return userService;

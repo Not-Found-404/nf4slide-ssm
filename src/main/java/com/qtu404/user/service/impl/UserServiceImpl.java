@@ -2,6 +2,8 @@ package com.qtu404.user.service.impl;
 
 import com.qtu404.folder.dao.FolderDao;
 import com.qtu404.folder.domain.Folder;
+import com.qtu404.slide.dao.SlideDao;
+import com.qtu404.slide.domain.SlideVo;
 import com.qtu404.user.dao.UserDao;
 import com.qtu404.user.service.UserService;
 import com.qtu404.user.domain.UserVo;
@@ -22,13 +24,8 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
     @Resource(name = "folderDao")
     private FolderDao folderDao;
 
-    public UserDao getUserDao() {
-        return userDao;
-    }
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    @Resource(name = "slideDao")
+    private SlideDao slideDao;
 
     @Override
     public UserVo fetchUserByPhone(String phoneNum) {
@@ -42,9 +39,17 @@ public class UserServiceImpl extends BaseServiceImpl<UserVo> implements UserServ
         Folder folder = Folder.createRootFolder();
         folderDao.save(folder);
         dto.setFolderId(folder.getFolderId());
-
         //调用添加
-        return super.save(dto);
+        super.save(dto);
+        // 根据王海涛的要求，要他妈添加默认幻灯片
+        SlideVo defaultSlide = slideDao.fetchById(100001);
+        if (defaultSlide.getSlideId() != null) {
+            defaultSlide.setUserId(dto.getUserId());
+            defaultSlide.setExit("true");
+            defaultSlide.setFolderId(dto.getFolderId());
+            slideDao.save(defaultSlide);
+        }
+        return dto;
     }
 
 
