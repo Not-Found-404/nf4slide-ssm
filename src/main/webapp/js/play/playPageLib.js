@@ -126,115 +126,115 @@ function danmuInit(playSlideId, whoPlay) {
     function closeWebSocket() {
         websocket.close();
     }
+}
 
 // 同步控制初始化
-    function syncControlInit(playSlideId, whoPlay) {
-        /********************************************关于换页控制的部分*************************************************************/
-        var SlideNumNext = 0;
-        var websocket = null;
+function syncControlInit(playSlideId, whoPlay) {
+    /********************************************关于换页控制的部分*************************************************************/
+    var SlideNumNext = 0;
+    var websocket = null;
 
-        //判断当前浏览器是否支持WebSocket
-        if ('WebSocket' in window) {
-            websocket = new WebSocket("ws://alpha.qtu404.com:8080/MyWebSocket/websocket");
-        } else {
-            alert('Not support websocket')
-        }
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://alpha.qtu404.com:8080/MyWebSocket/websocket");
+    } else {
+        alert('Not support websocket')
+    }
 
-        //连接发生错误的回调方法
-        websocket.onerror = function () {
-            console.log("同步控制连接失败");
-        };
+    //连接发生错误的回调方法
+    websocket.onerror = function () {
+        console.log("同步控制连接失败");
+    };
 
-        //连接成功建立的回调方法
-        websocket.onopen = function (event) {
-            console.log("同步控制连接成功");
-        }
+    //连接成功建立的回调方法
+    websocket.onopen = function (event) {
+        console.log("同步控制连接成功");
+    }
 
-        //连接关闭的回调方法
-        websocket.onclose = function () {
-        }
+    //连接关闭的回调方法
+    websocket.onclose = function () {
+    }
 
-        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-        window.onbeforeunload = function () {
-            websocket.close();
-        }
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        websocket.close();
+    }
 
-        //关闭连接
-        function closeWebSocket() {
-            websocket.close();
-        }
+    //关闭连接
+    function closeWebSocket() {
+        websocket.close();
+    }
 
+    //发送消息
+    function send() {
+        var message = SlideNumNext;
+        websocket.send(message);
+        console.log("发送换页消息:" + message);
+    }
+
+    $(".navigate-up").css("display", "none");
+    $(".navigate-down").css("display", "none");
+
+    $(".navigate-left").css("display", "none");
+    $(".navigate-right").css("display", "none");
+
+
+    if (whoPlay == "owner") {// 只有拥有者有权发出换页消息
         //发送消息
-        function send() {
-            var message = SlideNumNext;
-            websocket.send(message);
-            console.log("发送换页消息:" + message);
-        }
+        Reveal.addEventListener('slidechanged', function (event) {
+            // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+            SlideNumNext = playSlideId + ":" + event.indexh;
+            send();
+        });
+    }
 
-        $(".navigate-up").css("display", "none");
-        $(".navigate-down").css("display", "none");
-
-        $(".navigate-left").css("display", "none");
-        $(".navigate-right").css("display", "none");
-
-
-        if (whoPlay == "owner") {// 只有拥有者有权发出换页消息
-            //发送消息
-            Reveal.addEventListener('slidechanged', function (event) {
-                // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-                SlideNumNext = playSlideId + ":" + event.indexh;
-                send();
-            });
-        }
-
-        websocket.onmessage = function (event) {
-            var msg = new Array();
-            msg = event.data.split(":");
-            if (playSlideId == msg[0]) {
-                console.log("执行换页");
-                Reveal.slide(msg[1]);
-            }
+    websocket.onmessage = function (event) {
+        var msg = new Array();
+        msg = event.data.split(":");
+        if (playSlideId == msg[0]) {
+            console.log("执行换页");
+            Reveal.slide(msg[1]);
         }
     }
+}
 
 //二维码初始化
-    function dialogInit(isControl) {
-        $("#dialog-form").dialog({
-            autoOpen: false,
-            height: 550,
-            width: 350,
-            modal: true,
-            show: {
-                effect: "blind",
-                duration: 500
-            },
-            hide: {
-                effect: "explode",
-                duration: 500
-            },
-            close: function () {
-                $(this).dialog("close");
-            }
-        });
-        var dataUriPngImage = document.createElement("img"),
-            u = window.location.href,
-            s = QRCode.generatePNG(u, {
-                ecclevel: "M",
-                format: "html",
-                fillcolor: "#FFFFFF",
-                textcolor: "#373737",
-                margin: 4,
-                modulesize: 8
-            });
-        dataUriPngImage.src = s;
-        dataUriPngImage.height = 300;
-        dataUriPngImage.widht = 300;
-        $("#dialog-form").append("<div style=\"font-size:130%\"id=\"msg\"></div>");
-        document.getElementById('dialog-form').appendChild(dataUriPngImage);
-        $("#dialog-form").append("<div style=\"font-size:130%\"align=\"center\">扫描上面的二维码，或者复制以下链接，将幻灯片分享给他人！</div><div style=\"font-size:130%\"align=\"center\">" + window.location.href + "</div>");
-        if (isControl == "true") {
-            $("#msg").html("分享幻灯片，并控制观看者的播放");
+function dialogInit(isControl) {
+    $("#dialog-form").dialog({
+        autoOpen: false,
+        height: 550,
+        width: 350,
+        modal: true,
+        show: {
+            effect: "blind",
+            duration: 500
+        },
+        hide: {
+            effect: "explode",
+            duration: 500
+        },
+        close: function () {
+            $(this).dialog("close");
         }
-        $("#dialog-form").dialog("open");
+    });
+    var dataUriPngImage = document.createElement("img"),
+        u = window.location.href,
+        s = QRCode.generatePNG(u, {
+            ecclevel: "M",
+            format: "html",
+            fillcolor: "#FFFFFF",
+            textcolor: "#373737",
+            margin: 4,
+            modulesize: 8
+        });
+    dataUriPngImage.src = s;
+    dataUriPngImage.height = 300;
+    dataUriPngImage.widht = 300;
+    $("#dialog-form").append("<div style=\"font-size:130%\"id=\"msg\"></div>");
+    document.getElementById('dialog-form').appendChild(dataUriPngImage);
+    $("#dialog-form").append("<div style=\"font-size:130%\"align=\"center\">扫描上面的二维码，或者复制以下链接，将幻灯片分享给他人！</div><div style=\"font-size:130%\"align=\"center\">" + window.location.href + "</div>");
+    if (isControl == "true") {
+        $("#msg").html("分享幻灯片，并控制观看者的播放");
     }
+    $("#dialog-form").dialog("open");
 }
