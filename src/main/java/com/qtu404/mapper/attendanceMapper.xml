@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.answer.dao.AttendanceDao">
+    <resultMap id="FullMap" type="com.qtu404.statistics.domain.Attendance">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="slide_id" property="slideId"/>
+        <result column="begin_at" property="beginAt"/>
+        <result column="end_at" property="endAt"/>
+    </resultMap>
+    <sql id="tb">attendance</sql>
+    <sql id="cols_all">id,
+        <include refid="cols_exclude_id"/>
+    </sql>
+    <sql id="cols_exclude_id">user_id,slide_id,begin_at,end_at</sql>
+    <sql id="vals">#{userId},#{slideId},#{beginAt},#{endAt}</sql>
+    <sql id="listVals">#{item.userId},#{item.slideId},#{item.beginAt},#{item.endAt}</sql>
+    <sql id="criteria">
+        <if test="userId != null">AND user_id = #{userId}</if>
+        <if test="slideId != null">AND slide_id = #{slideId}</if>
+        <if test="beginAt != null">AND begin_at = #{beginAt}</if>
+        <if test="endAt != null">AND end_at = #{endAt}</if>
+    </sql>
+    <sql id="paging">
+        <if test="offset != null">LIMIT #{offset},#{limit}</if>
+    </sql>
+    <insert id="save" keyProperty="id" parameterType="com.qtu404.statistics.domain.Attendance" useGeneratedKeys="true">
+        INSERT INTO
+        <include refid="tb"/>
+        (<include refid="cols_exclude_id"/>) VALUES (<include refid="vals"/>)
+    </insert>
+    <insert id="saves" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO
+        <include refid="tb"/>
+        (<include refid="cols_exclude_id"/>) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (<include refid="listVals"/>)
+        </foreach>
+    </insert>
+    <delete id="remove" parameterType="java.lang.Long">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE id = #{id}
+    </delete>
+    <delete id="removes" parameterType="java.util.List">
+        DELETE FROM
+        <include refid="tb"/>
+        WHERE
+        <foreach collection="list" item="ids" separator="OR">
+            id = #{ids}
+        </foreach>
+    </delete>
+    <update id="update" parameterType="com.qtu404.statistics.domain.Attendance">
+        UPDATE
+        <include refid="tb"/>
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="slideId != null">slide_id = #{slideId},</if>
+            <if test="beginAt != null">begin_at = #{beginAt},</if>
+            <if test="endAt != null">end_at = #{endAt},</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    <select id="fetch" parameterType="java.lang.Long" resultMap="FullMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+        WHERE id = #{id}
+    </select>
+    <select id="fetchByIds" parameterType="java.util.List" resultMap="FullMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="listAll" resultMap="FullMap">
+        SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+    </select>
+    <select id="listCriteria" parameterType="java.util.Map" resultMap="FullMap">SELECT
+        <include refid="cols_all"/>
+        FROM
+        <include refid="tb"/>
+        WHERE TRUE
+        <include refid="criteria"/>
+        ORDER BY id DESC
+        <include refid="paging"/>
+    </select>
+    <select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM
+        <include refid="tb"/>
+        WHERE TRUE
+        <include refid="criteria"/>
+    </select>
+</mapper>

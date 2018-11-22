@@ -32,5 +32,6 @@
         <mapper resource="com/qtu404/mapper/optionMapper.xml"/>
         <mapper resource="com/qtu404/mapper/publishMapper.xml"/>
         <mapper resource="com/qtu404/mapper/questionMapper.xml"/>
+        <mapper resource="com/qtu404/mapper/attendanceMapper.xml"/>
     </mappers>
 </configuration>
