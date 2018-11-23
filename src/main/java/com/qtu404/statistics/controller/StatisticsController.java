@@ -6,7 +6,6 @@ import com.qtu404.statistics.domain.ViewStatistics;
 import com.qtu404.statistics.service.AttendanceService;
 import com.qtu404.statistics.service.ViewStatisticsService;
 import com.qtu404.user.domain.UserVo;
-import com.qtu404.user.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +22,6 @@ public class StatisticsController {
     private final AttendanceService attendanceService;
 
     private final ViewStatisticsService viewStatisticsService;
-
-    private final UserUtil userUtil;
 
     @GetMapping("attendance/save")
     public Integer attendanceSave(@RequestParam Integer slideId, HttpSession session) {
@@ -63,10 +60,9 @@ public class StatisticsController {
     }
 
     @Autowired
-    public StatisticsController(AttendanceService attendanceService, ViewStatisticsService viewStatisticsService, UserUtil userUtil) {
+    public StatisticsController(AttendanceService attendanceService, ViewStatisticsService viewStatisticsService) {
         this.attendanceService = attendanceService;
         this.viewStatisticsService = viewStatisticsService;
-        this.userUtil = userUtil;
     }
 
 }
