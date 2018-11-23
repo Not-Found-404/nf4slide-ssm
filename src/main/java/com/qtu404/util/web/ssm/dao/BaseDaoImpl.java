@@ -1,10 +1,12 @@
 package com.qtu404.util.web.ssm.dao;
 
+import com.qtu404.statistics.domain.ViewStatistics;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 需要重写getNamespaces()方法得到namespace
@@ -22,6 +24,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     SqlSessionFactory sqlSessionFactory;
 
     protected abstract String getNamespaces();
+
 
     protected abstract SqlSessionFactory getSqlSessionFactory();
 

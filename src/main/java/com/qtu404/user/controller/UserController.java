@@ -7,11 +7,13 @@ import com.qtu404.logger.domain.LogVo;
 import com.qtu404.logger.service.LogService;
 import com.qtu404.user.service.UserService;
 import com.qtu404.user.domain.UserVo;
+import com.qtu404.user.utils.UserUtil;
 import com.qtu404.util.sms.SMSsender;
 import com.qtu404.util.web.Result;
 import com.qtu404.util.web.ipgetter.IpGetter;
 import com.qtu404.util.web.ssm.controller.BaseController;
 import com.qtu404.util.web.ssm.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,9 @@ public class UserController extends BaseController<UserVo> {
     private UserService userService;
     @Resource(name = "loggerService")
     LogService logService;
+
+    @Autowired
+    private UserUtil userUtil;
 
     /**
      * 得到当前用户信息
@@ -87,6 +92,7 @@ public class UserController extends BaseController<UserVo> {
         Result rst = new Result();
 
         if (userVo != null) {
+            userUtil.setCurrentUser(userVo);
             Session.setAttribute("usrname", userVo.getUserId());
             Session.setAttribute("loginUser", userVo);
             rst.setResult("loginSuccess");
@@ -109,6 +115,7 @@ public class UserController extends BaseController<UserVo> {
         HttpSession session = request.getSession();
         if (userVo != null) {
             session.setAttribute("usrname", userVo.getUserId());
+            userUtil.setCurrentUser(userVo);
             session.setAttribute("loginUser", userVo);
             rst.setResult("loginSuccess");
             rst.setCode(200);

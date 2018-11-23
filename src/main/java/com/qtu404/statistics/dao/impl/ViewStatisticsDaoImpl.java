@@ -25,6 +25,7 @@ public class ViewStatisticsDaoImpl extends BaseDaoImpl<ViewStatistics> implement
         return "com.qtu404.answer.dao.ViewStatisticsDao";
     }
 
+    @Override
     public List<ViewStatistics> listByCondition(Map<String, Object> condition) {
         SqlSession sqlSession = this.sqlSessionFactory.openSession();
         List<ViewStatistics> rest = sqlSession.selectList(this.sqlId("listCriteria"), condition);
@@ -41,4 +42,5 @@ public class ViewStatisticsDaoImpl extends BaseDaoImpl<ViewStatistics> implement
     private String sqlId(String id) {
         return this.getNamespaces() + "." + id;
     }
+
 }

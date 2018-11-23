@@ -8,6 +8,4 @@ import java.util.Map;
 
 public interface AttendanceDao extends BaseDao<Attendance> {
     List<Attendance> listByCondition(Map<String, Object> condition);
-
-
 }

@@ -1,42 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qtu404.answer.dao.AttendanceDao">
-    <resultMap id="FullMap" type="com.qtu404.statistics.domain.Attendance">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtu404.answer.dao.ViewStatisticsDao">
+    <resultMap id="FullMap" type="com.qtu404.statistics.domain.ViewStatistics">
         <id column="id" property="id"/>
-        <result column="user_id" property="userId"/>
-        <result column="slide_id" property="slideId"/>
-        <result column="begin_at" property="beginAt"/>
-        <result column="end_at" property="endAt"/>
+        <result column="identify" property="identify"/>
+        <result column="total_time" property="totalTime"/>
+        <result column="exit_times" property="exitTimes"/>
+        <result column="attendance_id" property="attendanceId"/>
     </resultMap>
-    <sql id="tb">attendance</sql>
+    <sql id="tb">view_statistics</sql>
     <sql id="cols_all">id,
         <include refid="cols_exclude_id"/>
     </sql>
-    <sql id="cols_exclude_id">user_id,slide_id,begin_at,end_at</sql>
-    <sql id="vals">#{userId},#{slideId},#{beginAt},#{endAt}</sql>
-    <sql id="listVals">#{item.userId},#{item.slideId},#{item.beginAt},#{item.endAt}</sql>
+    <sql id="cols_exclude_id">identify,total_time,exit_times,attendance_id</sql>
+    <sql id="vals">#{identify},#{totalTime},#{exitTimes},#{attendanceId}</sql>
+    <sql id="listVals">#{item.identify},#{item.totalTime},#{item.exitTimes},#{item.attendanceId}</sql>
     <sql id="criteria">
-        <if test="userId != null">AND user_id = #{userId}</if>
-        <if test="slideId != null">AND slide_id = #{slideId}</if>
-        <if test="beginAt != null">AND begin_at = #{beginAt}</if>
-        <if test="endAt != null">AND end_at = #{endAt}</if>
+        <if test="identify != null">AND identify = #{identify}</if>
+        <if test="totalTime != null">AND total_time = #{totalTime}</if>
+        <if test="exitTimes != null">AND exit_times = #{exitTimes}</if>
+        <if test="attendanceId != null">AND attendance_id = #{attendanceId}</if>
     </sql>
     <sql id="paging">
         <if test="offset != null">LIMIT #{offset},#{limit}</if>
     </sql>
-    <insert id="save" keyProperty="id" parameterType="com.qtu404.statistics.domain.Attendance" useGeneratedKeys="true">
-        INSERT INTO
-        <include refid="tb"/>
-        (<include refid="cols_exclude_id"/>) VALUES (<include refid="vals"/>)
+    <insert id="save" keyProperty="id" parameterType="com.qtu404.statistics.domain.ViewStatistics" useGeneratedKeys="true">
+        INSERT INTO <include refid="tb"/> (<include refid="cols_exclude_id"/>) VALUES (<include
+        refid="vals"/>)
     </insert>
     <insert id="saves" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
-        INSERT INTO
-        <include refid="tb"/>
-        (<include refid="cols_exclude_id"/>) VALUES
-        <foreach collection="list" item="item" index="index" separator=",">
-            (<include refid="listVals"/>)
+        INSERT INTO <include refid="tb"/> (<include refid="cols_exclude_id"/>) VALUES <foreach
+        collection="list" item="item" index="index" separator=",">
+        (<include refid="listVals"/>)
         </foreach>
     </insert>
     <delete id="remove" parameterType="java.lang.Long">
@@ -49,18 +44,17 @@
         <include refid="tb"/>
         WHERE
         <foreach collection="list" item="ids" separator="OR">
-            id = #{ids}
+        id = #{ids}
         </foreach>
     </delete>
-    <update id="modify" parameterType="com.qtu404.statistics.domain.Attendance">
+    <update id="modify" parameterType="com.qtu404.statistics.domain.ViewStatistics">
         UPDATE
-        <include refid="tb"/>
-        <set>
-            <if test="userId != null">user_id = #{userId},</if>
-            <if test="slideId != null">slide_id = #{slideId},</if>
-            <if test="beginAt != null">begin_at = #{beginAt},</if>
-            <if test="endAt != null">end_at = #{endAt},</if>
-        </set>
+        <include refid="tb"/><set>
+        <if test="identify != null">identify = #{identify},</if>
+        <if test="totalTime != null">total_time = #{totalTime},</if>
+        <if test="exitTimes != null">exit_times = #{exitTimes},</if>
+        <if test="attendanceId != null">attendance_id = #{attendanceId},</if>
+    </set>
         WHERE id=#{id}
     </update>
     <select id="fetchById" parameterType="java.lang.Long" resultMap="FullMap">
@@ -77,7 +71,7 @@
         <include refid="tb"/>
         WHERE id IN
         <foreach item="id" collection="list" open="(" separator="," close=")">
-            #{id}
+        #{id}
         </foreach>
     </select>
     <select id="listAll" resultMap="FullMap">
