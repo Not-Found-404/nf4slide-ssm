@@ -2,6 +2,7 @@ $(function () {
     // 从url中得到参数
     var playSlideId = getUrlParameter("slideId"); // 播放幻灯片的id
     var isControl = getUrlParameter("control");   // 是否进行同步控制
+    var attendanceId = getUrlParameter("attendanceId"); // 获得考勤id
 
     $.ajax({// 向后台发送异步请求
         url: "slide/fetchSlidePlayById",  // 请求地址
@@ -15,9 +16,13 @@ $(function () {
             pageContentInit(playSlideId, isControl, data);
             $('.navigate-right').css("display", "block");
             $('.navigate-left').css("display", "block");
+            if (attendanceId != null && attendanceId != "" && data.whoPlay === "visitor") {
+                attendanceIdInit(attendanceId);
+            } else {
+                dialogInit(isControl);// 弹出二维码
+            }
         },
         error: function () {
         }
-    })
-    dialogInit(isControl);// 弹出二维码
-})
+    });
+});

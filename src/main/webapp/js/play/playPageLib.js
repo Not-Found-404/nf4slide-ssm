@@ -238,3 +238,71 @@ function dialogInit(isControl) {
     }
     $("#dialog-form").dialog("open");
 }
+
+/**
+ * 考勤初始化
+ */
+function attendanceIdInit(attendanceId) {
+    var identify = prompt("请输入您的身份信息", "如：学号_姓名");
+    var totalTime = 0; // 总观看时间
+    var exitTimes = 0; // 退出次数
+    var looptervalTime = 1000 * 9; // 定时向服务器推送数据的间隔时间
+    var loopFlag = true; // 是否想后端发送消息的标志，如果某次传回来超时，那就不搞了
+    var sendDateThreshold = 1000 * 6;// 向后端推送消息的总时间阙值，若totalTime小于这个值，就留着下次推
+    // 最近一次停留开始计算的时间
+    var beginTime = new Date();
+    var viewFlag = true; // 当前是否在看
+    //
+    if (identify != null && identify !== "") {
+        // 当页面失去焦点
+        window.onblur = function () {
+            // 总的停留时间 += 当前的时间 - 上次停留开始的时间
+            totalTime += new Date().getTime() - beginTime.getTime();
+            console.log("第" + exitTimes + "次退出");
+            // 退出次数增加
+            exitTimes++;
+            console.log("一共观看了" + totalTime / 1000 + "s");
+            viewFlag = false;
+        };
+
+        // 当页面重新获得焦点
+        window.onfocus = function () {
+            // 更新停留开始时间
+            beginTime = new Date();
+            viewFlag = true;
+        };
+
+        // 定时任务，推送数据到后台
+        var interval = setInterval(function () {
+            if (!loopFlag) {
+                clearInterval(interval);
+            }
+            if (viewFlag) {
+                totalTime += new Date().getTime() - beginTime.getTime();
+                beginTime = new Date();
+            }
+            console.log("数据\n本次 " + identify + "共：" + exitTimes + "次退出" + "，观看了" + totalTime / 1000 + "s");
+            if (totalTime > sendDateThreshold) {
+                $.ajax({// 向后台发送异步请求
+                    url: "api/statistics/view/saveOrUpdate",  // 请求地址
+                    type: "GET",  // 请求方式
+                    data: {
+                        exitTime: exitTimes,
+                        totalTime: totalTime,
+                        attendanceId: attendanceId,
+                        identify: identify
+                    },// 请求的一些参数
+                    success: function (data) {
+                        totalTime = 0;// 重置
+                        exitTimes = 0;// 重置
+                        console.log(data);
+                        if (data == "timeout") {
+                            loopFlag = false;
+                            clearInterval(interval);
+                        }
+                    }
+                });
+            }
+        }, looptervalTime);
+    }
+}

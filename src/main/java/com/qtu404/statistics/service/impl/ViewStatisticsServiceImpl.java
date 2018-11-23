@@ -33,21 +33,17 @@ public class ViewStatisticsServiceImpl implements ViewStatisticsService {
 
     @Override
     public String saveOrUpdate(ViewStatistics request) {
+        Attendance attendance = this.attendanceDao.fetchById(request.getAttendanceId());
+        if (attendance.getEndAt().getTime() <= new Date().getTime()) {
+            return "timeout";
+        }
+
         Map<String, Object> condition = new HashMap<>();
         condition.put("attendanceId", request.getAttendanceId());
         condition.put("identify", request.getIdentify());
         List<ViewStatistics> list = this.viewStatisticsDao.listByCondition(condition);
         if (list != null && list.size() == 1) {
             ViewStatistics viewStatistics = list.get(0);
-            Integer attendanceId = viewStatistics.getAttendanceId();
-            Attendance attendance = this.attendanceDao.fetchById(attendanceId);
-
-            System.out.println(new Date().getTime());
-            System.out.println(attendance.getEndAt().getTime());
-
-            if (attendance.getEndAt().getTime() <= new Date().getTime()) {
-                return "timeout";
-            }
             viewStatistics.setTotalTime(viewStatistics.getTotalTime() + request.getTotalTime());
             viewStatistics.setExitTimes(viewStatistics.getExitTimes() + request.getExitTimes());
             this.viewStatisticsDao.modify(viewStatistics);
@@ -57,5 +53,4 @@ public class ViewStatisticsServiceImpl implements ViewStatisticsService {
             return "save success";
         }
     }
-
 }
