@@ -2,8 +2,7 @@ $(function () {
     // 从url中得到参数
     var playSlideId = getUrlParameter("slideId"); // 播放幻灯片的id
     var isControl = getUrlParameter("control");   // 是否进行同步控制
-    var attendanceId = getUrlParameter("attendanceId"); // 获得考勤id
-
+    var isAttendance = getUrlParameter("isAttendance"); // 获得考勤id
     $.ajax({// 向后台发送异步请求
         url: "slide/fetchSlidePlayById",  // 请求地址
         type: "POST",  // 请求方式
@@ -16,13 +15,28 @@ $(function () {
             pageContentInit(playSlideId, isControl, data);
             $('.navigate-right').css("display", "block");
             $('.navigate-left').css("display", "block");
-            if (attendanceId != null && attendanceId != "" && data.whoPlay === "visitor") {
-                attendanceIdInit(attendanceId);
+            if (isAttendance != null && isAttendance != "") {
+                if (data.whoPlay == "owner") {
+                    $.ajax({// 向后台发送异步请求
+                        url: "api/statistics/attendance/save",  // 请求地址
+                        type: "GET",  // 请求方式
+                        cache: false, // 是否保留缓存
+                        data: {slideId: playSlideId},
+                        success: function (data) {
+                            console.log(data);
+                            dialogInit(isControl, window.location.href + '&attendanceId=' + data);// 弹出二维码
+                        }
+                    });
+                } else {
+                    var attendanceId = getUrlParameter("attendanceId");
+                    attendanceIdInit(attendanceId);
+                }
             } else {
-                dialogInit(isControl);// 弹出二维码
+                dialogInit(isControl, window.location.href);// 弹出二维码
             }
         },
         error: function () {
         }
     });
-});
+})
+;

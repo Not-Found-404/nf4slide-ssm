@@ -199,7 +199,7 @@ function syncControlInit(playSlideId, whoPlay) {
 }
 
 //二维码初始化
-function dialogInit(isControl) {
+function dialogInit(isControl, urlPath) {
     $("#dialog-form").dialog({
         autoOpen: false,
         height: 550,
@@ -218,7 +218,7 @@ function dialogInit(isControl) {
         }
     });
     var dataUriPngImage = document.createElement("img"),
-        u = window.location.href,
+        u = urlPath,
         s = QRCode.generatePNG(u, {
             ecclevel: "M",
             format: "html",
@@ -232,7 +232,7 @@ function dialogInit(isControl) {
     dataUriPngImage.widht = 300;
     $("#dialog-form").append("<div style=\"font-size:130%\"id=\"msg\"></div>");
     document.getElementById('dialog-form').appendChild(dataUriPngImage);
-    $("#dialog-form").append("<div style=\"font-size:130%\"align=\"center\">扫描上面的二维码，或者复制以下链接，将幻灯片分享给他人！</div><div style=\"font-size:130%\"align=\"center\">" + window.location.href + "</div>");
+    $("#dialog-form").append("<div style=\"font-size:130%\"align=\"center\">扫描上面的二维码，或者复制以下链接，将幻灯片分享给他人！</div><div style=\"font-size:130%\"align=\"center\">" + urlPath + "</div>");
     if (isControl == "true") {
         $("#msg").html("分享幻灯片，并控制观看者的播放");
     }
