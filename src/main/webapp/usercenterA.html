@@ -1,17 +1,33 @@
 <!doctype html>
 <html lang="zh-Hans">
 <head>
-  <meta charset="utf-8">
-  <title>用户中心</title>
-  <base href="/nf4slide/user-center">
-  <!-- 环境: "/nf4slide/user-center"-->
-  <!-- 本地环境: "./ "-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 本地环境 <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
-  <!-- 生产环境 -->
-  <link rel="icon" type="image/x-icon" href="http://www.qtu404.com/nf4slide/assets/icon/favicon.ico">
-<link rel="stylesheet" href="user-center/styles.755b4b7f8c75a911995f.css"></head>
+    <meta charset="utf-8">
+    <title>用户中心</title>
+    <base href="/nf4slide/user-center">
+    <!-- 环境: "/nf4slide/user-center"-->
+    <!-- 本地环境: "./ "-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 本地环境 <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
+    <!-- 生产环境 -->
+    <link rel="icon" type="image/x-icon" href="http://www.qtu404.com/nf4slide/assets/icon/favicon.ico">
+    <!-- 服务器资源，此处不能用 OSS ,否则会出现跨域请求错误 -->
+    <link rel="stylesheet" href="user-center/styles.755b4b7f8c75a911995f.css">
+</head>
 <body>
-  <app-nf4></app-nf4>
-<script type="text/javascript" src="user-center/runtime.ec2944dd8b20ec099bf3.js"></script><script type="text/javascript" src="user-center/polyfills.38cfeb63b91a963d9fbf.js"></script><script type="text/javascript" src="user-center/main.16adfcba570c0896f862.js"></script></body>
+<app-nf4></app-nf4>
+
+<!-- OSS资源 -->
+<script type="text/javascript"
+        src="http://static.qtu404.com/nf4slide/user-center/runtime.ec2944dd8b20ec099bf3.js"></script>
+<script type="text/javascript"
+        src="http://static.qtu404.com/nf4slide/user-center/polyfills.38cfeb63b91a963d9fbf.js"></script>
+<script type="text/javascript"
+        src="http://static.qtu404.com/nf4slide/user-center/main.0326dca92112b21aa637.js"></script>
+
+<!-- 服务器资源 -->
+<!--<script type="text/javascript" src="user-center/runtime.ec2944dd8b20ec099bf3.js"></script>-->
+<!--<script type="text/javascript" src="user-center/polyfills.38cfeb63b91a963d9fbf.js"></script>-->
+<!--<script type="text/javascript" src="user-center/main.0326dca92112b21aa637.js"></script>-->
+
+</body>
 </html>
