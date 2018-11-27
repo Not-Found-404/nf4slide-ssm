@@ -1,6 +1,7 @@
 package com.qtu404.statistics.service.impl;
 
 import com.qtu404.slide.dao.SlideDao;
+import com.qtu404.slide.domain.SlideVo;
 import com.qtu404.statistics.dao.AttendanceDao;
 import com.qtu404.statistics.domain.Attendance;
 import com.qtu404.statistics.domain.AttendanceListResponse;
@@ -26,6 +27,10 @@ public class AttendanceServiceImpl implements AttendanceService {
     public Integer save(Attendance attendance) {
         attendance.setBeginAt(new Date());
         attendance.setEndAt(new Date(new Date().getTime() + 1000 * 60 * 50));
+        SlideVo slideVo = this.slideDao.fetchById(attendance.getSlideId());
+        if (slideVo != null) {
+            attendance.setSlideName(slideVo.getName());
+        }
         return this.attendanceDao.save(attendance).getId();
     }
 
@@ -52,13 +57,15 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     public AttendanceListResponse model2Response(Attendance attendance) {
+        Date beginTime = new Date();
         AttendanceListResponse response = new AttendanceListResponse();
         response.setEndAt(attendance.getBeginAt());
         response.setSlideId(attendance.getSlideId());
         response.setBeginAt(attendance.getBeginAt());
         response.setUserId(attendance.getUserId());
         response.setId(attendance.getId());
-        response.setSlideName(this.slideDao.fetchById(attendance.getSlideId()).getName());
+        response.setSlideName(attendance.getSlideName());
+        System.out.println("single time: " + (new Date().getTime() - beginTime.getTime()) + "ms");
         return response;
     }
 }

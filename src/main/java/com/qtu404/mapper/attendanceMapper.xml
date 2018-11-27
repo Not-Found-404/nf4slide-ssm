@@ -14,9 +14,9 @@
     <sql id="cols_all">id,
         <include refid="cols_exclude_id"/>
     </sql>
-    <sql id="cols_exclude_id">user_id,slide_id,begin_at,end_at</sql>
-    <sql id="vals">#{userId},#{slideId},#{beginAt},#{endAt}</sql>
-    <sql id="listVals">#{item.userId},#{item.slideId},#{item.beginAt},#{item.endAt}</sql>
+    <sql id="cols_exclude_id">user_id,slide_id,begin_at,end_at,slide_name</sql>
+    <sql id="vals">#{userId},#{slideId},#{beginAt},#{endAt},#{slideName}</sql>
+    <sql id="listVals">#{item.userId},#{item.slideId},#{item.beginAt},#{item.endAt},#{item.slideName}</sql>
     <sql id="criteria">
         <if test="userId != null">AND user_id = #{userId}</if>
         <if test="slideId != null">AND slide_id = #{slideId}</if>

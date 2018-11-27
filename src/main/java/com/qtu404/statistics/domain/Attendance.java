@@ -8,6 +8,15 @@ public class Attendance {
     private Integer slideId;
     private Date beginAt;
     private Date endAt;
+    private String slideName;
+
+    public String getSlideName() {
+        return slideName;
+    }
+
+    public void setSlideName(String slideName) {
+        this.slideName = slideName;
+    }
 
     public Integer getId() {
         return id;

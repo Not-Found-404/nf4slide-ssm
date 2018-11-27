@@ -86,7 +86,7 @@
         <include refid="tb"/>
         WHERE TRUE
         <include refid="criteria"/>
-        ORDER BY id DESC
+        ORDER BY total_time DESC
         <include refid="paging"/>
     </select>
     <select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
