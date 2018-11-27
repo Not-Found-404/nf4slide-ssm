@@ -9,6 +9,7 @@
         <result column="slide_id" property="slideId"/>
         <result column="begin_at" property="beginAt"/>
         <result column="end_at" property="endAt"/>
+        <result column="slide_name" property="slideName"/>
     </resultMap>
     <sql id="tb">attendance</sql>
     <sql id="cols_all">id,

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 public class AttendanceListResponse extends Attendance {
     private String beginTime;
     private String endTime;
+
     private static SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public String getEndTime() {
@@ -17,6 +18,7 @@ public class AttendanceListResponse extends Attendance {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
 
     public String getBeginTime() {
         if (this.getBeginAt() != null) {
