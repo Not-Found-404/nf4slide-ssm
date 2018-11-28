@@ -59,7 +59,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     public AttendanceListResponse model2Response(Attendance attendance) {
         Date beginTime = new Date();
         AttendanceListResponse response = new AttendanceListResponse();
-        response.setEndAt(attendance.getBeginAt());
+        response.setEndAt(attendance.getEndAt());
         response.setSlideId(attendance.getSlideId());
         response.setBeginAt(attendance.getBeginAt());
         response.setUserId(attendance.getUserId());
